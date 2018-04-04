@@ -1,0 +1,55 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+
+# Dreamweaver added files
+_notes
+dwsync.xml
+
+# Komodo
+*.komodoproject
+.komodotools
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+intermediate
+node_modules
+publish
+.idea
+
+# Expression Engine files/folders
+.htaccess
+
+config.development.php
+config.production.php
+config.staging.php
+
+/_admin/expressionengine/cache/*
+/httpdocs/themes/*
+/httpdocs/assets/sysimages/*
+/httpdocs/assets/system_members/*
+/httpdocs/assets/uploads/*
+/httpdocs/assets/docs/*
+/httpdocs/assets/images/yt_thumb/*
