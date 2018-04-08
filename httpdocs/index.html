@@ -1,32 +1,61 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Prayer Request</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!DOCTYPE html>
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        <!-- Place favicon.ico in the root directory -->
 
-<html lang="en">
-<head>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+		<img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
+        <form id="myForm" action="request_handle.php" method="post">
+          <div class="first_name">
+            <label for="first">First Name:</label>
+            <input type="text" name="first" id="first" value="" tabindex="1">
+            <br>
+		  </div>
+		  <div class="last_name">
+            <label for="last">Last Name:</label>
+            <input type="text" name="last" id="last" value="" tabindex="1">
+          </div>
+          <div class="category">
+              <label for="category">Category:</label>
+              <select name="category" id="category">
+                  <option value="physical">Physical</option>
+                  <option value="elohim">Elohim</option>
+                  <option value="salvation">Salvation</option>
+              </select>
+          </div>
+          <div class="prayer_request">
+            <label for="prayer_request">Request:</label>
+            <textarea cols="40" rows="10" name="prayer_request" id="prayer_request"></textarea>
+          </div>
+          <div class="submit">
+            <button type="submit">Send Request</button>
+          </div>
+        </form>
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
 
-  <title>Page Title</title>
-
-  <!-- Meta Tags -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- CSS -->
-  <style type="text/css">
-
-  </style>
-
-  <!-- JavaScript -->
-  <script type="text/javascript">
-
-  </script>
-
-</head>
-<body>
-
-  <div id="container">
-    <h1>Hello Jacob and Michael!</h1>
-  </div>
-
-</body>
+        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+        <script>
+            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+            ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
+        </script>
+        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+    </body>
 </html>
