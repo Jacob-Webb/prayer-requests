@@ -96,39 +96,38 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-.logo {
-	width: 33%;
-	height: 10%;
-	margin-left: 25%;
-}
+   .logo {
+   	width: 33%;
+   	height: 10%;
+   	margin-left: 25%;
+   }
 
-.first_name {
-	float:left;
-	padding: 10px;
-}
+   .first_name {
+   	float:left;
+   	padding: 10px;
+   }
 
-.last_name {
-	padding: 10px;
-	margin: 15px;
-}
+   .last_name {
+   	padding: 10px;
+   	margin: 15px;
+   }
 
-.category {
-	margin: 20px;	
-	padding: 20px;
-}
+   .category {
+   	margin: 20px;
+   	padding: 20px;
+   }
 
-.prayer_request {
-	padding: 20px;
-	height: 100px;
-	width: 100px;
-	margin-left: 5%;
-}
+   .prayer_request {
+   	padding: 20px;
+   	height: 100px;
+   	width: 100px;
+   	margin-left: 5%;
+   }
 
-.submit {
-	padding: 20px;
-	margin-top: 10em;
-}
-
+   .submit {
+   	padding: 20px;
+   	margin-top: 10em;
+   }
 
 
 
