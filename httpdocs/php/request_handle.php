@@ -1,7 +1,7 @@
 <?php
 require 'server_info.php';
 include_once 'confirmation.php';
-//require_once '/vendor/swiftmailer/lib/swift_required.php'
+require_once 'swiftmailer/lib/swift_required.php';
 
 // Get all variables from the prayer request form on main page
 $user_first_name = sanitize($_POST['user_first']);
@@ -34,18 +34,34 @@ displayConfirmation($request_contact, $phone, $email_to, $intercession, $prayer_
 
 
 $email_subj = 'The Rock Church is praying for you!';
-$email_header = "From: jacob.webb@rockchurch.com" . "\r\n";    //change when we get the right email
+//$email_header = "From: jacob.webb@rockchurch.com" . "\r\n";    //change when we get the right email
 //Email confirmation to user if email was given
 $email_message = "We just wanted to let you know that we received your prayer request. We will be praying for you and we'll reach out in a couple of days to see how its going.";
 $email_message = "\n\nOriginal prayer request: " . $confirmation_message;
 
-if($email_to) {
-    if(mail($email_to, $email_subj, $confirmation_message)){
-        echo "mailed";
-    } else {
-    echo "no email";
-    }
-}
+//if($email_to) {
+//    if(mail($email_to, $email_subj, $confirmation_message)){
+//        echo "mailed";
+//    } else {
+//    echo "no email";
+//    }
+//}
+
+
+// Create the Transport
+$transport = Swift_SmtpTransport::newInstance('mail.therockyouth.org', 25)
+  ->setUsername($smtp_user)
+  ->setPassword($smtp_pass);
+
+$mailer = Swift_Mailer::newInstance($transport);
+
+// Create a message
+$message = Swift_Message::newInstance($email_subj)
+  ->setFrom(array('websupport@rockchurch.com' => 'The Rock Church'))
+  ->setTo(array($email_to => $user_first_name))
+  ->setBody($email_message, 'text/html');
+
+$mailer->send($message);
 
 
 

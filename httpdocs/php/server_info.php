@@ -3,6 +3,10 @@ $server = $_SERVER['SERVER_NAME'];
 ($server == "prayer.rock.church") ? $env = "production" : $env = "dev";
 $http = (isset($_SERVER['HTTPS'])) ? 'https://' : 'http://';
 
+// Set SMTP auth
+$smtp_user = 'info@therockyouth.org';
+$smtp_pass = 'X;8D(YVjAutGJgQ7ke';
+
 // Setup Database Connection
 if ($env == "production") {
     $db_server = "prayer.rock.church";
