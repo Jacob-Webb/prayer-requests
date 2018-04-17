@@ -40,14 +40,6 @@ $email_message = "We just wanted to let you know that we received your prayer re
 $email_message = "\n\nOriginal prayer request: " . $confirmation_message;
 
 if($email_to) {
-    //mail(to, subject, message, headers, parameters)
-    //to: Required. Specifies the receiver/receivers of the email
-    //subject: Required. Specifies the subject of the email.
-    //message: Required. Defines the message to be sent. Each line should be separated with a LF (/n).
-    //  Lines should not exceed 70 chars.
-    //headers: optional. Specifies additional headers, like From, CC, and Bcc. The additional headers
-    //  headers should be separated with a CRLF(\r\n)
-    //parameters: optional. Specifies an additional parameter to the sendmail program (the one defined in the sendmail_path configuration setting.)
     if(mail($email_to, $email_subj, $confirmation_message)){
         echo "mailed";
     } else {
