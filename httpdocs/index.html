@@ -19,31 +19,70 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
 		<img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
-        <form id="myForm" action="request_handle.php" method="post">
-          <div class="first_name">
-            <label for="first">First Name:</label>
-            <input type="text" name="first" id="first" value="" tabindex="1">
-            <br>
-		  </div>
-		  <div class="last_name">
-            <label for="last">Last Name:</label>
-            <input type="text" name="last" id="last" value="" tabindex="1">
-          </div>
-          <div class="category">
-              <label for="category">Category:</label>
-              <select name="category" id="category">
-                  <option value="physical">Physical</option>
-                  <option value="elohim">Elohim</option>
-                  <option value="salvation">Salvation</option>
-              </select>
-          </div>
-          <div class="prayer_request">
-            <label for="prayer_request">Request:</label>
-            <textarea cols="40" rows="10" name="prayer_request" id="prayer_request"></textarea>
-          </div>
-          <div class="submit">
-            <button type="submit">Send Request</button>
-          </div>
+        <form id="request_form" action="php/request_handle.php" method="post">
+            <div class="user_info">
+                <div class="user_first_name">
+                    <label for="user_first">Your first name:</label>
+                    <input type="text" name="user_first" id="user_first" value="" tabindex="1">
+                    <br>
+		        </div>
+		        <div class="user_last_name">
+                    <label for="user_last">Your last name:</label>
+                    <input type="text" name="user_last" id="user_last" value="" tabindex="1">
+                </div>
+
+                <div class="user_attend">
+                    <label for="attend">I attend The Rock Church </label>
+                    <input type="checkbox" id="attend" name="attend" value="attend">
+                </div>
+            </div>
+
+            <div class="another_person">
+                    <label for="intercession">This prayer request is for someone else </label>
+                    <input type="checkbox" id="intercession" name="intercession" value="intercession">
+
+                <div class="reveal_if_active">
+                    <div class="for_first_name">
+                        <label for="for_first">First name of person receiving prayer: </label>
+                        <input type="text" name="for_first" id="for_first" value="" tabindex="1">
+                        <br>
+                        <label for="for_last">Last name of the person receiving prayer: </label>
+                        <input type="text" name="for_last" id="for_last" value="" tabindex="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact">
+                    <label for="request_contact">I would like to be contacted </label>
+                    <input type="checkbox" name="request_contact" id="request_contct" value="request_contact">
+
+                <div class="reveal_if_active">
+                    <h4>Great! Leave your contact information and we'll get back to you.</h4>
+                    <label for="phone_call">Phone Number: </label>
+                    <input type="tel" name="phone_num" id="phone_num">
+                    <br>
+                    <label for="email">Email Address: </label>
+                    <input type="email" id="email" name="email" id="email">
+                </div>
+            </div>
+
+            <div class="category">
+                <label for="category">Category:</label>
+                <select name="category" id="category">
+                    <option value="physical">Physical Healing</option>
+                    <option value="provision">Provision</option>
+                    <option value="salvation">Salvation</option>
+                </select>
+            </div>
+
+            <div class="prayer_request">
+                <label for="prayer_request">Request:</label>
+                <textarea cols="40" rows="10" name="prayer_request" id="prayer_request"></textarea>
+            </div>
+
+            <div class="submit">
+                <button type="submit">Send Request</button>
+            </div>
         </form>
         <script src="js/vendor/modernizr-3.5.0.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
