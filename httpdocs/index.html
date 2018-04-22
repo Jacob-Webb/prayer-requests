@@ -14,102 +14,102 @@
         <!-- <link rel="stylesheet" href="css/normalize.css"> -->
         <link rel="stylesheet" type="text/css" href="//rock.church/assets/styles/build/base.css?rel=6d7cc76622">
         <link rel="stylesheet" href="css/main.css">
-        
+
     </head>
     <body>
-        <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
-		<img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
-        <form id="request_form" action="php/request_handle.php" method="post">
-            <div class="user_info">
-                <div class="user_first_name">
-                    <label for="user_first">Your first name:</label>
-                    <input type="text" name="user_first" id="user_first" value="" tabindex="1">
-                    <br>
-		        </div>
-		        <div class="user_last_name">
-                    <label for="user_last">Your last name:</label>
-                    <input type="text" name="user_last" id="user_last" value="" tabindex="1">
-                </div>
 
-                <div class="user_attend">
-                    <label for="attend">I attend The Rock Church </label>
-                    <input type="checkbox" id="attend" name="attend" value="attend">
-                </div>
-            </div>
 
-            <div class="another_person">
-                    <label for="intercession">This prayer request is for someone else </label>
-                    <input type="checkbox" id="intercession" name="intercession" value="intercession">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Request Prayer
+        </button>
 
-                <div class="reveal_if_active">
-                    <div class="for_first_name">
-                        <label for="for_first">First name of person receiving prayer: </label>
-                        <input type="text" name="for_first" id="for_first" value="" tabindex="1">
-                        <br>
-                        <label for="for_last">Last name of the person receiving prayer: </label>
-                        <input type="text" name="for_last" id="for_last" value="" tabindex="1">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Prayer Request</h4>
                     </div>
-                </div>
-            </div>
+                    <div class="modal-body">
+                        <img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
+                        <br />
+                        <br />
+                        <form id="request_form" action="php/request_handle.php" method="post">
+                            <div class="form-row" id="user-name">
+                                <div class="col">
+                                    <label class="sr-only" for="user-first">First Name</label>
+                                    <input type="text" name="user-first" id="user-first" class="form-control" placeholder="First Name" tabindex="1">
+                                    <br>
+  		                        </div>
+  		                        <div class="col">
+                                    <label class="sr-only" for"user-last">Last Name</label>
+                                    <input type="text" name="user-last" id="user-last" class="form-control" placeholder="Last Name" tabindex="1">
+                                </div>
 
-            <div class="contact">
-                    <label for="request_contact">I would like to be contacted </label>
-                    <input type="checkbox" name="request_contact" id="request_contct" value="request_contact">
+                                <div class="form-check">
+                                    <label class="form-check-label" for="attend">I attend The Rock Church </label>
+                                    <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
+                                </div>
+                            </div>
 
-                <div class="reveal_if_active">
-                    <h4>Great! Leave your contact information and we'll get back to you.</h4>
-                    <label for="phone_call">Phone Number: </label>
-                    <input type="tel" name="phone_num" id="phone_num">
-                    <br>
-                    <label for="email">Email Address: </label>
-                    <input type="email" id="email" name="email" id="email">
-                </div>
-            </div>
+                            <div class="form-check">
+                                <label class="form-check-label" for="intercession">This prayer request is for someone else </label>
+                                <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
 
-            <div class="category">
-                <label for="category">Category:</label>
-                <select name="category" id="category">
-                    <option value="physical">Physical Healing</option>
-                    <option value="provision">Provision</option>
-                    <option value="salvation">Salvation</option>
-                </select>
-            </div>
+                                <div class="reveal-if-active">
+                                    <div class="col" id="recipient-name">
+                                        <label class="sr-only" for="for-first">Recipient First Name: </label>
+                                        <input type="text" name="for-first" id="for-first" class="form-control" placeholder="Recipient First Name" tabindex="1">
+                                        <br>
+                                        <label class="sr-only" for="for-last">Recipient Last Name: </label>
+                                        <input type="text" name="for-last" id="for-last" class="form-control" placeholder="Recipient Last Name" tabindex="1">
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="prayer_request">
-                <label for="prayer_request">Request:</label>
-                <textarea cols="40" rows="10" name="prayer_request" id="prayer_request"></textarea>
-            </div>
+                            <div class="form-check">
+                                <label class="form-check-label" for="request-contact">I would like to be contacted </label>
+                                <input class="form-check-input" type="checkbox" name="request-contact" id="request-contct" value="request-contact">
 
-            <div class="submit">
-                <button type="submit">Send Request</button>
-            </div>
-        </form>
+                                <div class="reveal-if-active">
+                                    <div class="col" id="contact-info">
+                                        <h4>Great! Leave your contact information and we'll get back to you.</h4>
+                                        <label class="sr-only" for="phone-call">Phone Number: </label>
+                                        <input type="tel" name="phone-num" id="phone-num" class="form-group" placeholder="Phone" tabindex="1">
+                                        <br>
+                                        <label class="sr-only" for="email">Email Address: </label>
+                                        <input type="email" id="email" name="email" id="email"class="form-group" placeholder="Email" tabindex="1">
+                                    </div>
+                                </div>
+                            </div>
 
+                            <br />
+                            <br />
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
+                            <div class="form-group">
+                                <label class="sr-only" for="category">Category:</label>
+                                <select class="custom-select custom-select-sm" name="category" id="category">
+                                    <option value="physical">Physical Healing</option>
+                                    <option value="provision">Provision</option>
+                                    <option value="salvation">Salvation</option>
+                                </select>
+                            </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+                            <div class="form-group">
+                                <label class="sr-only" for="prayer-request">Request:</label>
+                                <textarea class="form-control" name="prayer-request" id="prayer-request" placeholder="Your Prayer Here" rows="5"></textarea>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Send Your Request</button>
+                    </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
         <!-- <script src="js/vendor/modernizr-3.5.0.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

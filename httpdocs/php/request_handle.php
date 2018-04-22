@@ -1,69 +1,54 @@
 <?php
 require 'server_info.php';
-include_once 'confirmation.php';
+include_once 'message_maker.php';
 require_once 'swiftmailer/lib/swift_required.php';
 
 // Get all variables from the prayer request form on main page
-$user_first_name = sanitize($_POST['user_first']);
-$user_last_name = sanitize($_POST['user_last']);
+$user_first_name = sanitize($_POST['user-first']);
+$user_last_name = sanitize($_POST['user-last']);
 $attend = (isset($_POST['attend'])) ? 1 : 0;
 $intercession = (isset($_POST['intercession'])) ? 1 : 0;
-$for_first_name = ($intercession) ? sanitize($_POST['for_first']) : $user_first_name;
-$for_last_name = ($intercession) ? sanitize($_POST['for_last']) : $user_last_name;
-$request_contact = (isset($_POST['request_contact'])) ? 1 : 0;
-$phone = sanitize($_POST['phone_num']);
+$for_first_name = ($intercession) ? sanitize($_POST['for-first']) : $user_first_name;
+$for_last_name = ($intercession) ? sanitize($_POST['for-last']) : $user_last_name;
+$request_contact = (isset($_POST['request-contact'])) ? 1 : 0;
+$phone = sanitize($_POST['phone-num']);
 $email_to = sanitize($_POST['email']);
 $prayer_category = sanitize($_POST['category']);
-$request = sanitize($_POST['prayer_request']);
+$request = sanitize($_POST['prayer-request']);
 
-/* Database connection */
 //set up server connection with variables from server_info.php
 $mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
 
 //attempt to transfer variables to database
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
         for_first_name, for_last_name, request_contact, phone, email, category, prayer_request)
-        VALUES ('$user_first_name', '$user_last_name', '$attend', '$intercession',
+        VALUES ('$user-first-name', '$user_last_name', '$attend', '$intercession',
         '$for_first_name', '$for_last_name', '$request_contact', '$phone', '$email_to', '$prayer_category', '$request')";
 
 $result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
 
 //send confirmation to the user
-displayConfirmation($request_contact, $phone, $email_to, $intercession, $prayer_category);
+echo getConfirmation($user_first_name, $attend, $intercession, $for_first_name);
 
+if($email_to) {
+    $email_subj = 'The Rock Church is praying for you!';
+    $email_message = getEmailMessage($user_first_name, $attend, $intercession, $for_first_name);
 
+    // Create the Transport
+    $transport = Swift_SmtpTransport::newInstance('mail.therockyouth.org', 25)
+      ->setUsername($smtp_user)
+      ->setPassword($smtp_pass);
 
-$email_subj = 'The Rock Church is praying for you!';
-//$email_header = "From: jacob.webb@rockchurch.com" . "\r\n";    //change when we get the right email
-//Email confirmation to user if email was given
-$email_message = "We just wanted to let you know that we received your prayer request. We will be praying for you and we'll reach out in a couple of days to see how its going.";
-$email_message = "\n\nOriginal prayer request: " . $confirmation_message;
+    $mailer = Swift_Mailer::newInstance($transport);
 
-//if($email_to) {
-//    if(mail($email_to, $email_subj, $confirmation_message)){
-//        echo "mailed";
-//    } else {
-//    echo "no email";
-//    }
-//}
+    // Create a message
+    $message = Swift_Message::newInstance($email_subj)
+      ->setFrom(array('websupport@rockchurch.com' => 'The Rock Church'))
+      ->setTo(array($email_to => $user_first_name))
+      ->setBody($email_message, 'text/html');
 
-
-// Create the Transport
-$transport = Swift_SmtpTransport::newInstance('mail.therockyouth.org', 25)
-  ->setUsername($smtp_user)
-  ->setPassword($smtp_pass);
-
-$mailer = Swift_Mailer::newInstance($transport);
-
-// Create a message
-$message = Swift_Message::newInstance($email_subj)
-  ->setFrom(array('websupport@rockchurch.com' => 'The Rock Church'))
-  ->setTo(array($email_to => $user_first_name))
-  ->setBody($email_message, 'text/html');
-
-$mailer->send($message);
-
-
+    $mailer->send($message);
+}
 
 ?>
 
@@ -118,5 +103,5 @@ function dd($var) {
   print '</pre>';
   //die();
 }
-
+//He deserves more
 ?>
