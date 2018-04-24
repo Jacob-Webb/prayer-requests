@@ -9,8 +9,9 @@ function getConfirmation($user, $attend, $intercession, $recipient) {
     $intercession_message = "$user, thank you so much for the prayer request for $recipient.";
     $intercession_message .= "<br />\r\nThe Rock Church's pastors will be praying and believeing with you for $recipient!";
 
-    $non_intercession_message = "$user, thank you so much for the prayer request for $recipient.";
-    $non_intercession_message .= "<br />\r\nPastors at the Rock Church will be praying for you. We believe, in Jesus' name, that He is both able and willing to move in your life!";
+    $non_intercession_message = "$user, we're so glad that you were able to reach out to us!";
+    $non_intercession_message .= "<br />\r\nPastors at the Rock Church will be praying for you. ";
+    $non_intercession_message .= "We believe that God wants to move in your life AND that He's able to. ";
 
     // Concatenate one of these messages to the conf_message depending on whether or not he/she attends
     $attendee_invite = "<br />\r\nOur prayer teams are available after every service and would love to pray with you about this too. See you in church!";
@@ -30,7 +31,7 @@ function getConfirmation($user, $attend, $intercession, $recipient) {
             $confirmation_message = $intercession_message;
             $confirmation_message .= $non_attendee_invite;
         } else {
-            $confirmation_message = $intercession_message;
+            $confirmation_message = $non_intercession_message;
             $confirmation_message .= $non_attendee_invite;
         }
     }
@@ -40,17 +41,7 @@ function getConfirmation($user, $attend, $intercession, $recipient) {
 
 /******************************************************************************
 * getEmailMessage creates a unique message to email based on the arguments.
-* Parameters -
-* $user_first_name (String): represents the first name of the requester
-* $attend (int): represents whether or not the user attends Church
-* $request_contact (int): represents whether or not the user requested contact
-* $phone (string): should consist of a string of digits representing the phone number if given
-* $email_to (string): represents the user's provided email, if given
-* $intercession (int): if 1 the prayer is for someone else, if 0 it's for self
-* $for_first_name (string): different than $user_first_name if $intercession, same otherwise
-* $prayer_category (string): type of prayer person is requesting
 *******************************************************************************/
-
 function getEmailMessage($user, $attend, $intercession, $recipient) {
     if($intercession) {
         $person = $recipient;
@@ -59,10 +50,10 @@ function getEmailMessage($user, $attend, $intercession, $recipient) {
     }
 
     if($attend) {
-        $invite = "<br />If you need to speak with pastor please feel free to call the church. See you at church!";
+        $invite = "<br />If you need someone to pray with you in person, we'd love to pray with you at church!";
     } else {
         $invite = "<br />If you live in the area we'd love to be able to pray with you in person. \r\n";
-        $invite .= "<br />Check us out at Rock.Church for the address and service times.";
+        $invite .= "<br />Check us out at Rock.Church for the service times and address.";
     }
 
     $message = "Hey, $user, we got your prayer request and we're going to be praying for $person. \r\n";

@@ -22,7 +22,7 @@ $mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_err
 //attempt to transfer variables to database
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
         for_first_name, for_last_name, request_contact, phone, email, category, prayer_request)
-        VALUES ('$user-first-name', '$user_last_name', '$attend', '$intercession',
+        VALUES ('$user_first_name', '$user_last_name', '$attend', '$intercession',
         '$for_first_name', '$for_last_name', '$request_contact', '$phone', '$email_to', '$prayer_category', '$request')";
 
 $result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
@@ -31,7 +31,7 @@ $result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actua
 echo getConfirmation($user_first_name, $attend, $intercession, $for_first_name);
 
 if($email_to) {
-    $email_subj = 'The Rock Church is praying for you!';
+    $email_subj = 'The Rock Church Prayer Request Received';
     $email_message = getEmailMessage($user_first_name, $attend, $intercession, $for_first_name);
 
     // Create the Transport

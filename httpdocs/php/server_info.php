@@ -1,4 +1,5 @@
 <?php
+session_start();
 $server = $_SERVER['SERVER_NAME'];
 ($server == "prayer.rock.church") ? $env = "production" : $env = "dev";
 $http = (isset($_SERVER['HTTPS'])) ? 'https://' : 'http://';
@@ -21,4 +22,9 @@ if ($env == "dev") {
   $db_pass = "only-1-King";
   $db_server = "localhost";
 }
+
+$_SESSION["db_name"] = $db_name;
+$_SESSION["db_user"] = $db_user;
+$_SESSION["db_pass"] = $db_pass;
+$_SESSION["db_server"] = $db_server;
 ?>
