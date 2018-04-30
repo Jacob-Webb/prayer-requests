@@ -15,21 +15,23 @@ $phone = sanitize($_POST['phone-num']);
 $email_to = sanitize($_POST['email']);
 $prayer_category = sanitize($_POST['category']);
 $request = sanitize($_POST['prayer-request']);
-
-//set up server connection with variables from server_info.php
-$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
+$time = date("Y:m:d H:i:s");
 
 //attempt to transfer variables to database
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
-        for_first_name, for_last_name, request_contact, phone, email, category, prayer_request)
+        for_first_name, for_last_name, request_contact, phone, email, category,
+        prayer_request, prayer_timestamp)
         VALUES ('$user_first_name', '$user_last_name', '$attend', '$intercession',
-        '$for_first_name', '$for_last_name', '$request_contact', '$phone', '$email_to', '$prayer_category', '$request')";
+        '$for_first_name', '$for_last_name', '$request_contact', '$phone', '$email_to',
+        '$prayer_category', '$request', '$time')";
 
 $result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
 
-//send confirmation to the user
+//create a confirmation message for user (found in message_maker.php)
 echo getConfirmation($user_first_name, $attend, $intercession, $for_first_name);
 
+
+// if user left an email address, create an email message and send it
 if($email_to) {
     $email_subj = 'The Rock Church Prayer Request Received';
     $email_message = getEmailMessage($user_first_name, $attend, $intercession, $for_first_name);

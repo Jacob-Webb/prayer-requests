@@ -13,7 +13,7 @@ function getConfirmation($user, $attend, $intercession, $recipient) {
     $non_intercession_message .= "<br />\r\nPastors at the Rock Church will be praying for you. ";
     $non_intercession_message .= "We believe that God wants to move in your life AND that He's able to. ";
 
-    // Concatenate one of these messages to the conf_message depending on whether or not he/she attends
+    // Concatenate one of these messages to the conf_message depending on whether or not he/she attends the church
     $attendee_invite = "<br />\r\nOur prayer teams are available after every service and would love to pray with you about this too. See you in church!";
     $non_attendee_invite = "<br />\r\nIf you live in thea area we'd love to be able to pray with you in person.";
     $non_attendee_invite .= "<br />\r\nWe have prayer teams available after every service. Visit our website for church service times.";

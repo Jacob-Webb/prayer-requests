@@ -23,8 +23,6 @@ if ($env == "dev") {
   $db_server = "localhost";
 }
 
-$_SESSION["db_name"] = $db_name;
-$_SESSION["db_user"] = $db_user;
-$_SESSION["db_pass"] = $db_pass;
-$_SESSION["db_server"] = $db_server;
+//set up server connection with variables from server_info.php
+$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
 ?>
