@@ -1,5 +1,6 @@
 <?php require "logic.php"; ?>
 <html>
+
 <body>
     <link rel="stylesheet" href="admin_styles.css">
     <h1 align="center">Prayer Requests This Week</h1>
@@ -16,7 +17,9 @@
         <?php echo "Salvation: " . $salvation_percentage . "%"?>
     </div> <!--closes percentages -->
 
-    <canvas id="myCanvas"></canvas>
+    <div class="chart-container" style="position: relative; float: right; height: 45vh; width: 30vw">
+        <canvas id="my_chart"></canvas>
+    </div> <!-- closes chart-container -->
 
     <br />
     <br />
@@ -101,6 +104,7 @@
         var provision_percentage = <?php echo $provision_percentage; ?>;
         var salvation_percentage = <?php echo $salvation_percentage; ?>;
     </script>
-    <script type="text/javascript" src="script.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <script src="piechart.js"></script>
 </body>
 </html>

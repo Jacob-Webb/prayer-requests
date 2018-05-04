@@ -63,10 +63,17 @@ if($result->num_rows > 0) {
 
 $total_count = $healing_count + $provision_count + $salvation_count;
 
-// category percentages in ints
-$healing_percentage = round($healing_count / $total_count * 100);
-$provision_percentage = round($provision_count / $total_count * 100);
-$salvation_percentage = round($salvation_count / $total_count * 100);
+// Make sure we aren't dividing by zero. 
+if($total_count > 0) {
+    $healing_percentage = round($healing_count / $total_count * 100);
+    $provision_percentage = round($provision_count / $total_count * 100);
+    $salvation_percentage = round($salvation_count / $total_count * 100);
+} else {
+    $healing_percentage = 0;
+    $provision_percentage = 0;
+    $salvation_percentage = 0;
+}
+
 
 /*******************************************************************************
 * displayRequestsInTable takes in all prayers in a category and displays in
