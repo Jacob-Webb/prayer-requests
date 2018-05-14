@@ -1,4 +1,10 @@
 <?php
+/******************************************************************************
+* server_info.php takes in the server name. If it is related to the development
+* environment use the information for the development database. Otherwise,
+* use the information for the production database. Access the database with
+* this information.
+******************************************************************************/
 session_start();
 $server = $_SERVER['SERVER_NAME'];
 ($server == "prayer.rock.church") ? $env = "production" : $env = "dev";

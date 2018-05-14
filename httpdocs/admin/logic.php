@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . 'php/server_info.php');
+require_once('../php/server_info.php');
 
 $q = "SELECT user_first_name, user_last_name, attending, intercession, for_first_name,
         for_last_name, request_contact, phone, email, category, prayer_request,
@@ -63,7 +63,7 @@ if($result->num_rows > 0) {
 
 $total_count = $healing_count + $provision_count + $salvation_count;
 
-// Make sure we aren't dividing by zero. 
+// Make sure we aren't dividing by zero.
 if($total_count > 0) {
     $healing_percentage = round($healing_count / $total_count * 100);
     $provision_percentage = round($provision_count / $total_count * 100);

@@ -1,5 +1,11 @@
 <?php
+/******************************************************************************
+* request_handle.php takes the input from index.html. It inserts the input
+* into the database, creates a confirmation message on the page, and then
+* emails the user if he/she gave an email.
+******************************************************************************/
 require 'server_info.php';
+require 'helper_functions.php';
 include_once 'message_maker.php';
 require_once 'swiftmailer/lib/swift_required.php';
 
@@ -11,30 +17,41 @@ $intercession = (isset($_POST['intercession'])) ? 1 : 0;
 $for_first_name = ($intercession) ? sanitize($_POST['for-first']) : $user_first_name;
 $for_last_name = ($intercession) ? sanitize($_POST['for-last']) : $user_last_name;
 $request_contact = (isset($_POST['request-contact'])) ? 1 : 0;
-$phone = sanitize($_POST['phone-num']);
+//$phone = sanitize($_POST['phone-num']);
 $email_to = sanitize($_POST['email']);
 $prayer_category = sanitize($_POST['category']);
 $request = sanitize($_POST['prayer-request']);
 $time = date("Y:m:d H:i:s");
+$follow_up = (isset($_POST['request-contact'])) ? 1 : 0;
 
 //attempt to transfer variables to database
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
-        for_first_name, for_last_name, request_contact, phone, email, category,
-        prayer_request, prayer_timestamp)
+        for_first_name, for_last_name, request_contact, email, category,
+        prayer_request, prayer_timestamp, follow_up)
         VALUES ('$user_first_name', '$user_last_name', '$attend', '$intercession',
-        '$for_first_name', '$for_last_name', '$request_contact', '$phone', '$email_to',
-        '$prayer_category', '$request', '$time')";
+        '$for_first_name', '$for_last_name', '$request_contact', '$email_to',
+        '$prayer_category', '$request', '$time', '$follow_up')";
 
 $result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
 
-//create a confirmation message for user (found in message_maker.php)
-echo getConfirmation($user_first_name, $attend, $intercession, $for_first_name);
+// generate hash value: an encrypted, unique value for each prayer based on the id
+$id_query = "SELECT id FROM web_form WHERE prayer_timestamp='$time'";
+$hash = 0;
+$id_result = $mysqli->query($id_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $id_query);
+if($id_result->num_rows > 0) {
+    $id = $id_result->fetch_assoc()['id'];
+    $hash = strtotime($time) + $id;
+    $hash_query = "UPDATE web_form SET hash='$hash' WHERE id='$id'";
+    $insert_result = $mysqli->query($hash_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $hash_query);
+}
 
+//create a confirmation message for user (found in message_maker.php)
+echo getConfirmationMessage($user_first_name, $attend, $intercession, $for_first_name);
 
 // if user left an email address, create an email message and send it
 if($email_to) {
     $email_subj = 'The Rock Church Prayer Request Received';
-    $email_message = getEmailMessage($user_first_name, $attend, $intercession, $for_first_name);
+    $email_message = getConfirmationEmail($user_first_name, $attend, $intercession, $for_first_name);
 
     // Create the Transport
     $transport = Swift_SmtpTransport::newInstance('mail.therockyouth.org', 25)
@@ -52,58 +69,5 @@ if($email_to) {
     $mailer->send($message);
 }
 
-?>
-
-<?php
-// Keep the database cleen
-function cleanInput($input) {
-  $search = array(
-    '@<script[^>]*?>.*?</script>@si',   // Strip out javascript
-    '@<[\/\!]*?[^<>]*?>@si',            // Strip out HTML tags
-    '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
-    '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments
-  );
-
-  $output = preg_replace($search, '', $input);
-  return $output;
-}
-
-function escape($str) {
-  $search=array("\\","\0","\n","\r","\x1a","'",'"');
-  $replace=array("\\\\","\\0","\\n","\\r","\Z","\'",'\"');
-  return str_replace($search,$replace,$str);
-}
-
-function sanitize($input) {
-  if (is_array($input)) {
-    foreach($input as $var=>$val) {
-      $output[$var] = sanitize($val);
-    }
-  }
-  else {
-    if (get_magic_quotes_gpc()) {
-      $input = stripslashes($input);
-    }
-
-    $input  = cleanInput($input);
-    // Kept getting error: A link to the server could not be established
-    // $output = mysql_real_escape_string($input);
-    $output = escape($input);
-  }
-
-  return $output;
-}
-
-// Helpers
-function currentUri() {
-  return 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-}
-
-function dd($var) {
-  print '<pre>';
-  var_dump($var);
-  print '</pre>';
-  //die();
-}
-//He deserves more
+//He Deserves More
 ?>

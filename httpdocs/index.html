@@ -17,8 +17,6 @@
 
     </head>
     <body>
-
-
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
             Request Prayer
@@ -39,19 +37,19 @@
                             <div class="form-row" id="user-name">
                                 <div class="col">
                                     <label class="sr-only" for="user-first">First Name</label>
-                                    <input type="text" name="user-first" id="user-first" class="form-control" placeholder="First Name" tabindex="1">
+                                    <input type="text" name="user-first" id="user-first" class="form-control" placeholder="First Name" tabindex="1" required>
                                     <br>
-  		                        </div>
+  		                        </div> <!-- /.col -->
   		                        <div class="col">
                                     <label class="sr-only" for"user-last">Last Name</label>
-                                    <input type="text" name="user-last" id="user-last" class="form-control" placeholder="Last Name" tabindex="1">
-                                </div>
+                                    <input type="text" name="user-last" id="user-last" class="form-control" placeholder="Last Name" tabindex="1" required>
+                                </div> <!-- /.col -->
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
                                     <label class="form-check-label" for="attend">I attend The Rock Church </label>
-                                </div>
-                            </div>
+                                </div> <!-- /.form-check -->
+                            </div> <!-- /.user-name -->
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
@@ -60,28 +58,29 @@
                                 <div class="reveal-if-active">
                                     <div class="col" id="recipient-name">
                                         <label class="sr-only" for="for-first">Recipient First Name: </label>
-                                        <input type="text" name="for-first" id="for-first" class="form-control" placeholder="Recipient First Name" tabindex="1">
+                                        <input class="require-if-active" type="text" name="for-first" id="for-first"
+                                            placeholder="Recipient First Name" tabindex="1" data-require-pair="#intercession">
                                         <br>
                                         <label class="sr-only" for="for-last">Recipient Last Name: </label>
-                                        <input type="text" name="for-last" id="for-last" class="form-control" placeholder="Recipient Last Name" tabindex="1">
-                                    </div>
-                                </div>
-                            </div>
+                                        <input class="require-if-active" type="text" name="for-last" id="for-last"
+                                            placeholder="Recipient Last Name" tabindex="1" data-require-pair="#intercession">
+                                    </div> <!-- /.recipient-name -->
+                                </div> <!-- /.reveal-if-active -->
+                            </div> <!-- form-check -->
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="request-contact" id="request-contct" value="request-contact">
+                                <input class="form-check-input" type="checkbox" name="request-contact" id="request-contact" value="request-contact">
                                 <label class="form-check-label" for="request-contact">I would like to be contacted </label>
 
                                 <div class="reveal-if-active">
                                     <div class="col" id="contact-info">
-                                        <label class="sr-only" for="phone-call">Phone Number: </label>
-                                        <input type="tel" name="phone-num" id="phone-num" class="form-control" placeholder="Phone" tabindex="1">
-                                        <br>
+
                                         <label class="sr-only" for="email">Email Address: </label>
-                                        <input type="email" id="email" name="email" id="email"class="form-control" placeholder="Email" tabindex="1">
-                                    </div>
-                                </div>
-                            </div>
+                                        <input class="require-if-active" type="email" id="email" name="email"
+                                            placeholder="Email" tabindex="1" data-require-pair="#request-contact">
+                                    </div> <!-- /.contact-info -->
+                                </div> <!-- /.reveal-if-active -->
+                            </div> <!-- /.form-check -->
 
                             <div class="form-group">
                                 <label class="sr-only" for="category">Category:</label>
@@ -90,18 +89,18 @@
                                     <option value="provision">Provision</option>
                                     <option value="salvation">Salvation</option>
                                 </select>
-                            </div>
+                            </div> <!-- /.form-group -->
 
                             <div class="form-group">
                                 <label class="sr-only" for="prayer-request">Request:</label>
-                                <textarea class="form-control" name="prayer-request" id="prayer-request" placeholder="Your Prayer Here" rows="5"></textarea>
-                            </div>
+                                <textarea class="form-control" name="prayer-request" id="prayer-request" placeholder="Your Prayer Here" rows="5" required></textarea>
+                            </div> <!-- /.form-group -->
 
-                    </div>
+                    </div> <!-- /.modal-body -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Send Your Request</button>
-                    </div>
+                    </div> <!-- /.modal-footer -->
                     </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -121,6 +120,8 @@
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
         <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/form.js"></script>
     </body>
     <!-- He deserves more -->
 </html>

@@ -2,7 +2,7 @@
 <html>
 
 <body>
-    <link rel="stylesheet" href="admin_styles.css">
+    <link rel="stylesheet" href="../css/admin_styles.css">
     <h1 align="center">Prayer Requests This Week</h1>
     <h4 align="center"><?php echo $begin_time_range . " - " . $end_time_range ?></h4>
     <hr>
@@ -17,7 +17,7 @@
         <?php echo "Salvation: " . $salvation_percentage . "%"?>
     </div> <!--closes percentages -->
 
-    <div class="chart-container" style="position: relative; float: right; height: 45vh; width: 30vw">
+    <div class="chart-container" style="margin:0 auto; height: 45vh; width: 30vw">
         <canvas id="my_chart"></canvas>
     </div> <!-- closes chart-container -->
 
@@ -105,6 +105,6 @@
         var salvation_percentage = <?php echo $salvation_percentage; ?>;
     </script>
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
-    <script src="piechart.js"></script>
+    <script src="../js/piechart.js"></script>
 </body>
 </html>
