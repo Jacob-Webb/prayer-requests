@@ -3,7 +3,7 @@
 * message_maker.php builds the messages that prayer.rock.church utilizes.
 * Each message should have a function name that states what it's for and where
 * it should be used.
-* HDM 
+* HDM
 *******************************************************************************/
 
 /*******************************************************************************
@@ -102,7 +102,7 @@ function getFollowUpEmail($user, $hash) {
             but we'd also like to get in touch with you to give you a little
             more support. <br /><br />";
 
-    $message .= '<a href="prayer-rock-church/admin/follow_up_form.php?hash=' .
+    $message .= '<a href="prayer.rock.church/admin/follow_up_form.php?hash=' .
             $hash . '">Follow Up Info</a>';
 
 
