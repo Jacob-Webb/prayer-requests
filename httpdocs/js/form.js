@@ -1,6 +1,5 @@
 /******************************************************************************
-* form.js makes fields that have been hidden required once the field becomes
-* activated. Taken from css-tricks.com 
+* form.js handles the logic for the form on index.html
 ******************************************************************************/
 var FormStuff = {
 
@@ -15,21 +14,36 @@ var FormStuff = {
     $("input[type='radio'], input[type='checkbox']").on("change", this.applyConditionalRequired);
   },
 
+  // set when certain fields are required
   applyConditionalRequired: function() {
-    // find each input that may be hidden or not
+
+    // certain fields will be required when the associated radio or checkbox are checked
     $(".require-if-active").each(function() {
-      var el = $(this);
+      var require_element = $(this);
       // find the pairing radio or checkbox
-      if ($(el.data("require-pair")).is(":checked")) {
+      if ($(require_element.data("require-pair")).is(":checked")) {
         // if its checked, the field should be required
-        el.prop("required", true);
-      } else {
+        require_element.prop("required", true);
+    } else {
         // otherwise it should not
-        el.prop("required", false);
+        require_element.prop("required", false);
       }
     });
-  }
 
+    //certain fields will be required when the associated radio or checkbox are
+    //not checked
+    $(".require-if-inactive").each(function() {
+        var hide_element = $(this);
+        // find the pairing radio or checkbox
+        if ($(hide_element.data("require-pair")).is(":checked")) {
+            // if it is checked, the field should not be required
+            hide_element.prop("required", false);
+        } else {
+            // otherwise it should be.
+            hide_element.prop("required", true);
+        }
+    });
+  }
 };
 
 FormStuff.init();

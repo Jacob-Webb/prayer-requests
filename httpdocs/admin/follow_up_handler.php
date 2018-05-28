@@ -39,3 +39,8 @@ if($phone && $testimony) {
 $follow_up_result = $mysqli->query($follow_up_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $follow_up_query);
 
 ?>
+<html>
+<body>
+    <h4 style="margin: 0 33%">Thanks for following up with us!</h4>
+</body>
+</html>

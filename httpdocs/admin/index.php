@@ -1,11 +1,15 @@
-<?php require "logic.php"; ?>
+<?php require "dashboard_logic.php"; ?>
 <html>
-
-<body>
+<head>
+    <title>Prayer Admin</title>
+    <link rel="stylesheet" type="text/css" href="//rock.church/assets/styles/build/base.css?rel=6d7cc76622">
     <link rel="stylesheet" href="../css/admin_styles.css">
-    <h1 align="center">Prayer Requests This Week</h1>
+
+<head>
+<body>
+    <h2 align="center">Prayer Requests This Week</h2> 
+
     <h4 align="center"><?php echo $begin_time_range . " - " . $end_time_range ?></h4>
-    <hr>
 
     <h3 style="float: left"><?php echo $total_count . "<br />" . "Requests" ?></h3>
 
@@ -17,7 +21,7 @@
         <?php echo "Salvation: " . $salvation_percentage . "%"?>
     </div> <!--closes percentages -->
 
-    <div class="chart-container" style="margin:0 auto; height: 45vh; width: 30vw">
+    <div class="chart-container" style="margin:0 auto; height: 30vh; width: 30vw">
         <canvas id="my_chart"></canvas>
     </div> <!-- closes chart-container -->
 
@@ -28,21 +32,8 @@
     Creates a table for all of the information for healing prayers
     -->
     <table id="heal-table" style="width: 100%">
-        <tr>
-            <th colspan="8">Healing Requests</th>
-        </tr>
-        <tr>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Attends</td>
-            <td>For: First Name</td>
-            <td>For: Last Name</td>
-            <td>Phone</td>
-            <td>Email</td>
-            <td>Prayer Request</td>
-        </tr>
         <?php
-            displayRequestsInTable($healing_prayers);
+            displayRequestsInTable($healing_prayers, "Healing");
         ?>
     </table>
 
@@ -53,21 +44,8 @@
     Creates a table for all of the information for provisional prayers
     -->
     <table id="provision-table" style="width: 100%">
-        <tr>
-            <th colspan="8">Provision Requests</th>
-        </tr>
-        <tr>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Attends</td>
-            <td>For: First Name</td>
-            <td>For: Last Name</td>
-            <td>Phone</td>
-            <td>Email</td>
-            <td>Prayer Request</td>
-        </tr>
         <?php
-            displayRequestsInTable($provision_prayers);
+            displayRequestsInTable($provision_prayers, "Provision");
         ?>
     </table>
 
@@ -78,27 +56,15 @@
     Creates a table for all of the information for salvation prayers
     -->
     <table id="salvation-table" style="width: 100%">
-        <tr>
-            <th colspan="8">Salvation Requests</th>
-        </tr>
-        <tr>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Attends</td>
-            <td>For: First Name</td>
-            <td>For: Last Name</td>
-            <td>Phone</td>
-            <td>Email</td>
-            <td>Prayer Request</td>
-        </tr>
         <?php
-            displayRequestsInTable($salvation_prayers);
+            displayRequestsInTable($salvation_prayers, "Salvation");
         ?>
     </table>
 
     <br />
     <br />
 
+    <!-- get javascript variables from php to pass to the charts -->
     <script>
         var healing_percentage = <?php echo $healing_percentage; ?>;
         var provision_percentage = <?php echo $provision_percentage; ?>;
@@ -106,5 +72,7 @@
     </script>
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
     <script src="../js/piechart.js"></script>
+    <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
+
 </body>
 </html>

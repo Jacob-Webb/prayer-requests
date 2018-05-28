@@ -102,24 +102,45 @@ textarea {
    	margin-left: 25%;
    }
 
-   .first_name {
-   	float:left;
-   	padding: 10px;
+   #user-info{
+       margin: 0 auto;
+       padding: 10px;
    }
 
-   .last_name {
-   	padding: 10px;
-   	margin: 15px;
+   #user-first {
+       float: left;
+       margin: 2px;
+       width: 33%;
+   }
+
+   #user-last {
+      float: left;
+      margin: 2px;
+      width: 33%;
+   }
+
+   #email {
+       margin: 2px;
+       width: 50%;
    }
 
    .user_attend {
        padding: 10px;
    }
-   .another_person {
-       padding: 10px;
+
+   #for-first {
+       float: left;
+       margin: 2px;
+       width: 33%;
    }
 
-   .reveal_if_active {
+   #for-last {
+
+       margin: 2px;
+       width: 33%;
+   }
+
+   .reveal-if-active {
   opacity: 0;
   max-height: 0;
   overflow: hidden;
@@ -135,14 +156,21 @@ textarea {
     }
 }
 
-    .contact {
-        padding: 10px;
+    .hide-if-active {
+    opacity: 1;
+    max-height: 100px;
+    overflow: visible;
+    //padding: 10px 20px;
+    transform: scale(1);
+    transition: 0.5s;
+    input[type="radio"]:checked ~ &,
+    input[type="checkbox"]:checked ~ & {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transform: scale(0.8);
     }
-
-   .category {
-   	margin: 20px;
-   	padding: 20px;
-   }
+}
 
    .prayer_request {
    	padding: 20px;
@@ -155,17 +183,6 @@ textarea {
    	padding: 20px;
    	margin-top: 10em;
    }
-
-
-
-
-
-
-
-
-
-
-
 
 /* ==========================================================================
    Helper classes

@@ -5,7 +5,7 @@
 * field) and every request greater than 5 days ago. It will send an email with
 * a link to a response form and set the follow_up variable to false.
 * Update log database.
-* HDM 
+* HDM
 *******************************************************************************/
 require_once('../php/server_info.php');
 include '../php/message_maker.php';
@@ -30,7 +30,7 @@ if($result->num_rows > 0) {
         $email_to = $row['email'];
 
         // Set email subject and message
-        $email_subj = 'Rock Church Prayer Request Follow Up';
+        $email_subj = "How've you been, " . $user_name . "?";
         $email_message =  getFollowUpEmail($user_name, $hash);
 
         // Create the Transport

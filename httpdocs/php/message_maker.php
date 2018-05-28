@@ -14,17 +14,30 @@ function getConfirmationMessage($user, $attend, $intercession, $recipient) {
 
     // These are messages to add to the confirmation page depending on whether
     // or not the person is praying for someone else
-    $intercession_message = "$user, thank you so much for the prayer
-            request for $recipient.";
-    $intercession_message .= "<br />\r\nThe Rock Church's pastors
-            will be praying and believeing with you for $recipient!";
+    if($user) {
+        $intercession_message = "$user, thank you so much for the prayer
+                request for $recipient.";
+        $intercession_message .= "<br />\r\nThe Rock Church's pastors
+                will be praying and believeing with you for $recipient!";
 
-    $non_intercession_message = "$user, we're so glad that you were able to
-            reach out to us!";
-    $non_intercession_message .= "<br />\r\nPastors at the Rock Church will
-            be praying for you. ";
-    $non_intercession_message .= "We believe that God wants to move in your
-            life AND that He's able to. ";
+        $non_intercession_message = "$user, we're so glad that you reached out to us!";
+        $non_intercession_message .= "<br />\r\nPastors at the Rock Church will
+                be praying for you. ";
+        $non_intercession_message .= "We believe that God wants to move in your
+                life AND that He's able to. ";
+    } else {
+        $intercession_message = "Thank you so much for the prayer
+                request for $recipient.";
+        $intercession_message .= "<br />\r\nThe Rock Church's pastors
+                will be praying and believeing with you for $recipient!";
+
+        $non_intercession_message = "We're so glad that you reached out to us!";
+        $non_intercession_message .= "<br />\r\nPastors at the Rock Church will
+                be praying for you. ";
+        $non_intercession_message .= "We believe that God wants to move in your
+                life AND that He's able to. ";
+    }
+
 
     // Concatenate one of these messages to the confirmation_message depending
     // on whether or not he/she attends the church
@@ -73,13 +86,12 @@ function getConfirmationEmail($user, $attend, $intercession, $recipient) {
                 love to pray with you at church!";
     } else {
         $invite = "If you live in the area we'd love to be able to pray
-                with you in person. <br />Check us out at Rock.Church for the
-                service times and address.";
+                with you in person. <br />Check us out at Rock.Church for our
+                address, service times, and online messages.";
     }
 
     $message = "Hey, $user, we got your prayer request and we're going to be
-            praying for $person. <br />Keep standing on God's word. We'll
-            contact you again in a few days to see how it's going.<br />";
+            praying for $person. <br />Don't give up! Keep believing and God'll answer. <br />";
     $message .= $invite;
 
     return $message;
@@ -90,21 +102,20 @@ function getConfirmationEmail($user, $attend, $intercession, $recipient) {
 * number of days. Gets the users first name using the prayer's hash value
 *******************************************************************************/
 function getFollowUpEmail($user, $hash) {
-    $message =  "Hey, $user, we've been praying over the request you entered a
-            few days ago and we wanted to check in with you to see how
-            everything's going. We also wanted to let you know that we're here
-            if you still need someone to talk to about it. <br />
+    $message =  "Hey, $user, we've been praying about your request and we wanted
+            to see how everything's going. <br>
+            We wanted to let you know that we're here if you'd like to talk to
+            someone about it. <br><br>
+
             The link below will take you to a form that you can use to
-            let us know what's going on. Filling out all of the information
-            helps us understand where to go from here. If you've had a
-            breakthrough we'd love to read your testimony. If you're still
-            believing for results we're going to continue to believe with you,
-            but we'd also like to get in touch with you to give you a little
-            more support. <br /><br />";
+            let us know what's been going on. <br><br>
 
-    $message .= '<a href="prayer.rock.church/admin/follow_up_form.php?hash=' .
+            If you've had a breakthrough we'd love to read your testimony. <br>
+            If you're still believing for results, we'd like to get in touch with
+            you to give you a little more support. <br /><br />";
+
+    $message .= '<a href="https://prayer.rock.church/admin/follow_up_form.php?hash=' .
             $hash . '">Follow Up Info</a>';
-
 
     return $message;
 }

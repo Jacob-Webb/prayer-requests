@@ -1,5 +1,11 @@
 <!doctype html>
 <html class="no-js" lang="en">
+<!--
+    The first page to be seen in prayer.rock.church. The page sets up a form
+    for people to fill out to request prayer from The Rock Church. The purpose
+    of this form is to assist The Rock Church in keeping in contact with our
+    members.
+-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -22,7 +28,7 @@
             Request Prayer
         </button>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal fade" id="myModal" tabindex="1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -33,23 +39,40 @@
                         <img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
                         <br />
                         <br />
-                        <form id="request_form" action="php/request_handle.php" method="post">
-                            <div class="form-row" id="user-name">
-                                <div class="col">
-                                    <label class="sr-only" for="user-first">First Name</label>
-                                    <input type="text" name="user-first" id="user-first" class="form-control" placeholder="First Name" tabindex="1" required>
-                                    <br>
-  		                        </div> <!-- /.col -->
-  		                        <div class="col">
-                                    <label class="sr-only" for"user-last">Last Name</label>
-                                    <input type="text" name="user-last" id="user-last" class="form-control" placeholder="Last Name" tabindex="1" required>
-                                </div> <!-- /.col -->
 
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
-                                    <label class="form-check-label" for="attend">I attend The Rock Church </label>
-                                </div> <!-- /.form-check -->
-                            </div> <!-- /.user-name -->
+                        <form id="request-form" action="php/request_handle.php" method="post">
+                            <!-- Give the user to opt out of giving contact information.
+                                If the "anonymous" box is checked remove user name and
+                                email address fields.
+                            -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="anonymous">
+                                <label class="form-check-label" for="anonymous">I would like to remain anonymous</label>
+
+                                <div class="hide-if-active">
+                                    <div id="user-info">
+                                        <label class="sr-only" for="user-first">First Name: </label>
+                                        <input class="require-if-inactive" type="text" name="user-first" id="user-first"
+                                            placeholder="First Name" tabindex="1" data-require-pair="#anonymous">
+
+                                        <label class="sr-only" for="user-last">Last Name: </label>
+                                        <input class="require-if-inactive" type="text" name="user-last" id="user-last"
+                                            placeholder="Last Name" tabindex="1" data-require-pair="#anonymous">
+
+                                        <label class="sr-only" for="email">Email Address: </label>
+                                        <input class="require-if-inactive" type="email" id="email" name="email"
+                                            placeholder="Email" tabindex="1" data-require-pair="#anonymous">
+                                    </div> <!-- /.user-info -->
+                                </div> <!-- /.hide-if-active -->
+                                <div class="reveal-if-active">
+                                    <p>The Rock Church won't keep track of your personal information.</p>
+                                </div> <!-- /.reveal-if-active -->
+                            </div> <!-- form-check -->
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
+                                <label class="form-check-label" for="attend">I attend The Rock Church </label>
+                            </div> <!-- /.form-check -->
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
@@ -57,35 +80,21 @@
 
                                 <div class="reveal-if-active">
                                     <div class="col" id="recipient-name">
-                                        <label class="sr-only" for="for-first">Recipient First Name: </label>
+                                        <label class="sr-only" for="for-first">First Name: </label>
                                         <input class="require-if-active" type="text" name="for-first" id="for-first"
-                                            placeholder="Recipient First Name" tabindex="1" data-require-pair="#intercession">
-                                        <br>
-                                        <label class="sr-only" for="for-last">Recipient Last Name: </label>
+                                            placeholder="First Name" tabindex="1" data-require-pair="#intercession">
+
+                                        <label class="sr-only" for="for-last">Last Name: </label>
                                         <input class="require-if-active" type="text" name="for-last" id="for-last"
-                                            placeholder="Recipient Last Name" tabindex="1" data-require-pair="#intercession">
+                                            placeholder="Last Name" tabindex="1" data-require-pair="#intercession">
                                     </div> <!-- /.recipient-name -->
                                 </div> <!-- /.reveal-if-active -->
                             </div> <!-- form-check -->
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="request-contact" id="request-contact" value="request-contact">
-                                <label class="form-check-label" for="request-contact">I would like to be contacted </label>
-
-                                <div class="reveal-if-active">
-                                    <div class="col" id="contact-info">
-
-                                        <label class="sr-only" for="email">Email Address: </label>
-                                        <input class="require-if-active" type="email" id="email" name="email"
-                                            placeholder="Email" tabindex="1" data-require-pair="#request-contact">
-                                    </div> <!-- /.contact-info -->
-                                </div> <!-- /.reveal-if-active -->
-                            </div> <!-- /.form-check -->
-
                             <div class="form-group">
                                 <label class="sr-only" for="category">Category:</label>
                                 <select class="custom-select custom-select-sm" name="category" id="category">
-                                    <option value="physical">Physical Healing</option>
+                                    <option value="physical">Healing</option><!-- change to "healing" -->
                                     <option value="provision">Provision</option>
                                     <option value="salvation">Salvation</option>
                                 </select>

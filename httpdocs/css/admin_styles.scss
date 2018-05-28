@@ -100,11 +100,9 @@ textarea {
    }
 
    button {
-     margin: 0 33%;
-     width: 30%;
      color: black;
-     background-color: #3399FF;
-     border: 1px;
+     background-color: white;
+     //border: 1px;
      border-radius: 5px;
    }
 
@@ -118,9 +116,32 @@ textarea {
        padding: 10px;
    }
 
-   table, td {
-       border: 1px solid black;
-   }
+table {
+    table-layout:relative;
+    width:100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #D6D6D6;
+}
+
+th {
+    background-color: #3399FF;
+    color: white;
+    text-align: center;
+    margin: 0 auto;
+}
+
+td {
+    border-bottom: 1px solid black;
+    margin: 0 auto;
+    text-align: center
+}
+#firsttd {
+    white-space: nowrap;
+}
 
 .logo {
     height: 10%;

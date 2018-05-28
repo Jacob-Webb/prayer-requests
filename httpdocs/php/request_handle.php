@@ -10,19 +10,23 @@ include_once 'message_maker.php';
 require_once 'swiftmailer/lib/swift_required.php';
 
 // Get all variables from the prayer request form on main page
-$user_first_name = sanitize($_POST['user-first']);
-$user_last_name = sanitize($_POST['user-last']);
+// If the user checked the anonymous box, insert empty strings for the user info fields
+$user_first_name = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['user-first']);
+$user_last_name = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['user-last']);
+$email_to = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['email']);
+
+// if an email was sent in the form, set $request_contact to true, otherwise false,
+// $follow_up if contact requested, otherwise don't
+$request_contact = ($email_to == '') ? 0 : 1;
+$follow_up = $request_contact;
+
 $attend = (isset($_POST['attend'])) ? 1 : 0;
 $intercession = (isset($_POST['intercession'])) ? 1 : 0;
 $for_first_name = ($intercession) ? sanitize($_POST['for-first']) : $user_first_name;
 $for_last_name = ($intercession) ? sanitize($_POST['for-last']) : $user_last_name;
-$request_contact = (isset($_POST['request-contact'])) ? 1 : 0;
-//$phone = sanitize($_POST['phone-num']);
-$email_to = sanitize($_POST['email']);
 $prayer_category = sanitize($_POST['category']);
 $request = sanitize($_POST['prayer-request']);
 $time = date("Y:m:d H:i:s");
-$follow_up = (isset($_POST['request-contact'])) ? 1 : 0;
 
 //attempt to transfer variables to database
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
@@ -50,7 +54,7 @@ echo getConfirmationMessage($user_first_name, $attend, $intercession, $for_first
 
 // if user left an email address, create an email message and send it
 if($email_to) {
-    $email_subj = 'The Rock Church Prayer Request Received';
+    $email_subj = $user_first_name . "'s Prayer Request Receipt";
     $email_message = getConfirmationEmail($user_first_name, $attend, $intercession, $for_first_name);
 
     // Create the Transport

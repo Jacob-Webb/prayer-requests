@@ -82,21 +82,37 @@ textarea {
 .logo {
   width: 33%;
   height: 10%;
-  margin-left: 33%; }
+  margin-left: 25%; }
 
-.first-name {
+#user-info {
+  margin: 0 auto;
+  padding: 10px; }
+
+#user-first {
   float: left;
+  margin: 2px;
+  width: 33%; }
+
+#user-last {
+  float: left;
+  margin: 2px;
+  width: 33%; }
+
+#email {
+  margin: 2px;
+  width: 50%; }
+
+.user_attend {
   padding: 10px; }
 
-.last-name {
-  padding: 10px;
-  margin: 15px; }
+#for-first {
+  float: left;
+  margin: 2px;
+  width: 33%; }
 
-.user-attend {
-  padding: 10px; }
-
-.another-person {
-  padding: 10px; }
+#for-last {
+  margin: 2px;
+  width: 33%; }
 
 .reveal-if-active {
   opacity: 0;
@@ -111,19 +127,22 @@ textarea {
     padding: 10px 20px;
     transform: scale(1); }
 
-.contact {
-  padding: 10px; }
-
-.category {
-  margin: 20px;
-  padding: 20px; }
+.hide-if-active {
+  opacity: 1;
+  max-height: 100px;
+  overflow: visible;
+  transform: scale(1);
+  transition: 0.5s; }
+  input[type="radio"]:checked ~ .hide-if-active, input[type="checkbox"]:checked ~ .hide-if-active {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: scale(0.8); }
 
 .prayer_request {
   padding: 20px;
-  /*
   height: 100px;
   width: 100px;
-  */
   margin-left: 5%; }
 
 .submit {
