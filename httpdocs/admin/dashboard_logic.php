@@ -24,10 +24,6 @@ $provision_count = 0;
 $salvation_count = 0;
 $total_count = 0;
 
-//pull any prayer requests withing these ranges
-$begin_time_range = date('m/d/Y', mktime(0, 0, 0, date('m'), date('d') - 6, date('Y')));
-$end_time_range = date('m/d/Y');
-
 //useful to get a string from an associative array using an index 0 == 'user_first_name' and so on
 $table_values = array('hash', 'user_first_name', 'user_last_name', 'attending',
                       'intercession', 'for_first_name', 'for_last_name',
@@ -35,51 +31,30 @@ $table_values = array('hash', 'user_first_name', 'user_last_name', 'attending',
                       'prayer_request', 'prayer_timestamp', 'follow_up', 'user_responded',
                       'prayer_answered', 'update_request', 'testimony');
 
-//get all of the information from the database that we'll need to use
-if($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        //If the request was made within the date ranges, add to the prayer category arrays
-        $row_date_time = strtotime($row['prayer_timestamp']);
-        //if(($row_date_time >= strtotime($begin_time_range)) && ($row_date_time <= strtotime($end_time_range))) {
-        if($row_date_time >= strtotime($begin_time_range)){
-            //group all "healing" prayers in an array
-            if($row["category"] == "physical") {
-                foreach($table_values as $column) {
-                    $healing_prayers[$healing_count][$column] = $row[$column];
-                }
-                ++$healing_count;
-            }
-            //group all "provision" prayers in an array
-            elseif($row["category"] == "provision") {
-                foreach($table_values as $column) {
-                    $provision_prayers[$provision_count][$column] = $row[$column];
-                }
-                ++$provision_count;
-            }
-            //group all "salvation" prayers in an array
-            elseif($row["category"] == "salvation") {
-                foreach($table_values as $column) {
-                    $salvation_prayers[$salvation_count][$column] = $row[$column];
-                }
-                ++$salvation_count;
-            }
-        }
-    }
-} else {
-    echo "0 results";
+/******************************************************************************
+* getBeginDate returns a date that is a certain time before the current date.
+* @param string $date_range should be a value of 'week', 'two-weeks', 'month',
+* or 'year'.
+* @return string $begin_date
+******************************************************************************/
+function getBeginDate($date_range) {
+    // the default range will be one week 
+    if($date_range == 'week' || $date_range == '')
+        return date('m/d/Y', mktime(0, 0, 0, date('m'), date('d') - 6, date('Y')));
+    if($date_range == 'two-weeks')
+        return date('m/d/Y', mktime(0, 0, 0, date('m'), date('d') - 13, date('Y')));
+    if($date_range == 'month')
+        return date('m/d/Y', mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')));
+    if($date_range == 'year')
+        return date('m/d/Y', mktime(0, 0, 0, date('m'), date('d'), date('Y') - 1));
 }
 
-$total_count = $healing_count + $provision_count + $salvation_count;
-
-// Make sure we aren't dividing by zero.
-if($total_count > 0) {
-    $healing_percentage = round($healing_count / $total_count * 100);
-    $provision_percentage = round($provision_count / $total_count * 100);
-    $salvation_percentage = round($salvation_count / $total_count * 100);
-} else {
-    $healing_percentage = 0;
-    $provision_percentage = 0;
-    $salvation_percentage = 0;
+/******************************************************************************
+* getEndDate right now returns the current date. Should be made to end at a
+* certain range.
+******************************************************************************/
+function getEndDate($date_range) {
+    return date('m/d/Y');
 }
 
 /******************************************************************************

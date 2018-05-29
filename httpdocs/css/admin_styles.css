@@ -79,29 +79,17 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-form {
-  max-width: 500px;
-  margin: 20px auto; }
-  form > div {
-    margin: 0 0 20px 0; }
-    form > div label {
-      font-weight: bold; }
-    form > div > div {
-      padding: 5px; }
-  form > h4 {
-    color: #3399FF;
-    font-size: 24px;
-    margin: 0 0 10px 0;
-    border-bottom: 2px solid #3399FF; }
+#date-range {
+  background-color: #f2f3f4; }
 
-button {
-  color: black;
-  background-color: white;
-  border-radius: 5px; }
+#date-table {
+  display: table;
+  table-layout: relative;
+  align: center;
+  margin: 0 auto; }
 
-#myCanvas {
-  float: right;
-  padding: 10px; }
+.table-cell {
+  display: table-cell; }
 
 #percentages {
   float: right;
@@ -153,8 +141,14 @@ td {
     transform: scale(1);
     overflow: visible; }
 
+body {
+  font-size: 20px; }
+
+* {
+  box-sizing: border-box; }
+
 form {
-  max-width: 500px;
+  max-width: 600px;
   margin: 20px auto; }
   form > div {
     margin: 0 0 20px 0; }
@@ -168,11 +162,12 @@ form {
     margin: 0 0 10px 0;
     border-bottom: 2px solid #3399FF; }
 
-body {
-  font-size: 20px; }
-
-* {
-  box-sizing: border-box; }
+button {
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  margin: 0 33%;
+  width: 25%; }
 
 /* ==========================================================================
    Helper classes

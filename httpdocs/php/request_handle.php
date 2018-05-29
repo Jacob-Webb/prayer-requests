@@ -19,7 +19,8 @@ $email_to = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['email']);
 // $follow_up if contact requested, otherwise don't
 $request_contact = ($email_to == '') ? 0 : 1;
 $follow_up = $request_contact;
-
+$user_responded = 0;
+$prayer_answered = 0;
 $attend = (isset($_POST['attend'])) ? 1 : 0;
 $intercession = (isset($_POST['intercession'])) ? 1 : 0;
 $for_first_name = ($intercession) ? sanitize($_POST['for-first']) : $user_first_name;

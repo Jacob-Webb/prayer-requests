@@ -79,42 +79,32 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-   form {
-     max-width: 500px;
-     margin: 20px auto;
-     > div {
-       margin: 0 0 20px 0;
-       label {
-         font-weight: bold;
-       }
-       > div {
-         padding: 5px;
-       }
-     }
-     > h4 {
-       color: #3399FF;
-       font-size: 24px;
-       margin: 0 0 10px 0;
-       border-bottom: 2px solid #3399FF;
-     }
-   }
+//for- index.php
 
-   button {
-     color: black;
-     background-color: white;
-     //border: 1px;
-     border-radius: 5px;
-   }
+#date-range {
+    background-color: #f2f3f4;
+}
 
-   #myCanvas {
-       float: right;
-       padding: 10px;
-   }
+#date-table {
+    display:table;
+    table-layout: relative;
+    align: center;
+    margin: 0 auto;
+}
 
-   #percentages {
-       float: right;
-       padding: 10px;
-   }
+.table-cell {
+    display:table-cell;
+}
+
+.date-input {
+
+}
+
+
+#percentages {
+    float: right;
+    padding: 10px;
+}
 
 table {
     table-layout:relative;
@@ -174,8 +164,16 @@ td {
 
 }
 
+body {
+  font-size: 20px;
+}
+* {
+  box-sizing: border-box;
+}
+
+//for- follow_up_form.php
 form {
-  max-width: 500px;
+  max-width: 600px;
   margin: 20px auto;
   > div {
     margin: 0 0 20px 0;
@@ -194,13 +192,14 @@ form {
   }
 }
 
-body {
-  font-size: 20px;
+button {
+  color: black;
+  background-color: white;
+  //border: 1px;
+  border-radius: 5px;
+  margin: 0 33%;
+  width: 25%;
 }
-* {
-  box-sizing: border-box;
-}
-
 
 /* ==========================================================================
    Helper classes

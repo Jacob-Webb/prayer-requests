@@ -22,7 +22,7 @@ if($request->num_rows > 0) {
 <!-- Form should include: telephone number field, Radio button for testimony or still believing,
     Textarea for either praise report or prayer update, -->
 <head>
-    <title>The Rock Church and World Outreach Center Prayer Request</title>
+    <title>Rock Church Follow Up</title>
     <link rel="manifest" href="site.webmanifest">
 
     <!-- <link rel="stylesheet" href="css/normalize.css"> -->
@@ -32,8 +32,8 @@ if($request->num_rows > 0) {
 <body>
     <img class="logo" src="../img/New_rock_logo.jpg" alt="Rock Logo">
     <form id="follow_up_form" action="follow_up_handler.php" method="post">
-        <h4>
-            Hi <?php echo $name?> do you still need prayer for your request?
+        <h4 style="text-align: center">
+            Hey <?php echo $name?>, have you seen your prayer answered?
         </h4>
         <div class="form-check">
             <div id="radio-testimony">
@@ -53,14 +53,16 @@ if($request->num_rows > 0) {
                 <label for="prayer-answered-no">Not yet, I'm still believing.</label>
 
                 <div class="reveal-if-active">
-                    <labelfor="request-update">Prayer Update: </label>
+                    <label for="request-update">Prayer Update: </label>
                     <textarea class="require-if-active" cols="50" name="request-update" id="request-update" data-require-pair="#prayer-answered-no"></textarea>
                 </div> <!-- ./reveal-if-active -->
             </div> <!-- /.radio-update -->
         </div> <!-- /.form-check -->
 
-        <br />
-
+        <p style="text-align:center">
+            <strong>Want a phone call?
+            Let us know:</strong>
+        </p>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="request-contact" id="request-contact" value="request-contact">
             <label class="form-check-label" for="request-contact">I'd like a phone call</label>
@@ -74,6 +76,7 @@ if($request->num_rows > 0) {
                 </div> <!-- /.contact -->
             </div> <!-- /.reveal-if-active -->
         </div> <!-- /.form-check -->
+
         <!-- pass original prayer request's hash to the submitted page -->
         <input type="hidden" name="hash-value" value="<?php echo $hash ?>">
         <button type="submit">Send</button>
