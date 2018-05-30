@@ -91,6 +91,9 @@ textarea {
 .table-cell {
   display: table-cell; }
 
+.print-only {
+  display: none; }
+
 #percentages {
   float: right;
   padding: 10px; }
@@ -169,6 +172,18 @@ button {
   margin: 0 33%;
   width: 25%; }
 
+@media print {
+  .print-only {
+    display: table-cell; }
+
+  .web-only {
+    display: none; }
+
+  table, th, td {
+    border: 1px solid black; }
+
+  .chart-container {
+    display: none; } }
 /* ==========================================================================
    Helper classes
    ========================================================================== */

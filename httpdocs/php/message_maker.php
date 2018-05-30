@@ -114,9 +114,14 @@ function getFollowUpEmail($user, $hash) {
             If you're still believing for results, we'd like to get in touch with
             you to give you a little more support. <br /><br />";
 
-    $message .= '<a href="https://prayer.rock.church/admin/follow_up_form.php?hash=' .
-            $hash . '">Follow Up Info</a>';
-
+    if($_SERVER['SERVER_NAME'] == 'prayer-rock-church') {
+        $message .= '<a href="prayer-rock-church/admin/follow_up_form.php?hash=' .
+                $hash . '">Follow Up Info</a>';
+    } elseif($_SERVER['SERVER_NAME']) {
+        $message .= '<a href="https://prayer.rock.church/admin/follow_up_form.php?hash=' .
+                $hash . '">Follow Up Info</a>';
+    }
+    
     return $message;
 }
 ?>

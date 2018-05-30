@@ -16,6 +16,7 @@ $prayer_update = sanitize($_POST['request-update']);
 
 $phone = sanitize($_POST['phone-num']);
 
+echo $testimony;
 
 //get the original prayer request's hash value to retrieve the request from the db
 $hash_value = $_POST['hash-value'];

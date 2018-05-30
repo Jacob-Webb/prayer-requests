@@ -38,7 +38,7 @@ $table_values = array('hash', 'user_first_name', 'user_last_name', 'attending',
 * @return string $begin_date
 ******************************************************************************/
 function getBeginDate($date_range) {
-    // the default range will be one week 
+    // the default range will be one week
     if($date_range == 'week' || $date_range == '')
         return date('m/d/Y', mktime(0, 0, 0, date('m'), date('d') - 6, date('Y')));
     if($date_range == 'two-weeks')
@@ -59,6 +59,8 @@ function getEndDate($date_range) {
 
 /******************************************************************************
 * displayTableHeader displays the Table name and information labels.
+* print-only is the information to be displayed for printing.
+* web-only is the information to be displayed on web page.
 * @param string $prayer_category is the category of prayer request for the table
 * @return void
 ******************************************************************************/
@@ -70,9 +72,12 @@ function displayTableHeader($prayer_category) {
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Follow Up</th>
-            <th>Prayer Status</th>
-            <th>Prayer Information</th>
+            <th class='print-only'>Attends</th>
+            <th class='print-only'>Prayer Request</th>
+            <th class='print-only'>Testimony</th>
+            <th class='web-only'>Follow Up</th>
+            <th class='web-only'>Prayer Status</th>
+            <th class='web-only'>Prayer Information</th>
         </tr>";
 }
 
@@ -94,12 +99,13 @@ function displayModalBody($prayer_request) {
     $phone = ($prayer_request['phone']) ? $prayer_request['phone'] : "None Given";
     $email = ($prayer_request['email']) ? $prayer_request['email'] : "None Given";
 
-    $prayer_request = $prayer_request['prayer_request'];
+    $request = $prayer_request['prayer_request'];
     $update = $prayer_request['update_request'];
     $testimony = $prayer_request['testimony'];
 
     // If the person marked the anonymous box and didn't mark the attending box
     // he/she may still attend
+
     if($first_name == "anonymous" && $attending == "No")
         $attending = "Unknown";
 
@@ -117,16 +123,16 @@ function displayModalBody($prayer_request) {
         <strong>Phone Number:</strong> " . $phone . "<br><br>
         <strong>Email:</strong> " . $email . "<br><br>";
 
-    $information .=
-        "<strong>Prayer Request:</strong> " . $prayer_request . "<br><br>";
+        $information .=
+        "<strong>Prayer Request:</strong> " . $request . "<br><br>";
 
-    if(strlen($update) > 1)
+    if($update)
         $information .=
             "<strong>Additional Prayer Info:</strong> " . $update . "<br><br>";
 
-    if(strlen($testimony) > 1)
-        $information .=
-            "<strong>Testimony:</strong> " . $testimony . "<br><br>";
+    if($testimony)
+        $information .= "<strong>Testimony:</strong> " . $testimony . "<br><br>";
+
 
     return $information;
 }
@@ -156,7 +162,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             $user_responded = $prayer_array[$index]['user_responded'];
             $prayer_answered = $prayer_array[$index]['prayer_answered'];
             $update = $prayer_array[$index]['update_request'];
-            $testimony = $prayer_array[$index]['testimony'];
+            $testimony = ($prayer_array[$index]['testimony']) ? $prayer_array[$index]['testimony'] : "No testimony yet";
 
             // set follow_up status as:
             //   not sent: waiting
@@ -179,14 +185,18 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                 $answered = "Unanswered";
             }
 
-            // display the info for each request in a given category
             echo
+                //display info on the website only. The modal will give additional information
+                // on the dashboard.
                 "<tr>" .
                     "<td>" . $first_name . "</td>".
                     "<td>" . $last_name . "</td>" .
-                    "<td>" . $follow_up_status . "</td>" .
-                    "<td>" . $answered . "</td>" .
-                    "<td>
+                    "<td class='print-only'>" . $attending . "</td>" .
+                    "<td class='print-only'>" . $prayer_request . "</td>" .
+                    "<td class='print-only'>" . $testimony . "</td>" .
+                    "<td class='web-only'>" . $follow_up_status . "</td>" .
+                    "<td class='web-only'>" . $answered . "</td>" .
+                    "<td class='web-only'>
                         <button type='button'class='btn btn-primary' data-toggle='modal' data-target='#". $hash ."Modal'>
                         See More</button>
 
@@ -194,14 +204,13 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                             <div class='modal-dialog' role='document'>
                                 <div class='modal-content'>
                                     <div class='modal-header'>
-                                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
                                         <h4 class='modal-title'>Prayer Request: " . $first_name . "</h4>
                                     </div>
                                     <div class='modal-body'>" .
                                         displayModalBody($prayer_array[$index]) .
                                     "</div> <!-- /.modal-body -->
                                     <div class='modal-footer'>
-
+                                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                     </div> <!-- /.modal-footer -->
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
