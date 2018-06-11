@@ -118,7 +118,8 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
             $max = $count;
         }
     }
-    if($count > 2) {
+
+    if($max > 2) {
         echo "<h4 style=color:red>There are multiple requests from: <br>";
         foreach($name_count as $key => $value) {
             if(($key != "") && ($value > 2)) {
