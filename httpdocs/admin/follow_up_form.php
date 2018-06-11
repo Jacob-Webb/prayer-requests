@@ -39,7 +39,7 @@ if($request->num_rows > 0) {
             <div id="radio-testimony">
                 <input class="form-check-input" type="radio" name="prayer-answered"
                     id="prayer-answered-yes" value="yes" required>
-                <label for="prayer-answered-yes">Yes, praise God, my prayer was answered</label>
+                <label for="prayer-answered-yes">Yes, praise God, my prayer was answered.</label>
 
                 <div class="reveal-if-active">
                     <label for="testimony">Testimony: </label>
@@ -59,13 +59,13 @@ if($request->num_rows > 0) {
             </div> <!-- /.radio-update -->
         </div> <!-- /.form-check -->
 
-        <p style="text-align:center">
+        <p>
             <strong>Want a phone call?
             Let us know:</strong>
         </p>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="request-contact" id="request-contact" value="request-contact">
-            <label class="form-check-label" for="request-contact">I'd like a phone call</label>
+            <label class="form-check-label" for="request-contact">I'd like a phone call.</label>
 
             <div class="reveal-if-active">
                 <div id="contact">

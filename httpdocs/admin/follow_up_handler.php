@@ -16,8 +16,6 @@ $prayer_update = sanitize($_POST['request-update']);
 
 $phone = sanitize($_POST['phone-num']);
 
-echo $testimony;
-
 //get the original prayer request's hash value to retrieve the request from the db
 $hash_value = $_POST['hash-value'];
 
@@ -44,6 +42,6 @@ $follow_up_result = $mysqli->query($follow_up_query) or die ("Query failed: " . 
 ?>
 <html>
 <body>
-    <h4 style="margin: 0 33%">Thanks for following up with us!</h4>
+    <h4>Thanks for following up with us!</h4>
 </body>
 </html>

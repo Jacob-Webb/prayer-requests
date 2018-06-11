@@ -29,73 +29,69 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
     </h2>
     </form>
 
-<?php
+    <?php
 
-//pull any prayer requests withing these ranges
-$begin_date_range = getBeginDate($date_select);
-$end_date_range = getEndDate($date_select);
+    //pull any prayer requests withing these ranges
+    $begin_date_range = getBeginDate($date_select);
+    $end_date_range = getEndDate($date_select);
 
-//get all of the information from the database that we'll need to use
-if($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        //If the request was made within the date ranges, add to the prayer category arrays
-        $row_date_time = strtotime($row['prayer_timestamp']);
-        if($row_date_time >= strtotime($begin_date_range)){
-            //group all "healing" prayers in an array
-            if($row["category"] == "physical") {
-                foreach($table_values as $column) {
-                    $healing_prayers[$healing_count][$column] = $row[$column];
+
+    $prayer_count = 0;
+    //get all of the information from the database that we'll need to use
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            //If the request was made within the date ranges, add to the prayer category arrays
+            $row_date_time = strtotime($row['prayer_timestamp']);
+            if($row_date_time >= strtotime($begin_date_range)){
+                //Check for multiple prayers from the same person
+                //check the row's first name if it's not in the array add it, if it is in the array increase the count
+                if (array_key_exists($row['email'], $name_count)) {
+                    ++$name_count[$row['email']];
+                } else {
+                    $name_count[$row['email']] = 1;
                 }
-                ++$healing_count;
-            }
-            //group all "provision" prayers in an array
-            elseif($row["category"] == "provision") {
-                foreach($table_values as $column) {
-                    $provision_prayers[$provision_count][$column] = $row[$column];
+
+                //group all "healing" prayers in an array
+                if($row["category"] == "physical") {
+                    foreach($table_values as $column) {
+                        $healing_prayers[$healing_count][$column] = $row[$column];
+                    }
+                    ++$healing_count;
                 }
-                ++$provision_count;
-            }
-            //group all "salvation" prayers in an array
-            elseif($row["category"] == "salvation") {
-                foreach($table_values as $column) {
-                    $salvation_prayers[$salvation_count][$column] = $row[$column];
+                //group all "provision" prayers in an array
+                elseif($row["category"] == "provision") {
+                    foreach($table_values as $column) {
+                        $provision_prayers[$provision_count][$column] = $row[$column];
+                    }
+                    ++$provision_count;
                 }
-                ++$salvation_count;
+                //group all "salvation" prayers in an array
+                elseif($row["category"] == "salvation") {
+                    foreach($table_values as $column) {
+                        $salvation_prayers[$salvation_count][$column] = $row[$column];
+                    }
+                    ++$salvation_count;
+                }
             }
         }
+    } else {
+        echo "0 results";
     }
-} else {
-    echo "0 results";
-}
 
-$total_count = $healing_count + $provision_count + $salvation_count;
+    $total_count = $healing_count + $provision_count + $salvation_count;
 
-// Make sure we aren't dividing by zero.
-if($total_count > 0) {
-    $healing_percentage = round($healing_count / $total_count * 100);
-    $provision_percentage = round($provision_count / $total_count * 100);
-    $salvation_percentage = round($salvation_count / $total_count * 100);
-} else {
-    $healing_percentage = 0;
-    $provision_percentage = 0;
-    $salvation_percentage = 0;
-}
-?>
-<?php
-/*
-    <div id='date-table'>
-        <div class='table-cell'>
-            <!--<label for='begin-date'>Begin: </label>-->
-            <input type='date' class='date-input' id='begin-date' name='begin-date'>
-        </div> <!-- /.table-cell -->
-        <h4 style='margin: 0 10px'>To</h4>
-        <div class='table-cell'>
-            <!--<label for='end-date'>End: </label>-->
-            <input type='date' class='date-input' id='end-date' name='end-date'>
-        </div> <!-- /.table-cell -->
-    </div> <!-- /.date-table -->
-*/
-?>
+    // Make sure we aren't dividing by zero.
+    if($total_count > 0) {
+        $healing_percentage = round($healing_count / $total_count * 100);
+        $provision_percentage = round($provision_count / $total_count * 100);
+        $salvation_percentage = round($salvation_count / $total_count * 100);
+    } else {
+        $healing_percentage = 0;
+        $provision_percentage = 0;
+        $salvation_percentage = 0;
+    }
+    ?>
+
     <h4 align="center"><?php echo $begin_date_range . " - " . $end_date_range ?></h4>
 
     <h3 style="float: left"><?php echo $total_count . "<br />" . "Requests" ?></h3>
@@ -114,6 +110,16 @@ if($total_count > 0) {
 
     <br />
     <br />
+
+    <?php
+    echo "<h4 style=color:red>There are multiple requests from: <br>";
+    foreach($name_count as $key => $value) {
+        if(($key != "") && ($value > 2)) {
+            echo $key . "<br>";
+        }
+    }
+    echo "Please ensure that they are contacted.</h4>";
+    ?>
 
     <!--
     Creates a table for all of the information for healing prayers

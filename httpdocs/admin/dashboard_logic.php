@@ -18,6 +18,10 @@ $healing_prayers = array();
 $provision_prayers = array();
 $salvation_prayers = array();
 
+//keep track of the number of times a name is found in prayer request table
+$name_count = array();
+$flag_name = array();
+
 //keep track of prayers in category for a given time period
 $healing_count = 0;
 $provision_count = 0;
