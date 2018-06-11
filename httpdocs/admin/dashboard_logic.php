@@ -7,9 +7,8 @@ require_once('../php/server_info.php');
 
 $q = "SELECT hash, user_first_name, user_last_name, attending, intercession,
         for_first_name, for_last_name, request_contact, phone, email, category,
-        prayer_request, prayer_timestamp, follow_up, user_responded, prayer_answered,
-        update_request, testimony
-        FROM web_form";
+        prayer_request, prayer_timestamp, follow_up, email_sent, user_responded,
+        prayer_answered, update_request, testimony FROM web_form";
 
 $result = $mysqli->query($q);
 
@@ -32,8 +31,8 @@ $total_count = 0;
 $table_values = array('hash', 'user_first_name', 'user_last_name', 'attending',
                       'intercession', 'for_first_name', 'for_last_name',
                       'request_contact', 'phone', 'email', 'category',
-                      'prayer_request', 'prayer_timestamp', 'follow_up', 'user_responded',
-                      'prayer_answered', 'update_request', 'testimony');
+                      'prayer_request', 'prayer_timestamp', 'follow_up', 'email_sent',
+                      'user_responded', 'prayer_answered', 'update_request', 'testimony');
 
 /******************************************************************************
 * getBeginDate returns a date that is a certain time before the current date.
@@ -163,6 +162,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             //$category = $prayer_array[$index]['category'];
             $prayer_request = $prayer_array[$index]['prayer_request'];
             $follow_up = $prayer_array[$index]['follow_up'];
+            $email_sent = $prayer_array[$index]['email_sent'];
             $user_responded = $prayer_array[$index]['user_responded'];
             $prayer_answered = $prayer_array[$index]['prayer_answered'];
             $update = $prayer_array[$index]['update_request'];
@@ -172,10 +172,10 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             //   not sent: waiting
             //   sent, not responded to: pending
             //   sent, responded to: responded
-            if($prayer_array[$index]['follow_up'] == 0) {
+            if($email_sent == 0) {
                 $follow_up_status = "Waiting";
             } else {
-                if($prayer_array[$index]['has_responded'] == 0) {
+                if($prayer_array[$index]['user_responded'] == 0) {
                     $follow_up_status = "Pending";
                 } else {
                     $follow_up_status = "Responded";

@@ -19,6 +19,7 @@ $email_to = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['email']);
 // $follow_up if contact requested, otherwise don't
 $request_contact = ($email_to == '') ? 0 : 1;
 $follow_up = $request_contact;
+$email_sent = 0;
 $user_responded = 0;
 $prayer_answered = 0;
 $attend = (isset($_POST['attend'])) ? 1 : 0;
@@ -32,10 +33,10 @@ $time = date("Y:m:d H:i:s");
 //attempt to transfer variables to database
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
         for_first_name, for_last_name, request_contact, email, category,
-        prayer_request, prayer_timestamp, follow_up)
+        prayer_request, prayer_timestamp, follow_up, email_sent, user_responded, prayer_answered)
         VALUES ('$user_first_name', '$user_last_name', '$attend', '$intercession',
         '$for_first_name', '$for_last_name', '$request_contact', '$email_to',
-        '$prayer_category', '$request', '$time', '$follow_up')";
+        '$prayer_category', '$request', '$time', '$follow_up', '$email_sent', '$user_responded', '$prayer_answered')";
 
 $result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
 

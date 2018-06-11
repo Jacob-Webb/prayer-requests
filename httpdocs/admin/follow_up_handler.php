@@ -23,13 +23,13 @@ $hash_value = $_POST['hash-value'];
 // only attempt to add information if it exists
 if($phone && $testimony) {
     $follow_up_query = "UPDATE web_form SET phone='$phone',
-        testimony='$testimony', user_responded=1 WHERE hash='$hash_value'";
+        testimony='$testimony', user_responded=1, prayer_answered=1 WHERE hash='$hash_value'";
 } elseif($phone && $prayer_update) {
     $follow_up_query = "UPDATE web_form SET phone='$phone',
         update_request='$prayer_update', user_responded=1 WHERE hash='$hash_value'";
 } elseif(!$phone && $testimony) {
-    $follow_up_query = "UPDATE web_form SET testimony='$testimony', user_responded=1
-        WHERE hash='$hash_value'";
+    $follow_up_query = "UPDATE web_form SET testimony='$testimony', user_responded=1,
+        prayer_answered=1 WHERE hash='$hash_value'";
 } elseif(!$phone && $prayer_update) {
     $follow_up_query = "UPDATE web_form SET update_request='$prayer_update',
     user_responded=1 WHERE hash='$hash_value'";
