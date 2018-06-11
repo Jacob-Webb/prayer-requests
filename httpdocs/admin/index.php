@@ -112,13 +112,22 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
     <br />
 
     <?php
-    echo "<h4 style=color:red>There are multiple requests from: <br>";
-    foreach($name_count as $key => $value) {
-        if(($key != "") && ($value > 2)) {
-            echo $key . "<br>";
+    $max = 0;
+    foreach($name_count as $count) {
+        if($count > $max) {
+            $max = $count;
         }
     }
-    echo "Please ensure that they are contacted.</h4>";
+    if($count > 2) {
+        echo "<h4 style=color:red>There are multiple requests from: <br>";
+        foreach($name_count as $key => $value) {
+            if(($key != "") && ($value > 2)) {
+                echo $key . "<br>";
+            }
+        }
+        echo "Please ensure that they are contacted.</h4>";
+    }
+
     ?>
 
     <!--
