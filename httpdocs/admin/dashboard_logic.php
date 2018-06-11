@@ -212,6 +212,8 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                                     </div>
                                     <div class='modal-body'>" .
                                         displayModalBody($prayer_array[$index]) .
+                                        "<a href=https://prayer.rock.church/admin/follow_up_form.php?hash=" .
+                                                $hash . ">Add Info</a>" .
                                     "</div> <!-- /.modal-body -->
                                     <div class='modal-footer'>
                                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
