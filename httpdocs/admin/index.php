@@ -1,6 +1,7 @@
 <?php
 require "dashboard_logic.php";
 
+// Get the date range passed to this page and set the date_select variable
 $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
 ?>
 <html>
@@ -10,9 +11,16 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
     <link rel="stylesheet" href="../css/admin_styles.css">
 </head>
 <body>
+
+    <!-- Button to allow the administrator to fill out a prayer request -->
+    <button style="margin:0 auto; float:right" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRequest">
+        New Prayer Request
+    </button>
+
     <!-- send parameter from form to this page -->
     <form name="dashboard-form" action="index.php">
-    <h2 align="center">Prayer Requests
+
+    <h2 align="center" style="margin:20px 33%">Prayer Requests
         <!-- The parentNode property returns the parent node of the specified
             node, as a Node object.
             Note: In HTML, the document itself is the parent node of the HTML
@@ -31,7 +39,7 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
 
     <?php
 
-    //pull any prayer requests withing these ranges
+    //pull any prayer requests within these ranges
     $begin_date_range = getBeginDate($date_select);
     $end_date_range = getEndDate($date_select);
 
@@ -75,7 +83,7 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
             }
         }
     } else {
-        echo "0 results";
+        //echo "0 results";
     }
 
     $total_count = $healing_count + $provision_count + $salvation_count;
@@ -108,10 +116,96 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
         <canvas id="my_chart"></canvas>
     </div> <!-- closes chart-container -->
 
+    <div class="modal fade" id="addRequest" tabindex="1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Prayer Request</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="admin-request-form" action="../php/request_handle.php" method="post">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="anonymous">
+                            <label class="form-check-label" for="anonymous">This prayer is anonymous</label>
+
+                            <div class="hide-if-active">
+                                <div id="user-info">
+                                    <label class="sr-only" for="user-first">First Name: </label>
+                                    <input class="require-if-inactive" type="text" name="user-first" id="user-first"
+                                        placeholder="First Name" tabindex="1" data-require-pair="#anonymous">
+
+                                    <label class="sr-only" for="user-last">Last Name: </label>
+                                    <input class="require-if-inactive" type="text" name="user-last" id="user-last"
+                                        placeholder="Last Name" tabindex="1" data-require-pair="#anonymous">
+
+                                    <label class="sr-only" for="email">Email Address: </label>
+                                    <input class="require-if-inactive" type="email" id="email" name="email"
+                                        placeholder="Email" tabindex="1" data-require-pair="#anonymous">
+
+                                    <label class="sr-only" for="phone">Phone Number: </label>
+                                    <input class="require-if-inactive" type="phone" id="phone" name="phone"
+                                        placeholder="Phone" tabindex="1" data-require-pair="#anonymous">
+                                </div> <!-- /.user-info -->
+                            </div> <!-- /.hide-if-active -->
+                            <div class="reveal-if-active">
+                                <p>Personal and contact information will not be stored if "anonymous" is checked.</p>
+                            </div> <!-- /.reveal-if-active -->
+                        </div> <!-- form-check -->
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
+                            <label class="form-check-label" for="attend">This person attends The Rock Church</label>
+                        </div> <!-- /.form-check -->
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
+                            <label class="form-check-label" for="intercession">This prayer is for someone else </label>
+
+                            <div class="reveal-if-active">
+                                <div class="col" id="recipient-name">
+                                    <label class="sr-only" for="for-first">First Name: </label>
+                                    <input class="require-if-active" type="text" name="for-first" id="for-first"
+                                        placeholder="First Name" tabindex="1" data-require-pair="#intercession">
+
+                                    <label class="sr-only" for="for-last">Last Name: </label>
+                                    <input class="require-if-active" type="text" name="for-last" id="for-last"
+                                        placeholder="Last Name" tabindex="1" data-require-pair="#intercession">
+                                </div> <!-- /.recipient-name -->
+                            </div> <!-- /.reveal-if-active -->
+                        </div> <!-- form-check -->
+
+                        <div class="form-group">
+                            <label class="sr-only" for="category">Category:</label>
+                            <select class="custom-select custom-select-sm" name="category" id="category">
+                                <option value="physical">Healing</option><!-- change to "healing" -->
+                                <option value="provision">Provision</option>
+                                <option value="salvation">Salvation</option>
+                            </select>
+                        </div> <!-- /.form-group -->
+
+                        <div class="form-group">
+                            <label class="sr-only" for="prayer-request">Request:</label>
+                            <textarea class="form-control" name="prayer-request" id="prayer-request" placeholder="Your Prayer Here" rows="5" required></textarea>
+                        </div> <!-- /.form-group -->
+
+                </div> <!-- /.modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="hash-value" value="<?php echo $hash ?>">
+                    <!-- Pass is-admin=True when a prayer request is being added through the dashboard -->
+                    <input type="hidden" name="is-admin" value="True">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div> <!-- /.modal-footer -->
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <br />
     <br />
 
     <?php
+    /* created for Dr. Zemoudeh. Keeps track of user's email. If email occurs more
+        than 2 times, alert the administrator
     $max = 0;
     foreach($name_count as $count) {
         if($count > $max) {
@@ -128,7 +222,7 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
         }
         echo "Please ensure that they are contacted.</h4>";
     }
-
+    */
     ?>
 
     <!--
@@ -176,5 +270,6 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
     <script src="../js/piechart.js"></script>
     <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
+
 </body>
 </html>

@@ -75,6 +75,7 @@ function displayTableHeader($prayer_category) {
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th class='print-only'>Phone</th>
             <th class='print-only'>Attends</th>
             <th class='print-only'>Prayer Request</th>
             <th class='print-only'>Testimony</th>
@@ -155,6 +156,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             $hash = $prayer_array[$index]['hash'];
             $first_name = ($prayer_array[$index]['user_first_name'] == "") ? "anonymous" : $prayer_array[$index]['user_first_name'];
             $last_name = $prayer_array[$index]['user_last_name'];
+            $phone = $prayer_array[$index]['phone'];
             $attending = ($prayer_array[$index]['attending'] == 1) ? "Yes" : "No";
             $intercession = ($prayer_array[$index]['intercession'] == 1) ? "Yes" : "No";
             $for_first = $prayer_array[$index]['for_first_name'];
@@ -195,6 +197,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                 "<tr>" .
                     "<td>" . $first_name . "</td>".
                     "<td>" . $last_name . "</td>" .
+                    "<td class='print-only'>" . $phone . "</td>" .
                     "<td class='print-only'>" . $attending . "</td>" .
                     "<td class='print-only'>" . $prayer_request . "</td>" .
                     "<td class='print-only'>" . $testimony . "</td>" .
@@ -213,10 +216,10 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                                     <div class='modal-body'>" .
                                         displayModalBody($prayer_array[$index]) .
                                         "<a href=https://prayer.rock.church/admin/follow_up_form.php?hash=" .
-                                                $hash . ">Add Info</a>" .
+                                                $hash . ">Update Request</a>" .
                                     "</div> <!-- /.modal-body -->
                                     <div class='modal-footer'>
-                                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                                        <button type='button' class='btn btn-default' data-dismiss='modal' style='margin:0 36%'>Close</button>
                                     </div> <!-- /.modal-footer -->
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->

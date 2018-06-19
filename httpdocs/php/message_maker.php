@@ -10,15 +10,15 @@
 * getConfirmationMessage creates the message displayed on the confirmation page.
 * It's contents will be determined by attendance and intercession variables
 *******************************************************************************/
-function getConfirmationMessage($user, $attend, $intercession, $recipient) {
+function getConfirmationMessage($user, $other_person, $attend, $intercession, $recipient) {
 
     // These are messages to add to the confirmation page depending on whether
     // or not the person is praying for someone else
     if($user) {
-        $intercession_message = "$user, thank you so much for the prayer
-                request for $recipient.";
-        $intercession_message .= "<br />\r\nThe Rock Church's pastors
-                will be praying and believeing with you for $recipient!";
+        $intercession_message = "$user, we have received the prayer request for $other_person. <br />
+            The Rock Church is honored to come along side to pray and believe with you. <br />
+            We would also like to extend and invitation, to come to the altar after any service for additional prayer. <br />
+            As it is written in Matthew 18:20, \"For where two or three are gathered together in My name, I am there in the midst of them.\"";
 
         $non_intercession_message = "$user, we're so glad that you reached out to us!";
         $non_intercession_message .= "<br />\r\nPastors at the Rock Church will
@@ -121,7 +121,7 @@ function getFollowUpEmail($user, $hash) {
         $message .= '<a href="https://prayer.rock.church/admin/follow_up_form.php?hash=' .
                 $hash . '">Follow Up Info</a>';
     }
-    
+
     return $message;
 }
 ?>

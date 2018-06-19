@@ -37,7 +37,9 @@ if($phone && $testimony) {
 
 $follow_up_result = $mysqli->query($follow_up_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $follow_up_query);
 
-
+// Manaully set the follow up variable in case the administrator has bypassed the follow up email to update the request 
+$set_follow_up = "UPDATE web_form SET follow_up=0 WHERE hash='$hash_value'";
+$set_result = $mysqli->query($set_follow_up) or die ("Query failed: " . $mysqli->error . " Actual query: " . $set_follow_up);
 
 ?>
 <html>

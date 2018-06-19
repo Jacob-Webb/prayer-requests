@@ -122,6 +122,8 @@ td {
   white-space: nowrap; }
 
 .logo {
+  height: 10%;
+  width: 33%;
   margin: 0 33%;
   opacity: 0.7; }
 
@@ -142,26 +144,38 @@ td {
     transform: scale(1);
     overflow: visible; }
 
+.hide-if-active {
+  opacity: 1;
+  max-height: 100px;
+  overflow: visible;
+  transform: scale(1);
+  transition: 0.5s; }
+  input[type="radio"]:checked ~ .hide-if-active, input[type="checkbox"]:checked ~ .hide-if-active {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: scale(0.8); }
+
 body {
   font-size: 20px; }
 
 * {
   box-sizing: border-box; }
 
-form {
+#follow_up_form {
   max-width: 600px;
   margin: 20px auto; }
-  form > div {
+  #follow_up_form > div {
     margin: 0 0 20px 0; }
-    form > div label {
+    #follow_up_form > div label {
       font-weight: bold; }
-    form > div > div {
+    #follow_up_form > div > div {
       padding: 5px; }
-  form > h4 {
-    color: #3399FF;
+  #follow_up_form > h4 {
+    color: black;
     font-size: 24px;
     margin: 0 0 10px 0;
-    border-bottom: 2px solid #3399FF; }
+    border-bottom: 2px solid black; }
 
 button {
   color: black;

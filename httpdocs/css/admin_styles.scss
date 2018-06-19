@@ -167,6 +167,22 @@ td {
 
 }
 
+.hide-if-active {
+opacity: 1;
+max-height: 100px;
+overflow: visible;
+//padding: 10px 20px;
+transform: scale(1);
+transition: 0.5s;
+input[type="radio"]:checked ~ &,
+input[type="checkbox"]:checked ~ & {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: scale(0.8);
+}
+}
+
 body {
   font-size: 20px;
 }
@@ -175,7 +191,7 @@ body {
 }
 
 //for- follow_up_form.php
-form {
+#follow_up_form {
   max-width: 600px;
   margin: 20px auto;
   > div {
@@ -188,12 +204,13 @@ form {
     }
   }
   > h4 {
-    color: #3399FF;
+    color: black;
     font-size: 24px;
     margin: 0 0 10px 0;
-    border-bottom: 2px solid #3399FF;
+    border-bottom: 2px solid black;
   }
 }
+
 
 button {
   color: black;
