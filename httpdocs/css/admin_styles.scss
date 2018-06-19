@@ -229,6 +229,14 @@ button {
         display:none;
     }
 
+    button {
+        display:none !important;
+    }
+
+    #addRequest {
+        display:none;
+    }
+
     table, th, td {
         border: 1px solid black;
     }
