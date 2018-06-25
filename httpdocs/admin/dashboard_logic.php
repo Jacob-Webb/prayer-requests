@@ -50,6 +50,10 @@ function getBeginDate($date_range) {
         return date('m/d/Y', mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')));
     if($date_range == 'year')
         return date('m/d/Y', mktime(0, 0, 0, date('m'), date('d'), date('Y') - 1));
+    //Html date tag requires 'Y-m-d' format. Displays 'm/d/Y'
+    if($date_range == 'range') {
+        return date('Y-m-d');
+    }
 }
 
 /******************************************************************************
@@ -57,6 +61,10 @@ function getBeginDate($date_range) {
 * certain range.
 ******************************************************************************/
 function getEndDate($date_range) {
+    if($date_range == 'range') {
+        //Html date tag requires 'Y-m-d' format. Displays 'm/d/Y'
+        return date('Y-m-d');
+    }
     return date('m/d/Y');
 }
 
@@ -106,6 +114,7 @@ function displayModalBody($prayer_request) {
     $request = $prayer_request['prayer_request'];
     $update = $prayer_request['update_request'];
     $testimony = $prayer_request['testimony'];
+    $date_of_prayer = date('m/d/Y', strtotime($prayer_request['prayer_timestamp']));
 
     // If the person marked the anonymous box and didn't mark the attending box
     // he/she may still attend
@@ -114,7 +123,8 @@ function displayModalBody($prayer_request) {
         $attending = "Unknown";
 
     $information =
-        "<strong>Attends:</strong> " . $attending . "<br><br>
+        "<strong>Date:</strong>" . $date_of_prayer . "<br><br>
+        <strong>Attends:</strong> " . $attending . "<br><br>
         <strong>For Someone Else:</strong> " . $intercession . "<br><br>";
 
     if($intercession == "Yes") {
@@ -156,6 +166,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             $hash = $prayer_array[$index]['hash'];
             $first_name = ($prayer_array[$index]['user_first_name'] == "") ? "anonymous" : $prayer_array[$index]['user_first_name'];
             $last_name = $prayer_array[$index]['user_last_name'];
+            $request_contact = $prayer_array[$index]['request_contact'];
             $phone = $prayer_array[$index]['phone'];
             $attending = ($prayer_array[$index]['attending'] == 1) ? "Yes" : "No";
             $intercession = ($prayer_array[$index]['intercession'] == 1) ? "Yes" : "No";
@@ -174,7 +185,9 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             //   not sent: waiting
             //   sent, not responded to: pending
             //   sent, responded to: responded
-            if($email_sent == 0) {
+            if($request_contact == 0) {
+                $follow_up_status = "None Requested";
+            } elseif(($request_contact == 1) && ($email_sent == 0)) {
                 $follow_up_status = "Waiting";
             } else {
                 if($prayer_array[$index]['user_responded'] == 0) {
@@ -185,7 +198,9 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             }
 
             // set Prayer Status to "answered" if user_responded == 1, "no" otherwise
-            if($prayer_array[$index]['prayer_answered'] == 1) {
+            if($request_contact == 0) {
+                $answered = "";
+            } elseif($request_contact == 1 && $prayer_answered == 1) {
                 $answered = "Answered";
             } else {
                 $answered = "Unanswered";

@@ -2,7 +2,22 @@
 require "dashboard_logic.php";
 
 // Get the date range passed to this page and set the date_select variable
-$date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
+
+$given_start_date = isset($_GET['begin-date']) ? $_GET['begin-date'] : "";
+$given_end_date = isset($_GET['end-date']) ? $_GET['end-date'] : "";
+
+//If a beginning or ending date were given as parameters, the time period should be a range selection
+if($given_start_date || $given_end_date){
+    $time_period = 'range';
+    $begin_date = $given_start_date;
+    $end_date = $given_end_date;
+//Otherwise the time period will have been one of the other choices and the beginning and ending dates will reflect that
+} else {
+    $time_period = isset($_GET['date-range']) ? $_GET['date-range'] : "";
+    $begin_date = getBeginDate($time_period);
+    $end_date = getEndDate($time_period);
+}
+
 ?>
 <html>
 <head>
@@ -18,7 +33,7 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
     </button>
 
     <!-- send parameter from form to this page -->
-    <form name="dashboard-form" action="index.php">
+    <form name="date-picker-form" action="index.php">
 
     <h2 align="center" style="margin:20px 33%">Prayer Requests
         <!-- The parentNode property returns the parent node of the specified
@@ -27,22 +42,20 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
             element, HEAD and BODY are child nodes of the HTML element.
             Need to get parentNode.parentNode of this because it's wrapped in a body tag
             onchange calls the function when the select value is changed -->
-        <select name="date-range" id="date-range" onchange="this.parentNode.parentNode.submit()">
+        <select name="date-range" class="web-only" id="date-range" onchange="this.parentNode.parentNode.submit()">
             <!-- when the $select parameter is set to a value set the corresponding option to "selected" -->
-            <option value='week' <?php echo $date_select == "week" ? "selected" : "";?>>This Week</option>
-            <option value='two-weeks' <?php echo $date_select == "two-weeks" ? "selected" : "";?>>For Two Weeks</option>
-            <option value='month' <?php echo $date_select == "month" ? "selected" : "" ?>>This Month</option>
-            <option value='year' <?php echo $date_select == "year" ? "selected" : ""?>>This Year</option>
+            <option value='week' <?php echo $time_period == "week" ? "selected" : "";?>>This Week</option>
+            <option value='two-weeks' <?php echo $time_period == "two-weeks" ? "selected" : "";?>>For Two Weeks</option>
+            <option value='month' <?php echo $time_period == "month" ? "selected" : "" ?>>This Month</option>
+            <option value='year' <?php echo $time_period == "year" ? "selected" : ""?>>This Year</option>
+            <option value='range' <?php echo $time_period == "range" ? "selected" : ""?>>From</option>
         </select>
     </h2>
     </form>
 
     <?php
-
-    //pull any prayer requests within these ranges
-    $begin_date_range = getBeginDate($date_select);
-    $end_date_range = getEndDate($date_select);
-
+    //To get all of the requests up to $end_date we need to get the all prayers to 23:59 of that day
+    $day_after_end_date = date('Y-m-d',strtotime($end_date . "+1 days"));
 
     $prayer_count = 0;
     //get all of the information from the database that we'll need to use
@@ -50,15 +63,7 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
         while($row = $result->fetch_assoc()) {
             //If the request was made within the date ranges, add to the prayer category arrays
             $row_date_time = strtotime($row['prayer_timestamp']);
-            if($row_date_time >= strtotime($begin_date_range)){
-                //Check for multiple prayers from the same person
-                //check the row's first name if it's not in the array add it, if it is in the array increase the count
-                if (array_key_exists($row['email'], $name_count)) {
-                    ++$name_count[$row['email']];
-                } else {
-                    $name_count[$row['email']] = 1;
-                }
-
+            if($row_date_time >= strtotime($begin_date) && $row_date_time < strtotime($day_after_end_date)){
                 //group all "healing" prayers in an array
                 if($row["category"] == "physical") {
                     foreach($table_values as $column) {
@@ -83,7 +88,6 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
             }
         }
     } else {
-        //echo "0 results";
     }
 
     $total_count = $healing_count + $provision_count + $salvation_count;
@@ -98,9 +102,33 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
         $provision_percentage = 0;
         $salvation_percentage = 0;
     }
-    ?>
 
-    <h4 align="center"><?php echo $begin_date_range . " - " . $end_date_range ?></h4>
+    //Display the date selection ranges if the user chooses "From" for time_period
+    //Date tag takes a date as 'Y-m-d' and displays on Chrome as m/d/Y
+    $today = date("Y-m-d");
+    $implementation_date = "2018-01-01";
+    $print_only_begin_date = date('m/d/Y',strtotime($begin_date));
+    $print_only_end_date = date('m/d/Y', strtotime($end_date));
+    if($time_period == 'range') {
+        echo "<form name='date-range-form' action='index.php'>
+                <h4 class='web-only' align='center'>
+                    <input type='date' id='begin-date' name='begin-date' onchange='this.parentNode.parentNode.submit()'
+                        value='$begin_date'
+                        min='$implementation_date'
+                        max='$end_date'/>
+                    to
+                    <input type='date' id='end-date' name='end-date' onchange='this.parentNode.parentNode.submit()'
+                        value='$end_date'
+                        min='$begin_date'
+                        max='$today' />
+                </h4>
+                <h4 class='print-only-dates' align='center'>" . $print_only_begin_date . " - " . $print_only_end_date . "</h4>
+              </form>";
+    // Otherwise display the give beginning and ending date ranges
+    } else {
+        echo "<h4 align='center'>" . $begin_date . " - " . $end_date . "</h4>";
+    }
+?>
 
     <h3 style="float: left"><?php echo $total_count . "<br />" . "Requests" ?></h3>
 
@@ -202,28 +230,6 @@ $date_select = isset($_GET['date-range']) ? $_GET['date-range'] : "";
 
     <br />
     <br />
-
-    <?php
-    /* created for Dr. Zemoudeh. Keeps track of user's email. If email occurs more
-        than 2 times, alert the administrator
-    $max = 0;
-    foreach($name_count as $count) {
-        if($count > $max) {
-            $max = $count;
-        }
-    }
-
-    if($max > 2) {
-        echo "<h4 style=color:red>There are multiple requests from: <br>";
-        foreach($name_count as $key => $value) {
-            if(($key != "") && ($value > 2)) {
-                echo $key . "<br>";
-            }
-        }
-        echo "Please ensure that they are contacted.</h4>";
-    }
-    */
-    ?>
 
     <!--
     Creates a table for all of the information for healing prayers

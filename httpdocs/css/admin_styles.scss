@@ -79,8 +79,6 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-//for- index.php
-
 #date-range {
     background-color: #f2f3f4;
 }
@@ -94,14 +92,6 @@ textarea {
 
 .table-cell {
     display:table-cell;
-}
-
-.date-input {
-
-}
-
-.print-only {
-    display:none;
 }
 
 #percentages {
@@ -211,7 +201,6 @@ body {
   }
 }
 
-
 button {
   color: black;
   background-color: white;
@@ -221,9 +210,21 @@ button {
   width: 25%;
 }
 
+@media screen {
+    .print-only {
+        display:none;
+    }
+    .print-only-dates {
+        display:none;
+    }
+}
+
 @media print {
     .print-only {
         display:table-cell;
+    }
+    .print-only-dates {
+        display:run-in;
     }
     .web-only {
         display:none;

@@ -91,9 +91,6 @@ textarea {
 .table-cell {
   display: table-cell; }
 
-.print-only {
-  display: none; }
-
 #percentages {
   float: right;
   padding: 10px; }
@@ -184,9 +181,18 @@ button {
   margin: 0 33%;
   width: 25%; }
 
+@media screen {
+  .print-only {
+    display: none; }
+
+  .print-only-dates {
+    display: none; } }
 @media print {
   .print-only {
     display: table-cell; }
+
+  .print-only-dates {
+    display: run-in; }
 
   .web-only {
     display: none; }
