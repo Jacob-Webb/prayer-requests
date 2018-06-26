@@ -43,7 +43,7 @@ if($request->num_rows > 0) {
 
                 <div class="reveal-if-active">
                     <label for="testimony">Testimony: </label>
-                    <textarea class="require-if-active" cols="50" name="testimony" id="testimony" data-require-pair="#prayer-answered-yes"></textarea>
+                    <textarea class="require-if-active" cols="50" name="testimony" id="testimony" maxlength="300" data-require-pair="#prayer-answered-yes"></textarea>
                 </div> <!-- /.reveal-if-active -->
             </div> <!-- /.radio-testimony -->
 
@@ -54,7 +54,7 @@ if($request->num_rows > 0) {
 
                 <div class="reveal-if-active">
                     <label for="request-update">Prayer Update: </label>
-                    <textarea class="require-if-active" cols="50" name="request-update" id="request-update" data-require-pair="#prayer-answered-no"></textarea>
+                    <textarea class="require-if-active" cols="50" name="request-update" id="request-update" maxlength="300" data-require-pair="#prayer-answered-no"></textarea>
                 </div> <!-- ./reveal-if-active -->
             </div> <!-- /.radio-update -->
         </div> <!-- /.form-check -->
