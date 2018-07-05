@@ -15,58 +15,49 @@ function getConfirmationMessage($user, $other_person, $attend, $intercession, $r
     // These are messages to add to the confirmation page depending on whether
     // or not the person is praying for someone else
     if($user) {
-        $intercession_message = "$user, we have received the prayer request for $other_person. <br />
-            The Rock Church is honored to come along side to pray and believe with you. <br />
-            We would also like to extend and invitation, to come to the altar after any service for additional prayer. <br />
-            As it is written in Matthew 18:20, \"For where two or three are gathered together in My name, I am there in the midst of them.\"";
+        $intercession_message = "$user, we have received the prayer request for $other_person. <br />";
 
-        $non_intercession_message = "$user, we're so glad that you reached out to us!";
-        $non_intercession_message .= "<br />\r\nPastors at the Rock Church will
-                be praying for you. ";
-        $non_intercession_message .= "We believe that God wants to move in your
-                life AND that He's able to. ";
+        $non_intercession_message = "$user, we are so thankful that you reached out to us! <br />";
+
     } else {
-        $intercession_message = "Thank you so much for the prayer
-                request for $recipient.";
-        $intercession_message .= "<br />\r\nThe Rock Church's pastors
-                will be praying and believeing with you for $recipient!";
+        $intercession_message = "Thank you so much for the prayer request for $recipient. <br />";
 
-        $non_intercession_message = "We're so glad that you reached out to us!";
-        $non_intercession_message .= "<br />\r\nPastors at the Rock Church will
-                be praying for you. ";
-        $non_intercession_message .= "We believe that God wants to move in your
-                life AND that He's able to. ";
+        $non_intercession_message = "We're so glad that you reached out to us! <br />";
     }
 
+    $honored = "The Rock Church is honored to come along side you to pray and believe with you. <br />";
 
     // Concatenate one of these messages to the confirmation_message depending
     // on whether or not he/she attends the church
-    $attendee_invite = "<br />\r\nOur prayer teams are available after every
-            service and would love to pray with you about this too. See you
-            in church!";
-    $non_attendee_invite = "<br />\r\nIf you live in the area we'd love to
-            be able to pray with you in person.";
-    $non_attendee_invite .= "<br />\r\nWe have prayer teams available after
-            every service. Visit our website for church service times.";
+    $attendee_invite = "We would also like to extend and invitation to come to the altar after any service for additional prayer. <br />";
+    $non_attendee_invite = "We would also like to extend an invitation to come to any of our services where prayer teams are available to pray with you in person. <br />";
+    $non_attendee_invite .= "If you're not in the area, we would like to recommend that you find a church near you that will partner with you in prayer as well. <br />";
 
+    $matthew = "Matthew 18:20 says, \"For where tow or three are gathered in My name, I am there in the midst of them.\" <br />";
     // Build the message
     if($attend) {
         if($intercession) {
             $confirmation_message = $intercession_message;
+            $confirmation_message .= $honored;
             $confirmation_message .= $attendee_invite;
         } else {
             $confirmation_message = $non_intercession_message;
+            $confirmation_message .= $honored;
             $confirmation_message .= $attendee_invite;
         }
     } else {
         if($intercession) {
             $confirmation_message = $intercession_message;
+            $confirmation_message .= $honored;
             $confirmation_message .= $non_attendee_invite;
         } else {
             $confirmation_message = $non_intercession_message;
+            $confirmation_message .= $honored;
             $confirmation_message .= $non_attendee_invite;
         }
     }
+
+    $confirmation_message .= $matthew;
 
     return $confirmation_message;
 }
@@ -75,12 +66,6 @@ function getConfirmationMessage($user, $other_person, $attend, $intercession, $r
 * getConfirmationEmail creates a unique message to email based on the arguments.
 *******************************************************************************/
 function getConfirmationEmail($user, $attend, $intercession, $recipient) {
-    if($intercession) {
-        $person = $recipient;
-    } else {
-        $person = "you";
-    }
-
     if($attend) {
         $invite = "If you need someone to pray with you in person, we'd
                 love to pray with you at church!";
@@ -90,8 +75,15 @@ function getConfirmationEmail($user, $attend, $intercession, $recipient) {
                 address, service times, and online messages.";
     }
 
-    $message = "Hey, $user, we got your prayer request and we're going to be
-            praying for $person. <br />Don't give up! Keep believing and God'll answer. <br />";
+    $message = "We have received your prayer request and will be praying and believing with you and for you. <br />
+        We want to encourage you to not give up, come to church, stay in your Word and keep believing. <br />
+        Numbers 6:24-26 says, <br />
+        <blockquote>
+            <p>\"The LORD bless you and keep you; <br />
+            The LORD make His face shine upon you, and be gracious to you; <br />
+            The LORD lift up His countenance upon you and give you peace.\"
+            </p>
+        </blockquote>";
     $message .= $invite;
 
     return $message;
@@ -102,17 +94,10 @@ function getConfirmationEmail($user, $attend, $intercession, $recipient) {
 * number of days. Gets the users first name using the prayer's hash value
 *******************************************************************************/
 function getFollowUpEmail($user, $hash) {
-    $message =  "Hey, $user, we've been praying about your request and we wanted
-            to see how everything's going. <br>
-            We wanted to let you know that we're here if you'd like to talk to
-            someone about it. <br><br>
-
-            The link below will take you to a form that you can use to
-            let us know what's been going on. <br><br>
-
-            If you've had a breakthrough we'd love to read your testimony. <br>
-            If you're still believing for results, we'd like to get in touch with
-            you to give you a little more support. <br /><br />";
+    $message =  "Hey, $user, we've been praying about your request, and want to check in on your request. <br />
+        We have included a link below that will let you update your request or give a praise report. <br />
+        If you had a breakthrough we would love to hear about it and rejoice with you. <br />
+        If you are still believing we would like to contact you and pray with you. <br /><br />";
 
     if($_SERVER['SERVER_NAME'] == 'prayer-rock-church') {
         $message .= '<a href="prayer-rock-church/admin/follow_up_form.php?hash=' .

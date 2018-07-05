@@ -120,7 +120,8 @@ th {
 td {
     border-bottom: 1px solid black;
     margin: 0 auto;
-    text-align: center
+    text-align: center;
+
 }
 #firsttd {
     white-space: nowrap;
@@ -217,6 +218,10 @@ button {
     .print-only-dates {
         display:none;
     }
+
+    .request-data {
+        max-width:75px;
+    }
 }
 
 @media print {
@@ -234,9 +239,14 @@ button {
         display:none !important;
     }
 
+    .request-data {
+        max-width:150px;
+    }
+
     #addRequest {
         display:none;
     }
+
 
     table, th, td {
         border: 1px solid black;

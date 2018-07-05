@@ -84,12 +84,12 @@ function displayTableHeader($prayer_category) {
             <th>First Name</th>
             <th>Last Name</th>
             <th class='print-only'>Phone</th>
-            <th class='print-only'>Attends</th>
-            <th class='print-only'>Prayer Request</th>
+            <th class='print-only'>Attend</th>
+            <th>Prayer Request</th>
             <th class='print-only'>Testimony</th>
-            <th class='web-only'>Follow Up</th>
-            <th class='web-only'>Prayer Status</th>
-            <th class='web-only'>Prayer Information</th>
+            <th class='web-only'>Follow Up</th>" .
+            "<th class='web-only'>Prayer Answered</th>" .
+            "<th class='web-only'>Prayer Information</th>
         </tr>";
 }
 
@@ -124,7 +124,7 @@ function displayModalBody($prayer_request) {
 
     $information =
         "<strong>Date:</strong>" . $date_of_prayer . "<br><br>
-        <strong>Attends:</strong> " . $attending . "<br><br>
+        <strong>Attend:</strong> " . $attending . "<br><br>
         <strong>For Someone Else:</strong> " . $intercession . "<br><br>";
 
     if($intercession == "Yes") {
@@ -133,12 +133,14 @@ function displayModalBody($prayer_request) {
     }
 
     $information .=
-        "<strong>Requested Contact:</strong> " . $requested_contact . "<br><br>
-        <strong>Phone Number:</strong> " . $phone . "<br><br>
+        "<strong>Phone Number:</strong> " . $phone . "<br><br>
         <strong>Email:</strong> " . $email . "<br><br>";
 
-        $information .=
-        "<strong>Prayer Request:</strong> " . $request . "<br><br>";
+    /*
+    $information .=
+    "<strong>Requested Contact:</strong> " . $requested_contact . "<br><br>
+    <strong>Prayer Request:</strong> " . $request . "<br><br>";
+    */
 
     if($update)
         $information .=
@@ -198,12 +200,27 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             }
 
             // set Prayer Status to "answered" if user_responded == 1, "no" otherwise
+            //Also, change the color of the modal button depending on whether the prayer has been answered
             if($request_contact == 0) {
-                $answered = "";
+                $answered = "N/A";
+                //$tr_color="background-color:#3399FF";
             } elseif($request_contact == 1 && $prayer_answered == 1) {
-                $answered = "Answered";
+                $answered = "Yes";
+                //$tr_color="background-color:#19A319";
+                //$tr_color="background-color:#3399FF";
             } else {
-                $answered = "Unanswered";
+                $answered = "No";
+                //$tr_color="background-color:#FFFF66";
+            }
+
+            if($_SERVER['SERVER_NAME'] == 'prayer-rock-church') {
+                $link = '<a href="follow_up_form.php?hash=' .
+                        $hash . '">Update Request</a>';
+            } elseif ($_SERVER['SERVER_NAME'] == 'prayer.rock.church') {
+                $link = '<a href="https://prayer.rock.church/admin/follow_up_form.php?hash=' .
+                        $hash . '">Update Request</a>';
+            } else {
+                echo "no link";
             }
 
             echo
@@ -214,12 +231,12 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                     "<td>" . $last_name . "</td>" .
                     "<td class='print-only'>" . $phone . "</td>" .
                     "<td class='print-only'>" . $attending . "</td>" .
-                    "<td class='print-only'>" . $prayer_request . "</td>" .
-                    "<td class='print-only'>" . $testimony . "</td>" .
+                    "<td style='max-width:200px'>" . $prayer_request . "</td>" .
+                    "<td class='print-only' style='max-width:100px'>" . $testimony . "</td>" .
                     "<td class='web-only'>" . $follow_up_status . "</td>" .
                     "<td class='web-only'>" . $answered . "</td>" .
                     "<td class='web-only'>
-                        <button type='button'class='btn btn-primary' data-toggle='modal' data-target='#". $hash ."Modal'>
+                        <button type='button'class='btn btn-primary' data-toggle='modal' data-target='#". $hash ."Modal' style='color:black;" . $tr_color ."'>
                         See More</button>
 
                         <div class='modal fade' id='" . $hash . "Modal' tabindex='1' role='dialog'>
@@ -230,8 +247,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                                     </div>
                                     <div class='modal-body'>" .
                                         displayModalBody($prayer_array[$index]) .
-                                        "<a href=https://prayer.rock.church/admin/follow_up_form.php?hash=" .
-                                                $hash . ">Update Request</a>" .
+                                        $link .
                                     "</div> <!-- /.modal-body -->
                                     <div class='modal-footer'>
                                         <button type='button' class='btn btn-default' data-dismiss='modal' style='margin:0 36%'>Close</button>
