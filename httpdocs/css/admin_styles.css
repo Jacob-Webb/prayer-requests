@@ -186,7 +186,12 @@ button {
     display: none; }
 
   .print-only-dates {
-    display: none; } }
+    display: none; }
+
+  .request-data {
+    max-width: 75px; }
+}
+
 @media print {
   .print-only {
     display: table-cell; }
@@ -199,6 +204,9 @@ button {
 
   button {
     display: none !important; }
+
+  .request-data {
+    max-width: 150px; }
 
   #addRequest {
     display: none; }

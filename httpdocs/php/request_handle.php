@@ -15,6 +15,7 @@ $is_admin = $_POST['is-admin'];
 // Get all variables from the prayer request form on main page
 // If the user checked the anonymous box, insert empty strings for the user info fields
 $user_first_name = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['user-first']);
+$user_first_name = str_replace(' ', '', $user_first_name);
 $user_last_name = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['user-last']);
 $email_to = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['email']);
 //only admin can set the phone number when adding a request
@@ -32,6 +33,7 @@ $prayer_answered = 0;
 $attend = (isset($_POST['attend'])) ? 1 : 0;
 $intercession = (isset($_POST['intercession'])) ? 1 : 0;
 $for_first_name = ($intercession) ? sanitize($_POST['for-first']) : $user_first_name;
+$for_first_name = str_replace(' ', '', $for_first_name);
 $for_last_name = ($intercession) ? sanitize($_POST['for-last']) : $user_last_name;
 $prayer_category = sanitize($_POST['category']);
 $request = sanitize($_POST['prayer-request']);
