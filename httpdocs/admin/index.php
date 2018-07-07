@@ -97,10 +97,6 @@ if($given_start_date || $given_end_date){
     }
 
     $total_count = $healing_count + $provision_count + $salvation_count + $circumstance_count;
-    echo $healing_count;
-    echo $provision_count;
-    echo $salvation_count;
-    echo $circumstance_count;
 
     // Make sure we aren't dividing by zero.
     if($total_count > 0) {
