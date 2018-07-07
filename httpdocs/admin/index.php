@@ -110,7 +110,6 @@ if($given_start_date || $given_end_date){
         $salvation_percentage = 0;
         $circumstance_percentage = 0;
     }
-    echo $circumstance_percentage;
 
     //Display the date selection ranges if the user chooses "From" for time_period
     //Date tag takes a date as 'Y-m-d' and displays on Chrome as m/d/Y
