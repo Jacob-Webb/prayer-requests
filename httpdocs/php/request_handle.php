@@ -9,7 +9,7 @@ require 'helper_functions.php';
 include_once 'message_maker.php';
 require_once 'swiftmailer/lib/swift_required.php';
 
-// The request was received from either front-end website (value==False) or back-end admin site (value==True)
+// The request was received from either front-end website httpdocs/index.html(value==False) or back-end admin site httpdocs/admin/index.php(value==True)
 $is_admin = $_POST['is-admin'];
 
 // Get all variables from the prayer request form on main page
