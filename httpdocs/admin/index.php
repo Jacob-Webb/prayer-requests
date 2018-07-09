@@ -276,6 +276,10 @@ if($given_start_date || $given_end_date){
         <?php displayRequestsInTable($circumstance_prayers, "Circumstance"); ?>
     </table>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+    <button onclick="deletePrayers()" class="btn btn-warning" id="delete-button" style="width: auto; margin:0 0 0 85%; color:black">Delete Selected Prayers</button>
+
     <!-- get javascript variables from php to pass to the charts -->
     <script>
         var healing_percentage = <?php echo $healing_percentage; ?>;
