@@ -288,7 +288,7 @@ if($given_start_date || $given_end_date){
         var circumstance_percentage = <?php echo $circumstance_percentage; ?>;
     </script>
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
-    <script src="../js/piechart.js"></script>
+    <script src="../js/functionality.js"></script>
     <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
 
 </body>
