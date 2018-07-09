@@ -16,6 +16,7 @@ $result = $mysqli->query($q);
 $healing_prayers = array();
 $provision_prayers = array();
 $salvation_prayers = array();
+$circumstance_prayers = array();
 
 //keep track of the number of times a name is found in prayer request table
 $name_count = array();
@@ -25,6 +26,7 @@ $flag_name = array();
 $healing_count = 0;
 $provision_count = 0;
 $salvation_count = 0;
+$circumstanc_count = 0;
 $total_count = 0;
 
 //useful to get a string from an associative array using an index 0 == 'user_first_name' and so on

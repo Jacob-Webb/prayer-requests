@@ -85,22 +85,30 @@ if($given_start_date || $given_end_date){
                     }
                     ++$salvation_count;
                 }
+                elseif($row["category"] == "circumstances") {
+                    foreach($table_values as $column) {
+                        $circumstance_prayers[$circumstance_count][$column] = $row[$column];
+                    }
+                    ++$circumstance_count;
+                }
             }
         }
     } else {
     }
 
-    $total_count = $healing_count + $provision_count + $salvation_count;
+    $total_count = $healing_count + $provision_count + $salvation_count + $circumstance_count;
 
     // Make sure we aren't dividing by zero.
     if($total_count > 0) {
         $healing_percentage = round($healing_count / $total_count * 100);
         $provision_percentage = round($provision_count / $total_count * 100);
         $salvation_percentage = round($salvation_count / $total_count * 100);
+        $circumstance_percentage = round($circumstance_count / $total_count * 100);
     } else {
         $healing_percentage = 0;
         $provision_percentage = 0;
         $salvation_percentage = 0;
+        $circumstance_percentage = 0;
     }
 
     //Display the date selection ranges if the user chooses "From" for time_period
@@ -138,6 +146,8 @@ if($given_start_date || $given_end_date){
         <?php echo "Provision: " . $provision_percentage . "%"?>
         <br />
         <?php echo "Salvation: " . $salvation_percentage . "%"?>
+        <br />
+        <?php echo "Circumstances: " . $circumstance_percentage . "%"?>
     </div> <!--closes percentages -->
 
     <div class="chart-container" style="margin:0 auto; height: 30vh; width: 30vw">
@@ -205,9 +215,10 @@ if($given_start_date || $given_end_date){
                         <div class="form-group">
                             <label class="sr-only" for="category">Category:</label>
                             <select class="custom-select custom-select-sm" name="category" id="category">
-                                <option value="physical">Healing</option><!-- change to "healing" -->
+                                <option value="physical">Healing</option>
                                 <option value="provision">Provision</option>
                                 <option value="salvation">Salvation</option>
+                                <option value="circumstances">Circumstances</option>
                             </select>
                         </div> <!-- /.form-group -->
 
@@ -235,9 +246,7 @@ if($given_start_date || $given_end_date){
     Creates a table for all of the information for healing prayers
     -->
     <table id="heal-table" style="width: 100%">
-        <?php
-            displayRequestsInTable($healing_prayers, "Healing");
-        ?>
+        <?php displayRequestsInTable($healing_prayers, "Healing"); ?>
     </table>
 
     <br />
@@ -247,9 +256,7 @@ if($given_start_date || $given_end_date){
     Creates a table for all of the information for provisional prayers
     -->
     <table id="provision-table" style="width: 100%">
-        <?php
-            displayRequestsInTable($provision_prayers, "Provision");
-        ?>
+        <?php displayRequestsInTable($provision_prayers, "Provision"); ?>
     </table>
 
     <br />
@@ -259,19 +266,22 @@ if($given_start_date || $given_end_date){
     Creates a table for all of the information for salvation prayers
     -->
     <table id="salvation-table" style="width: 100%">
-        <?php
-            displayRequestsInTable($salvation_prayers, "Salvation");
-        ?>
+        <?php displayRequestsInTable($salvation_prayers, "Salvation"); ?>
     </table>
 
     <br />
     <br />
+
+    <table id="circumstance-table" style="width: 100%">
+        <?php displayRequestsInTable($circumstance_prayers, "Circumstance"); ?>
+    </table>
 
     <!-- get javascript variables from php to pass to the charts -->
     <script>
         var healing_percentage = <?php echo $healing_percentage; ?>;
         var provision_percentage = <?php echo $provision_percentage; ?>;
         var salvation_percentage = <?php echo $salvation_percentage; ?>;
+        var circumstance_percentage = <?php echo $circumstance_percentage; ?>;
     </script>
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
     <script src="../js/piechart.js"></script>
