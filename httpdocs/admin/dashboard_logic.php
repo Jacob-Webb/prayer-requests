@@ -89,9 +89,10 @@ function displayTableHeader($prayer_category) {
             <th class='print-only'>Attend</th>
             <th>Prayer Request</th>
             <th class='print-only'>Testimony</th>
-            <th class='web-only'>Follow Up</th>" .
-            "<th class='web-only'>Prayer Answered</th>" .
-            "<th class='web-only'>Prayer Information</th>
+            <th class='web-only'>Follow Up</th>
+            <th class='web-only'>Prayer Answered</th>
+            <th class='web-only'>Prayer Information</th>
+            <th class='web-only'>Delete</th>
         </tr>";
 }
 
@@ -238,7 +239,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                     "<td class='web-only'>" . $follow_up_status . "</td>" .
                     "<td class='web-only'>" . $answered . "</td>" .
                     "<td class='web-only'>
-                        <button type='button'class='btn btn-primary' data-toggle='modal' data-target='#". $hash ."Modal' style='color:black;" . $tr_color ."'>
+                        <button type='button'class='btn btn-primary' data-toggle='modal' data-target='#". $hash ."Modal' style='color:black; width:auto'>
                         See More</button>
 
                         <div class='modal fade' id='" . $hash . "Modal' tabindex='1' role='dialog'>
@@ -257,6 +258,9 @@ function displayRequestsInTable($prayer_array, $prayer_category){
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
                         </div><!-- /.modal -->
+                    </td>
+                    <td>
+                        <input type='checkbox' class='web-only' id='delete-prayer-checkbox' name='delete-prayer-checkbox' data-pid=" . $hash . ">
                     </td>
                 </tr>";
 

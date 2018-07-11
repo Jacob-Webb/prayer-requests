@@ -276,6 +276,10 @@ if($given_start_date || $given_end_date){
         <?php displayRequestsInTable($circumstance_prayers, "Circumstance"); ?>
     </table>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+    <button onclick="deletePrayers()" class="btn btn-warning" id="delete-button" style="width: auto; margin:0 0 0 85%; color:black">Delete Selected Prayers</button>
+
     <!-- get javascript variables from php to pass to the charts -->
     <script>
         var healing_percentage = <?php echo $healing_percentage; ?>;
@@ -284,7 +288,7 @@ if($given_start_date || $given_end_date){
         var circumstance_percentage = <?php echo $circumstance_percentage; ?>;
     </script>
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
-    <script src="../js/piechart.js"></script>
+    <script src="../js/functionality.js"></script>
     <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
 
 </body>
