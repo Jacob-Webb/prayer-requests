@@ -28,7 +28,7 @@ if($given_start_date || $given_end_date){
 <body>
 
     <!-- Button to allow the administrator to fill out a prayer request -->
-    <button style="margin:0 auto; float:right" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRequest">
+    <button style="margin:0 auto; float:right; width:auto" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRequest">
         New Prayer Request
     </button>
 
