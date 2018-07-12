@@ -20,35 +20,37 @@ var my_chart = new Chart(context, {
 
 
 /******************************************************************************
-* deletePrayers take all of the hash values from the checked boxes in the dashboard_logic.php file under "Delete" table data. 
+* deletePrayers take all of the hash values from the checked boxes in the dashboard_logic.php file under "Delete" table data.
 * create a map of the hash values and pass them to delete_prayers.php.
 ******************************************************************************/
 
 function deletePrayers() {
-    //send a confirmation, if user clicks ok, proceed with function, otherwise do nothing
-    if (confirm('Are you sure you want to delete?')) {
-        //create a map of all checked boxes in id
-        var checked_prayer_array = $("#delete-prayer-checkbox:checked").map(function(){
-        //from each checkbox get the data-pid which should be a prayer's hash value
-        return $(this).attr("data-pid");
-        }).get(); // <----
+    $( document ).ready(function() {
+        //send a confirmation, if user clicks ok, proceed with function, otherwise do nothing
+        if (confirm('Are you sure you want to delete?')) {
+            //create a map of all checked boxes in id
+            var checked_prayer_array = $("#delete-prayer-checkbox:checked").map(function(){
+                //from each checkbox get the data-pid which should be a prayer's hash value
+                return $(this).attr("data-pid");
+            }).get(); // <----
 
-        //send the hash value array to php to be processed
-        $.ajax({
-            url: '../admin/delete_prayers.php',
-            type: "POST",
-            data: {checked_prayer_array:checked_prayer_array},
-            dataType: 'json',
-        })
-            .done(function( json ) {
-                alert(json);
+            //send the hash value array to php to be processed
+            $.ajax({
+                url: '../admin/delete_prayers.php',
+                type: "POST",
+                data: {checked_prayer_array:checked_prayer_array},
+                dataType: 'json',
             })
-            .fail(function( xhr, status, errorThrown ) {
-                alert( "Sorry, there was a problem!");
-                console.log( "Error: " + errorThrown );
-                console.log( "Status: " + status );
-                console.dir( xhr );
-            })
-    }    
+                .done(function( json ) {
+                    alert(json);
+                })
+                .fail(function( xhr, status, errorThrown ) {
+                    alert( "Sorry, there was a problem!");
+                    console.log( "Error: " + errorThrown );
+                    console.log( "Status: " + status );
+                    console.dir( xhr );
+                })
+        }
     document.location.reload();
+    });
 }
