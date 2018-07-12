@@ -1,9 +1,5 @@
 <?php
-/*
-Requires server info and variables
-*/
 require_once 'server_info.php';
-//$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
 
 /******************************************************************************
 Functions for  **receive_prayer_request.php**
@@ -13,8 +9,6 @@ function setNewPrayerInDatabase($mysqli, $user_first_name, $user_last_name, $att
         $for_first_name, $for_last_name, $request_contact, $phone, $email_to,
         $prayer_category, $request, $time, $follow_up, $email_sent, $user_responded, $prayer_answered) {
 
-	//attempt to transfer variables to database
-	//attempt to transfer variables to database
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
         for_first_name, for_last_name, request_contact, phone, email, category,
         prayer_request, prayer_timestamp, follow_up, email_sent, user_responded, prayer_answered)
