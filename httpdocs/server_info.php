@@ -29,6 +29,4 @@ if ($env == "dev") {
   $db_server = "localhost";
 }
 
-//set up server connection with variables from server_info.php
-$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
 ?>

@@ -15,9 +15,7 @@
 
         <link rel="manifest" href="site.webmanifest">
         <link rel="apple-touch-icon" href="icon.png">
-        <!-- Place favicon.ico in the root directory -->
 
-        <!-- <link rel="stylesheet" href="css/normalize.css"> -->
         <link rel="stylesheet" type="text/css" href="//rock.church/assets/styles/build/base.css?rel=6d7cc76622">
         <link rel="stylesheet" href="css/main.css">
 
@@ -40,15 +38,12 @@
                         <br />
                         <br />
 
-                        <form id="request-form" action="php/request_handle.php" method="post">
-                            <!-- Give the user to opt out of giving contact information.
-                                If the "anonymous" box is checked remove user name and
-                                email address fields.
-                            -->
+                        <form id="request-form" action="receive_prayer_request.php" method="post">
+                            
+                            <!-- Enter Prayer's personal information or remain anonymous if box is checked and user info fields will disappear -->
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="anonymous">
                                 <label class="form-check-label" for="anonymous">I would like to remain anonymous</label>
-
                                 <div class="hide-if-active">
                                     <div id="user-info">
                                         <label class="sr-only" for="user-first">First Name: </label>
@@ -69,21 +64,21 @@
                                 </div> <!-- /.reveal-if-active -->
                             </div> <!-- form-check -->
 
+                            <!-- Sets the Prayer's attendance value with checkbox value -->
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
                                 <label class="form-check-label" for="attend">I attend The Rock Church </label>
                             </div> <!-- /.form-check -->
 
+                            <!-- Enter the Prayer's recipient if it is different than the users. If the box is checked the fields will become visible -->
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
                                 <label class="form-check-label" for="intercession">This prayer is for someone else </label>
-
                                 <div class="reveal-if-active">
                                     <div class="col" id="recipient-name">
                                         <label class="sr-only" for="for-first">First Name: </label>
                                         <input class="require-if-active" type="text" name="for-first" id="for-first"
                                             placeholder="First Name" tabindex="1" data-require-pair="#intercession">
-
                                         <label class="sr-only" for="for-last">Last Name: </label>
                                         <input class="require-if-active" type="text" name="for-last" id="for-last"
                                             placeholder="Last Name" tabindex="1" data-require-pair="#intercession">
@@ -91,6 +86,7 @@
                                 </div> <!-- /.reveal-if-active -->
                             </div> <!-- form-check -->
 
+                            <!-- Enter one of the possible categories for Prayer -->
                             <div class="form-group">
                                 <label class="sr-only" for="category">Category:</label>
                                 <select class="custom-select custom-select-sm" name="category" id="category">
@@ -101,6 +97,7 @@
                                 </select>
                             </div> <!-- /.form-group -->
 
+                            <!-- Enter the actual Prayer request -->
                             <div class="form-group">
                                 <label class="sr-only" for="prayer-request">Request:</label>
                                 <textarea class="form-control" name="prayer-request" id="prayer-request" placeholder="Your Prayer Here" rows="5" maxlength="300" required></textarea>
@@ -118,12 +115,6 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
-        <!-- <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script> -->
 
         <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
 

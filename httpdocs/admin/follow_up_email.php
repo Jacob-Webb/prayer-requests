@@ -7,9 +7,11 @@
 * Update log database.
 * HDM
 *******************************************************************************/
-require_once('../php/server_info.php');
-include '../php/message_maker.php';
-require_once('../php/swiftmailer/lib/swift_required.php');
+require_once('../server_info.php');
+include '../message_creator.php';
+require_once('../swiftmailer/lib/swift_required.php');
+//db info pulled from access_database.php
+$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
 
 // Get the date of x days ago
 $days_ago = 5;
