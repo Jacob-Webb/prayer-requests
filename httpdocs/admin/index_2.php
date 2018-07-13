@@ -1,24 +1,27 @@
 <?php
-require "dashboard_logic.php";
+/*
+Refactored 7-12-18 admin/index.php
 
-// Get the date range passed to this page and set the date_select variable
+Need to place parameters in controller file
+retrieve category information in controller/model file
+move view stuff in dashboard_logic to index.php
+	displayTableHeader
+	displayModalBody
+	displayRequestsInTable
 
-$given_start_date = isset($_GET['begin-date']) ? $_GET['begin-date'] : "";
-$given_end_date = isset($_GET['end-date']) ? $_GET['end-date'] : "";
+get parameters passed to the page via html
+set layout
+	"new request button"
+	"date range picker"
 
-//If a beginning or ending date were given as parameters, the time period should be a range selection
-if($given_start_date || $given_end_date){
-    $time_period = 'range';
-    $begin_date = $given_start_date;
-    $end_date = $given_end_date;
-//Otherwise the time period will have been one of the other choices and the beginning and ending dates will reflect that
-} else {
-    $time_period = isset($_GET['date-range']) ? $_GET['date-range'] : "";
-    $begin_date = getBeginDate($time_period);
-    $end_date = getEndDate($time_period);
-}
-
+*/
 ?>
+<!-- Controller -->
+<?php
+	//getParameters();
+?>
+
+<!-- View -->
 <html>
 <head>
     <title>Prayer Admin</title>
@@ -48,91 +51,18 @@ if($given_start_date || $given_end_date){
     </h2>
     </form>
 
+    <!-- Controller -->
     <?php
-    //To get all of the requests up to $end_date we need to get the all prayers to 23:59 of that day
-    $day_after_end_date = date('Y-m-d',strtotime($end_date . "+1 days"));
+    /*
+ 	createCategoryArrays();
+ 	getCategoryCounts();
+ 	getCategoryPercentages();
 
-    $prayer_count = 0;
-    //get all of the information from the database that we'll need to use
-    if($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            //If the request was made within the date ranges, add to the prayer category arrays
-            $row_date_time = strtotime($row['prayer_timestamp']);
-            if($row_date_time >= strtotime($begin_date) && $row_date_time < strtotime($day_after_end_date)){
-                //group all "healing" prayers in an array
-                if($row["category"] == "physical") {
-                    foreach($table_values as $column) {
-                        $healing_prayers[$healing_count][$column] = $row[$column];
-                    }
-                    ++$healing_count;
-                }
-                //group all "provision" prayers in an array
-                elseif($row["category"] == "provision") {
-                    foreach($table_values as $column) {
-                        $provision_prayers[$provision_count][$column] = $row[$column];
-                    }
-                    ++$provision_count;
-                }
-                //group all "salvation" prayers in an array
-                elseif($row["category"] == "salvation") {
-                    foreach($table_values as $column) {
-                        $salvation_prayers[$salvation_count][$column] = $row[$column];
-                    }
-                    ++$salvation_count;
-                }
-                elseif($row["category"] == "circumstances") {
-                    foreach($table_values as $column) {
-                        $circumstance_prayers[$circumstance_count][$column] = $row[$column];
-                    }
-                    ++$circumstance_count;
-                }
-            }
-        }
-    } else {
-    }
+ 	displayDateRange();
+	*/
+	?>
 
-    $total_count = $healing_count + $provision_count + $salvation_count + $circumstance_count;
-
-    // Make sure we aren't dividing by zero.
-    if($total_count > 0) {
-        $healing_percentage = round($healing_count / $total_count * 100);
-        $provision_percentage = round($provision_count / $total_count * 100);
-        $salvation_percentage = round($salvation_count / $total_count * 100);
-        $circumstance_percentage = round($circumstance_count / $total_count * 100);
-    } else {
-        $healing_percentage = 0;
-        $provision_percentage = 0;
-        $salvation_percentage = 0;
-        $circumstance_percentage = 0;
-    }
-
-    //Display the date selection ranges if the user chooses "From" for time_period
-    //Date tag takes a date as 'Y-m-d' and displays on Chrome as m/d/Y
-    $today = date("Y-m-d");
-    $implementation_date = "2018-01-01";
-    $print_only_begin_date = date('m/d/Y',strtotime($begin_date));
-    $print_only_end_date = date('m/d/Y', strtotime($end_date));
-    if($time_period == 'range') {
-        echo "<form name='date-range-form' action='index.php'>
-                <h4 class='web-only' align='center'>
-                    <input type='date' id='begin-date' name='begin-date' onchange='this.parentNode.parentNode.submit()'
-                        value='$begin_date'
-                        min='$implementation_date'
-                        max='$end_date'/>
-                    to
-                    <input type='date' id='end-date' name='end-date' onchange='this.parentNode.parentNode.submit()'
-                        value='$end_date'
-                        min='$begin_date'
-                        max='$today' />
-                </h4>
-                <h4 class='print-only-dates' align='center'>" . $print_only_begin_date . " - " . $print_only_end_date . "</h4>
-              </form>";
-    // Otherwise display the give beginning and ending date ranges
-    } else {
-        echo "<h4 align='center'>" . $begin_date . " - " . $end_date . "</h4>";
-    }
-?>
-
+	<!-- View -->
     <h3 style="float: left"><?php echo $total_count . "<br />" . "Requests" ?></h3>
 
     <div id="percentages">
@@ -147,9 +77,7 @@ if($given_start_date || $given_end_date){
 
     <div class="chart-container" style="margin:0 auto; height: 30vh; width: 30vw">
         <canvas id="my_chart"></canvas>
-    </div> <!-- closes chart-container -->
-
-    
+    </div> <!-- closes chart-container -->    
 
     <br />
     <br />

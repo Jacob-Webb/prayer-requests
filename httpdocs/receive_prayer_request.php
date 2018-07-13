@@ -9,7 +9,7 @@ Send confirmation email
 */
 require_once 'access_database.php';
 require_once 'message_creator.php';
-require_once 'helper_functions.php';
+require_once 'clean_io.php';
 require 'emailer.php';
 
 //db info pulled from access_database.php

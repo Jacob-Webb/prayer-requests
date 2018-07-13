@@ -1,39 +1,57 @@
 httpdocs/
 	index.html
-
-
+	receive_prayer_request.php
+	access_database.php
+	emailer.php
+	message_creator.php
+	server_info.php
+	admin/
+	css/
+	img/
+	js/
+	lib/
+		swiftmailer/
 
 
 Model:
-	Prayer Requests
-		id: 				int 		unique number for each prayer
-		hash: 				int 		acquired by sending id through hash function; more secure id value
-		user_first_name: 	string		user's first name; set to anonymous if no name given
-		user_last_name: 	string		user's last name; set to empty if no name given
-		attending: 			bool		whether the user attends or not
-		intercession:		bool		whether the prayer request is for someone else
-		for_first_name:		string		first name of who the prayer is for; user if intercession == true, other name if false
-		for_last_name:		string		last name ...
-		request_contact:	bool		set to true if contact information is given; an email is sent to given address if true
-		phone:				string		given phone number; non-admin user can enter it after follow up email link; admin can enter it when creating a prayer request
-		email:				string		email address given by user
-		category:			string		type of prayer being requested; used by admin
-		prayer_answered:	bool		set to false on prayer creation; set to true when "testimony" is given on follow up page
-		prayer_request:		string		the actual request of the prayer request
-		prayer_timestamp:	string		time and date stamp of when prayer was created
-		follow_up:			bool		indicates follow up is still required;set to true on prayer's creation; set to false if/when a follow up email has been sent 
-		email_sent:			bool		indicates that a follow up email has been sent; essentially the negative of follow_up
-		user_responded:		bool		indicates that the user has responded to the follow up email; set false on prayer creation, true on submitting the follow up form
-		update_request:		string		additional information to prayer request; added to Prayer if follow up form is submitted but prayer isn't anwered yet
-		testimony:			string		information on answered prayer; submitted in follow up form
+	httpdocs
+		Prayer Requests
+			id: 				int 		unique number for each prayer
+			hash: 				int 		acquired by sending id through hash function; more secure id value
+			user_first_name: 	string		user's first name; set to anonymous if no name given
+			user_last_name: 	string		user's last name; set to empty if no name given
+			attending: 			bool		whether the user attends or not
+			intercession:		bool		whether the prayer request is for someone else
+			for_first_name:		string		first name of who the prayer is for; user if intercession == true, other name if false
+			for_last_name:		string		last name ...
+			request_contact:	bool		set to true if contact information is given; an email is sent to given address if true
+			phone:				string		given phone number; non-admin user can enter it after follow up email link; admin can enter it when creating a prayer request
+			email:				string		email address given by user
+			category:			string		type of prayer being requested; used by admin
+			prayer_answered:	bool		set to false on prayer creation; set to true when "testimony" is given on follow up page
+			prayer_request:		string		the actual request of the prayer request
+			prayer_timestamp:	string		time and date stamp of when prayer was created
+			follow_up:			bool		indicates follow up is still required;set to true on prayer's creation; set to false if/when a follow up email has been sent 
+			email_sent:			bool		indicates that a follow up email has been sent; essentially the negative of follow_up
+			user_responded:		bool		indicates that the user has responded to the follow up email; set false on prayer creation, true on submitting the follow up form
+			update_request:		string		additional information to prayer request; added to Prayer if follow up form is submitted but prayer isn't anwered yet
+			testimony:			string		information on answered prayer; submitted in follow up form
+
+		Database - 
+			web-form table 
+				Prayer Requests
+
+	httpdocs/admin
+		Prayer Requests
+		Dates/Times
+		Category Arrays
+
+View:
+	index.html
+		lays out prayer request form
+	admin/index.php
 
 
-	Database - 
-		web-form table 
-			Prayer Requests
-
-
-View
-
-
-Controller
+Controller: 
+	receive_prayer_request.php 
+		handles the incoming prayer request form, adds the information to the database, replies with an email from email.php

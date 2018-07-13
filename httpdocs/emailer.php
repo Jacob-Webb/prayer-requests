@@ -1,6 +1,6 @@
 <?php
 require_once 'server_info.php';
-require_once 'swiftmailer/lib/swift_required.php';
+require_once 'lib/swiftmailer/lib/swift_required.php';
 require_once 'message_creator.php';
 
 /******************************************************************************

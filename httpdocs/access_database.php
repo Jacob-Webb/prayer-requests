@@ -2,7 +2,7 @@
 require_once 'server_info.php';
 
 /******************************************************************************
-Functions for  **receive_prayer_request.php**
+~~~~~~~~~~~~~ Functions for receive_prayer_request.php  ~~~~~~~~~~~~~~~
 ******************************************************************************/
 //insert a new prayer into the database with all of the fields from the prayer request form
 function setNewPrayerInDatabase($mysqli, $user_first_name, $user_last_name, $attend, $intercession,
@@ -36,4 +36,9 @@ function setPrayerHash($mysqli, $time){
     $insert_result = $mysqli->query($hash_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $hash_query);
 	}
 }
+
+/******************************************************************************
+~~~~~~~~~~~~~  Functions for admin/index.php  ~~~~~~~~~~~~~~~~~~~~
+******************************************************************************/
+
 ?>

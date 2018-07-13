@@ -3,8 +3,13 @@
 * dashboard_logic.php contains all of the backend information gathering and
 * processing for the admin/index.php.
 ******************************************************************************/
-require_once('../php/server_info.php');
+require_once('../server_info.php');
 
+//db info pulled from access_database.php
+$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
+
+
+// MODEL //
 $q = "SELECT hash, user_first_name, user_last_name, attending, intercession,
         for_first_name, for_last_name, request_contact, phone, email, category,
         prayer_request, prayer_timestamp, follow_up, email_sent, user_responded,
@@ -35,6 +40,8 @@ $table_values = array('hash', 'user_first_name', 'user_last_name', 'attending',
                       'request_contact', 'phone', 'email', 'category',
                       'prayer_request', 'prayer_timestamp', 'follow_up', 'email_sent',
                       'user_responded', 'prayer_answered', 'update_request', 'testimony');
+
+// MODEL //
 
 /******************************************************************************
 * getBeginDate returns a date that is a certain time before the current date.
