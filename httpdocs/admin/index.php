@@ -19,6 +19,7 @@ if($given_start_date || $given_end_date){
 }
 
 ?>
+<!-- View -->
 <html>
 <head>
     <title>Prayer Admin</title>
@@ -149,7 +150,7 @@ if($given_start_date || $given_end_date){
         <canvas id="my_chart"></canvas>
     </div> <!-- closes chart-container -->
 
-    
+
 
     <br />
     <br />
@@ -168,7 +169,7 @@ if($given_start_date || $given_end_date){
     Creates a table for all of the information for provisional prayers
     -->
     <table id="provision-table" style="width: 100%">
-        <?php displayRequestsInTable($provision_prayers, "Provision"); ?>
+        <?php //displayRequestsInTable($provision_prayers, "Provision"); ?>
     </table>
 
     <br />
@@ -178,21 +179,21 @@ if($given_start_date || $given_end_date){
     Creates a table for all of the information for salvation prayers
     -->
     <table id="salvation-table" style="width: 100%">
-        <?php displayRequestsInTable($salvation_prayers, "Salvation"); ?>
+        <?php //displayRequestsInTable($salvation_prayers, "Salvation"); ?>
     </table>
 
     <br />
     <br />
 
     <table id="circumstance-table" style="width: 100%">
-        <?php displayRequestsInTable($circumstance_prayers, "Circumstance"); ?>
+        <?php //displayRequestsInTable($circumstance_prayers, "Circumstance"); ?>
     </table>
 
     <button onclick="deletePrayers()" class="btn btn-warning" id="delete-button" style="width: auto; margin:0 0 0 85%; color:black">Delete Selected Prayers</button>
 
 
     <!-- ********************************************************************************
-        Modal body from prayer request button at top of page 
+        Modal body from prayer request button at top of page
         *********************************************************************************-->
     <div class="modal fade" id="addRequest" tabindex="1" role="dialog">
         <div class="modal-dialog" role="document">

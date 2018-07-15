@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 access database with server information
 Receive information from Prayer Request form
 Put Prayer request information in database
@@ -41,10 +41,11 @@ $request = sanitize($_POST['prayer-request']);
 $time = date("Y:m:d H:i:s");
 
 //pass database info and prayer request field info to create a prayer
-setNewPrayerInDatabase($mysqli, $user_first_name, $user_last_name, $attend, $intercession, $for_first_name, $for_last_name, 
-			 $request_contact, $phone, $email_to, $prayer_category, $request, $time, $follow_up, $email_sent, 
+setNewPrayerInDatabase($mysqli, $user_first_name, $user_last_name, $attend, $intercession, $for_first_name, $for_last_name,
+			 $request_contact, $phone, $email_to, $prayer_category, $request, $time, $follow_up, $email_sent,
 			 $user_responded, $prayer_answered);
 
+//Found in access_database.php
 setPrayerHash($mysqli, $time);
 
 if ($email_to) {

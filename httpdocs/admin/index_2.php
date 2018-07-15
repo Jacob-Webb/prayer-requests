@@ -1,24 +1,32 @@
 <?php
 /*
 Refactored 7-12-18 admin/index.php
-
-Need to place parameters in controller file
-retrieve category information in controller/model file
-move view stuff in dashboard_logic to index.php
-	displayTableHeader
-	displayModalBody
-	displayRequestsInTable
-
-get parameters passed to the page via html
-set layout
-	"new request button"
-	"date range picker"
-
 */
-?>
-<!-- Controller -->
-<?php
-	//getParameters();
+require 'admin_controller.php';
+require_once '../access_database.php';
+
+//db info pulled from access_database.php
+$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
+
+// getDateParameters found in admin_controller.php
+// Set values based on parameters to index.php from date-picker-form on index.php
+$selected_dates = getDateParameters();
+$start_date = $selected_dates['start_date'];
+$end_date = $selected_dates['end_date'];
+$time_period = $selected_dates['time_period'];
+
+//From ../access_database.php
+$prayers_by_category_array = getCategorizedPrayers($mysqli, $start_date, $end_date);
+
+//From admin_controller.php
+$total_prayer_count = getTotalPrayerCount($prayers_by_category_array);
+$prayer_percentages_array = getCategoryPercentages($total_prayer_count, $prayers_by_category_array);
+
+//special dates used for date selector form
+$today = date("Y-m-d");
+$implementation_date = "2018-01-01";
+$print_only_start_date = date('m/d/Y',strtotime($start_date));
+$print_only_end_date = date('m/d/Y', strtotime($end_date));
 ?>
 
 <!-- View -->
@@ -35,13 +43,12 @@ set layout
         New Prayer Request
     </button>
 
-    <!-- send parameter from form to this page -->
-    <form name="date-picker-form" action="index.php">
-
+    <!-- Display date range selector -->
+    <form name="date-picker-form" action="index_2.php">
     <h2 align="center" style="margin:20px 33%">Prayer Requests
         <!-- this.parentNode.parentNode points to this page -->
         <select name="date-range" class="web-only" id="date-range" onchange="this.parentNode.parentNode.submit()">
-            <!-- when the $select parameter is set to a value set the corresponding option to "selected" -->
+            <!-- option value is select on page load depending on $time-period's value -->
             <option value='week' <?php echo $time_period == "week" ? "selected" : "";?>>This Week</option>
             <option value='two-weeks' <?php echo $time_period == "two-weeks" ? "selected" : "";?>>For Two Weeks</option>
             <option value='month' <?php echo $time_period == "month" ? "selected" : "" ?>>This Month</option>
@@ -51,76 +58,127 @@ set layout
     </h2>
     </form>
 
-    <!-- Controller -->
-    <?php
-    /*
- 	createCategoryArrays();
- 	getCategoryCounts();
- 	getCategoryPercentages();
+<!-- Display the date ranges -->
+    <?php if($time_period == 'range') : ?>
+    <form name='date-range-form' action='index_2.php'>
+        <h4 class='web-only' align='center'>
+            <input type='date' id'begin-date' name='begin-date' onchange='this.parentNode.parentNode.submit()'
+                value=<?php echo $start_date ?>
+                min=<?php echo $implementation_date ?>
+                max=<?php echo $end_date ?>/>
+            to
+            <input type='date' id='end-date' name='end-date' onchange='this.parentNode.parentNode.submit()'
+                value=<?php echo $end_date ?>
+                min=<?php echo $start_date ?>
+                max=<?php echo $today ?> />
+        </h4>
+        <h4 class='print-only-dates' align='center'><?php $print_only_start_date . " - " . $print_only_end_date ?></h4>
+      </form>
+    <?php else : ?>
+    <h4 align='center'><?php echo $start_date . " - " . $end_date ?></h4>
+    <?php endif; ?>
 
- 	displayDateRange();
-	*/
-	?>
-
-	<!-- View -->
-    <h3 style="float: left"><?php echo $total_count . "<br />" . "Requests" ?></h3>
+    <h3 style="float: left"><?php echo $total_prayer_count . "<br />" . "Requests" ?></h3>
 
     <div id="percentages">
-        <?php echo "Healing: " . $healing_percentage . "%"?>
+        Healing: <?php  echo $prayer_percentages_array['healing'] . "%" ?>
         <br />
-        <?php echo "Provision: " . $provision_percentage . "%"?>
+        Provision: <?php echo $prayer_percentages_array['provision'] . "%"?>
         <br />
-        <?php echo "Salvation: " . $salvation_percentage . "%"?>
+        Salvation: <?php echo $prayer_percentages_array['salvation'] . "%"?>
         <br />
-        <?php echo "Circumstances: " . $circumstance_percentage . "%"?>
-    </div> <!--closes percentages -->
+        Circumstances: <?php echo $prayer_percentages_array['circumstances'] . "%"?>
+    </div>
 
     <div class="chart-container" style="margin:0 auto; height: 30vh; width: 30vw">
         <canvas id="my_chart"></canvas>
-    </div> <!-- closes chart-container -->    
+    </div>
 
     <br />
     <br />
 
-    <!--
-    Creates a table for all of the information for healing prayers
-    -->
-    <table id="heal-table" style="width: 100%">
-        <?php displayRequestsInTable($healing_prayers, "Healing"); ?>
-    </table>
+    <div class="prayer-tables">
+        <table id="heal-table" style="width:100%">
+            <tr>
+                <td colspan='8'><h3>Healing Requests</h3></td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th class='print-only'>Phone</th>
+                <th class='print-only'>Attend</th>
+                <th>Prayer Request</th>
+                <th class='print-only'>Testimony</th>
+                <th class='web-only'>Follow Up</th>
+                <th class='web-only'>Prayer Answered</th>
+                <th class='web-only'>Prayer Information</th>
+                <th class='web-only'>Delete</th>
+            </tr>
+            <?php foreach($prayers_by_category_array['healing'] as $healing_prayer): ?>
+            <tr>
+                <td><?php echo $healing_prayer['hash']; ?></td>
+            </tr>
+            <?php endforeach; ?>
 
-    <br />
-    <br />
-
-    <!--
-    Creates a table for all of the information for provisional prayers
-    -->
-    <table id="provision-table" style="width: 100%">
-        <?php displayRequestsInTable($provision_prayers, "Provision"); ?>
-    </table>
-
-    <br />
-    <br />
-
-    <!--
-    Creates a table for all of the information for salvation prayers
-    -->
-    <table id="salvation-table" style="width: 100%">
-        <?php displayRequestsInTable($salvation_prayers, "Salvation"); ?>
-    </table>
-
-    <br />
-    <br />
-
-    <table id="circumstance-table" style="width: 100%">
-        <?php displayRequestsInTable($circumstance_prayers, "Circumstance"); ?>
-    </table>
+        </table><!-- ./heal-table -->
+        <table id="provision-table" style="width:100%">
+            <tr>
+                <td colspan='8'><h3>Provision Requests</h3></td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th class='print-only'>Phone</th>
+                <th class='print-only'>Attend</th>
+                <th>Prayer Request</th>
+                <th class='print-only'>Testimony</th>
+                <th class='web-only'>Follow Up</th>
+                <th class='web-only'>Prayer Answered</th>
+                <th class='web-only'>Prayer Information</th>
+                <th class='web-only'>Delete</th>
+            </tr>
+        </table><!-- /.provision-table -->
+        <table id="salvation-table" style="width:100%">
+            <tr>
+                <td colspan='8'><h3>Salvation Requests</h3></td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th class='print-only'>Phone</th>
+                <th class='print-only'>Attend</th>
+                <th>Prayer Request</th>
+                <th class='print-only'>Testimony</th>
+                <th class='web-only'>Follow Up</th>
+                <th class='web-only'>Prayer Answered</th>
+                <th class='web-only'>Prayer Information</th>
+                <th class='web-only'>Delete</th>
+            </tr>
+        </table><!-- /.salvation-table -->
+        <table id="circumstances-table" style="width:100%">
+            <tr>
+                <td colspan='8'><h3>Circumstances Requests</h3></td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th class='print-only'>Phone</th>
+                <th class='print-only'>Attend</th>
+                <th>Prayer Request</th>
+                <th class='print-only'>Testimony</th>
+                <th class='web-only'>Follow Up</th>
+                <th class='web-only'>Prayer Answered</th>
+                <th class='web-only'>Prayer Information</th>
+                <th class='web-only'>Delete</th>
+            </tr>
+        </table><!-- /.circumstances-table -->
+    </div><!-- /.prayer-tables -->
 
     <button onclick="deletePrayers()" class="btn btn-warning" id="delete-button" style="width: auto; margin:0 0 0 85%; color:black">Delete Selected Prayers</button>
 
-
+<?php /*
     <!-- ********************************************************************************
-        Modal body from prayer request button at top of page 
+        Modal body from prayer request button at top of page
         *********************************************************************************-->
     <div class="modal fade" id="addRequest" tabindex="1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -206,16 +264,20 @@ set layout
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+*/
+?>
+
+
     <!-- **********************************************************************
         End modal button
         *********************************************************************** -->
 
     <!-- get javascript variables from php to pass to the charts -->
     <script>
-        var healing_percentage = <?php echo $healing_percentage; ?>;
-        var provision_percentage = <?php echo $provision_percentage; ?>;
-        var salvation_percentage = <?php echo $salvation_percentage; ?>;
-        var circumstance_percentage = <?php echo $circumstance_percentage; ?>;
+        var healing_percentage = <?php echo $prayer_percentages_array['healing']; ?>;
+        var provision_percentage = <?php echo $prayer_percentages_array['provision']; ?>;
+        var salvation_percentage = <?php echo $prayer_percentages_array['salvation']; ?>;
+        var circumstance_percentage = <?php echo $prayer_percentages_array['circumstances']; ?>;
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>

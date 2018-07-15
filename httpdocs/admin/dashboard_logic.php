@@ -23,10 +23,6 @@ $provision_prayers = array();
 $salvation_prayers = array();
 $circumstance_prayers = array();
 
-//keep track of the number of times a name is found in prayer request table
-$name_count = array();
-$flag_name = array();
-
 //keep track of prayers in category for a given time period
 $healing_count = 0;
 $provision_count = 0;
@@ -146,12 +142,6 @@ function displayModalBody($prayer_request) {
         "<strong>Phone Number:</strong> " . $phone . "<br><br>
         <strong>Email:</strong> " . $email . "<br><br>";
 
-    /*
-    $information .=
-    "<strong>Requested Contact:</strong> " . $requested_contact . "<br><br>
-    <strong>Prayer Request:</strong> " . $request . "<br><br>";
-    */
-
     if($update)
         $information .=
             "<strong>Additional Prayer Info:</strong> " . $update . "<br><br>";
@@ -232,6 +222,7 @@ function displayRequestsInTable($prayer_array, $prayer_category){
             } else {
                 echo "no link";
             }
+
 
             echo
                 //display info on the website only. The modal will give additional information
