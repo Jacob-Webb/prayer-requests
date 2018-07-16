@@ -3,7 +3,7 @@
 * dashboard_logic.php contains all of the backend information gathering and
 * processing for the admin/index.php.
 ******************************************************************************/
-require_once('../server_info.php');
+require '../server_info.php';
 
 //db info pulled from access_database.php
 $mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
@@ -22,6 +22,10 @@ $healing_prayers = array();
 $provision_prayers = array();
 $salvation_prayers = array();
 $circumstance_prayers = array();
+
+//keep track of the number of times a name is found in prayer request table
+$name_count = array();
+$flag_name = array();
 
 //keep track of prayers in category for a given time period
 $healing_count = 0;
