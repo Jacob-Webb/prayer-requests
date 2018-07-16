@@ -3,6 +3,8 @@
 * Place GET and POSTed variables here
 ******************************************************************************/
 require '../server_info.php';
+
+// array of hashes associated with Prayer Requests
 $checked_prayers = $_POST['checked_prayer_array'];
 
 //format array so that it can be input as a mysql command

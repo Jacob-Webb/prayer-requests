@@ -51,6 +51,6 @@ function deletePrayers() {
                     console.dir( xhr );
                 })
         }
-    document.location.reload();
     });
+    document.location.reload();
 }
