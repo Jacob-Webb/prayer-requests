@@ -16,7 +16,7 @@ require 'emailer.php';
 $mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
 
 // The request was received from either front-end website httpdocs/index.html(value==False) or back-end admin site httpdocs/admin/index.php(value==True)
-//$is_admin = $_POST['is-admin'];
+$is_admin = $_POST['is-admin'];
 
 // Receive info from prayer request form
 $user_first_name = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['user-first']);
