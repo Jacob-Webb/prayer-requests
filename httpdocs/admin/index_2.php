@@ -5,9 +5,6 @@ Refactored 7-12-18 admin/index.php
 require 'admin_controller.php';
 require_once '../access_database.php';
 
-//db info pulled from access_database.php
-$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
-
 // getDateParameters found in admin_controller.php
 // Set values based on parameters to index.php from date-picker-form on index.php
 $selected_dates = getDateParameters();

@@ -202,7 +202,7 @@ if($given_start_date || $given_end_date){
                     <h4 class="modal-title">Prayer Request</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="admin-request-form" action="../php/request_handle.php" method="post">
+                    <form id="admin-request-form" action="../receive_prayer_request.php" method="post">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="anonymous">
                             <label class="form-check-label" for="anonymous">This prayer is anonymous</label>

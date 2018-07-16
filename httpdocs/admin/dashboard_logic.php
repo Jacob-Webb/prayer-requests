@@ -5,10 +5,6 @@
 ******************************************************************************/
 require '../server_info.php';
 
-//db info pulled from access_database.php
-$mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
-
-
 // MODEL //
 $q = "SELECT hash, user_first_name, user_last_name, attending, intercession,
         for_first_name, for_last_name, request_contact, phone, email, category,

@@ -2,7 +2,7 @@
 /******************************************************************************
 * Place GET and POSTed variables here
 ******************************************************************************/
-require_once('../php/server_info.php');
+require '../server_info.php';
 $checked_prayers = $_POST['checked_prayer_array'];
 
 //format array so that it can be input as a mysql command
