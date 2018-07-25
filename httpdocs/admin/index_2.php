@@ -112,9 +112,40 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
                 <th class='web-only'>Delete</th>
             </tr>
             <?php foreach($prayers_by_category_array['healing'] as $healing_prayer): ?>
-            <tr>
-                <td><?php echo $healing_prayer['hash']; ?></td>
-            </tr>
+            <tr>" .
+                    "<td>"<?php $healing_prayer['first_name'] ?></td>".
+                    "<td>" . $last_name . "</td>" .
+                    "<td class='print-only'>" . $phone . "</td>" .
+                    "<td class='print-only'>" . $attending . "</td>" .
+                    "<td style='max-width:200px'>" . $prayer_request . "</td>" .
+                    "<td class='print-only' style='max-width:100px'>" . $testimony . "</td>" .
+                    "<td class='web-only'>" . $follow_up_status . "</td>" .
+                    "<td class='web-only'>" . $answered . "</td>" .
+                    "<td class='web-only'>
+                        <button type='button'class='btn btn-primary' data-toggle='modal' data-target='#". $hash ."Modal' style='color:black; width:auto'>
+                        See More</button>
+
+                        <div class='modal fade' id='" . $hash . "Modal' tabindex='1' role='dialog'>
+                            <div class='modal-dialog' role='document'>
+                                <div class='modal-content'>
+                                    <div class='modal-header'>
+                                        <h4 class='modal-title'>Prayer Request: " . $first_name . "</h4>
+                                    </div>
+                                    <div class='modal-body'>" .
+                                        displayModalBody($prayer_array[$index]) .
+                                        $link .
+                                    "</div> <!-- /.modal-body -->
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-default' data-dismiss='modal' style='margin:0 36%'>Close</button>
+                                    </div> <!-- /.modal-footer -->
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </td>
+                    <td>
+                        <input type='checkbox' class='web-only' id='delete-prayer-checkbox' name='delete-prayer-checkbox' data-pid=" . $hash . ">
+                    </td>
+                </tr>
             <?php endforeach; ?>
 
         </table><!-- ./heal-table -->
