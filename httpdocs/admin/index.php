@@ -169,6 +169,7 @@ if($given_start_date || $given_end_date){
     Creates a table for all of the information for provisional prayers
     -->
     <table id="provision-table" style="width: 100%">
+        <?php displayHeader()
         <?php displayRequestsInTable($provision_prayers, "Provision"); ?>
     </table>
 

@@ -33,7 +33,7 @@ function getConfirmationMessage($user, $other_person, $attend, $intercession, $r
     $non_attendee_invite = "We would also like to extend an invitation to come to any of our services where prayer teams are available to pray with you in person. <br />";
     $non_attendee_invite .= "If you're not in the area, we would like to recommend that you find a church near you that will partner with you in prayer as well. <br />";
 
-    $matthew = "Matthew 18:20 says, \"For where tow or three are gathered in My name, I am there in the midst of them.\" <br />";
+    $matthew = "Matthew 18:20 says, \"For where two or three are gathered in My name, I am there in the midst of them.\" <br />";
     // Build the message
     if($attend) {
         if($intercession) {
