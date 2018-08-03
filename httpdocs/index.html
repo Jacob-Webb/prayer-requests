@@ -1,132 +1,125 @@
 <!doctype html>
 <html class="no-js" lang="en">
-<!--
-    The first page to be seen in prayer.rock.church. The page sets up a form
-    for people to fill out to request prayer from The Rock Church. The purpose
-    of this form is to assist The Rock Church in keeping in contact with our
-    members.
--->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Prayer Request</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Prayer Request</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
 
-        <link rel="manifest" href="site.webmanifest">
-        <link rel="apple-touch-icon" href="icon.png">
+    <link rel="stylesheet" type="text/css" href="//rock.church/assets/styles/build/base.css?rel=6d7cc76622">
+    <link rel="stylesheet" href="css/main.css">
 
-        <link rel="stylesheet" type="text/css" href="//rock.church/assets/styles/build/base.css?rel=6d7cc76622">
-        <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Request Prayer
+    </button>
 
-    </head>
-    <body>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            Request Prayer
-        </button>
+    <div class="modal fade" id="myModal" tabindex="1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Prayer Request</h4>
+                </div>
+                <div class="modal-body">
+                    <img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
+                    <br />
+                    <br />
 
-        <div class="modal fade" id="myModal" tabindex="1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Prayer Request</h4>
-                    </div>
-                    <div class="modal-body">
-                        <img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
-                        <br />
-                        <br />
+                    <form id="request-form" action="receive_prayer_request.php" method="post">
 
-                        <form id="request-form" action="receive_prayer_request.php" method="post">
+                        <!-- Enter Prayer's personal information or remain anonymous if box is checked and user info fields will disappear -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="anonymous">
+                            <label class="form-check-label" for="anonymous">I would like to remain anonymous</label>
+                            <div class="hide-if-active">
+                                <div id="user-info">
+                                    <label class="sr-only" for="user-first">First Name: </label>
+                                    <input class="require-if-inactive" type="text" name="user-first" id="user-first"
+                                        placeholder="First Name" tabindex="1" data-require-pair="#anonymous">
 
-                            <!-- Enter Prayer's personal information or remain anonymous if box is checked and user info fields will disappear -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="anonymous">
-                                <label class="form-check-label" for="anonymous">I would like to remain anonymous</label>
-                                <div class="hide-if-active">
-                                    <div id="user-info">
-                                        <label class="sr-only" for="user-first">First Name: </label>
-                                        <input class="require-if-inactive" type="text" name="user-first" id="user-first"
-                                            placeholder="First Name" tabindex="1" data-require-pair="#anonymous">
+                                    <label class="sr-only" for="user-last">Last Name: </label>
+                                    <input class="require-if-inactive" type="text" name="user-last" id="user-last"
+                                        placeholder="Last Name" tabindex="1" data-require-pair="#anonymous">
 
-                                        <label class="sr-only" for="user-last">Last Name: </label>
-                                        <input class="require-if-inactive" type="text" name="user-last" id="user-last"
-                                            placeholder="Last Name" tabindex="1" data-require-pair="#anonymous">
+                                    <label class="sr-only" for="email">Email Address: </label>
+                                    <input class="require-if-inactive" type="email" id="email" name="email"
+                                        placeholder="Email" tabindex="1" data-require-pair="#anonymous">
+                                </div> <!-- /.user-info -->
+                            </div> <!-- /.hide-if-active -->
+                            <div class="reveal-if-active">
+                                <p>The Rock Church won't keep track of your personal information.</p>
+                            </div> <!-- /.reveal-if-active -->
+                        </div> <!-- form-check -->
 
-                                        <label class="sr-only" for="email">Email Address: </label>
-                                        <input class="require-if-inactive" type="email" id="email" name="email"
-                                            placeholder="Email" tabindex="1" data-require-pair="#anonymous">
-                                    </div> <!-- /.user-info -->
-                                </div> <!-- /.hide-if-active -->
-                                <div class="reveal-if-active">
-                                    <p>The Rock Church won't keep track of your personal information.</p>
-                                </div> <!-- /.reveal-if-active -->
-                            </div> <!-- form-check -->
+                        <!-- Sets the Prayer's attendance value with checkbox value -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
+                            <label class="form-check-label" for="attend">I attend The Rock Church </label>
+                        </div> <!-- /.form-check -->
 
-                            <!-- Sets the Prayer's attendance value with checkbox value -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="attend" name="attend" value="attend">
-                                <label class="form-check-label" for="attend">I attend The Rock Church </label>
-                            </div> <!-- /.form-check -->
+                        <!-- Enter the Prayer's recipient if it is different than the users. If the box is checked the fields will become visible -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
+                            <label class="form-check-label" for="intercession">This prayer is for someone else </label>
+                            <div class="reveal-if-active">
+                                <div class="col" id="recipient-name">
+                                    <label class="sr-only" for="for-first">First Name: </label>
+                                    <input class="require-if-active" type="text" name="for-first" id="for-first"
+                                        placeholder="First Name" tabindex="1" data-require-pair="#intercession">
+                                    <label class="sr-only" for="for-last">Last Name: </label>
+                                    <input class="require-if-active" type="text" name="for-last" id="for-last"
+                                        placeholder="Last Name" tabindex="1" data-require-pair="#intercession">
+                                </div> <!-- /.recipient-name -->
+                            </div> <!-- /.reveal-if-active -->
+                        </div> <!-- form-check -->
 
-                            <!-- Enter the Prayer's recipient if it is different than the users. If the box is checked the fields will become visible -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
-                                <label class="form-check-label" for="intercession">This prayer is for someone else </label>
-                                <div class="reveal-if-active">
-                                    <div class="col" id="recipient-name">
-                                        <label class="sr-only" for="for-first">First Name: </label>
-                                        <input class="require-if-active" type="text" name="for-first" id="for-first"
-                                            placeholder="First Name" tabindex="1" data-require-pair="#intercession">
-                                        <label class="sr-only" for="for-last">Last Name: </label>
-                                        <input class="require-if-active" type="text" name="for-last" id="for-last"
-                                            placeholder="Last Name" tabindex="1" data-require-pair="#intercession">
-                                    </div> <!-- /.recipient-name -->
-                                </div> <!-- /.reveal-if-active -->
-                            </div> <!-- form-check -->
+                        <!-- Enter one of the possible categories for Prayer -->
+                        <div class="form-group">
+                            <label class="sr-only" for="category">Category:</label>
+                            <select class="custom-select custom-select-sm" name="category" id="category">
+                                <option value="healing">Healing</option>
+                                <option value="provision">Provision</option>
+                                <option value="salvation">Salvation</option>
+                                <option value="circumstances">Circumstances</option>
+                            </select>
+                        </div> <!-- /.form-group -->
 
-                            <!-- Enter one of the possible categories for Prayer -->
-                            <div class="form-group">
-                                <label class="sr-only" for="category">Category:</label>
-                                <select class="custom-select custom-select-sm" name="category" id="category">
-                                    <option value="healing">Healing</option>
-                                    <option value="provision">Provision</option>
-                                    <option value="salvation">Salvation</option>
-                                    <option value="circumstances">Circumstances</option>
-                                </select>
-                            </div> <!-- /.form-group -->
+                        <!-- Enter the actual Prayer request -->
+                        <div class="form-group">
+                            <label class="sr-only" for="prayer-request">Request:</label>
+                            <textarea class="form-control" name="prayer-request" id="prayer-request" placeholder="Your Prayer Here" rows="5" maxlength="300" required></textarea>
+                            <div id="characters-remaining">300</div>
+                        </div> <!-- /.form-group -->
 
-                            <!-- Enter the actual Prayer request -->
-                            <div class="form-group">
-                                <label class="sr-only" for="prayer-request">Request:</label>
-                                <textarea class="form-control" name="prayer-request" id="prayer-request" placeholder="Your Prayer Here" rows="5" maxlength="300" required></textarea>
-                                <div id="characters-remaining">300</div>
-                            </div> <!-- /.form-group -->
+                </div> <!-- /.modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!-- Pass is-admin=False when a prayer request is being added by a user.  -->
+                    <input type="hidden" name="is-admin" value="False">
+                    <button type="submit" class="btn btn-primary">Send Your Request</button>
+                </div> <!-- /.modal-footer -->
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-                    </div> <!-- /.modal-body -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <!-- Pass is-admin=False when a prayer request is being added by a user.  -->
-                        <input type="hidden" name="is-admin" value="False">
-                        <button type="submit" class="btn btn-primary">Send Your Request</button>
-                    </div> <!-- /.modal-footer -->
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+    <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
 
-        <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-        <script>
-            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
-            ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
-        </script>
-        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/form.js"></script>
-        <script src="js/character-count.js"></script>
-    </body>
-    <!-- He deserves more -->
+    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <script>
+        window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+        ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/form.js"></script>
+    <script src="js/character-count.js"></script>
+</body>
+<!-- He deserves more -->
 </html>
