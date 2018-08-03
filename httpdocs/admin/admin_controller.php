@@ -71,7 +71,7 @@ function getCategoryPercentages($total_prayers, $categorized_prayer_array) {
 	foreach($categories as $category) {
 		//Make sure we aren't dividing by zero
 		if($total_prayers > 0) {
-			$category_percentages[$category] = round(count($categorized_prayer_array[$category])) / $total_prayers * 100;
+			$category_percentages[$category] = round(count($categorized_prayer_array[$category]) / $total_prayers * 100);
 		} else {
 			$category_percentages[$category] = 0;
 		}
@@ -126,8 +126,5 @@ function getDisplayableInfo($prayer) {
             } else {
                 echo "no link";
             }
-
-		}
-	}
 }
 ?>
