@@ -3,7 +3,8 @@
 Refactored 7-12-18 admin/index.php
 */
 require 'admin_controller.php';
-require_once '../access_database.php';
+require 'admin_view.php';
+//require_once '../access_database.php';
 
 // getDateParameters found in admin_controller.php
 // Set values based on parameters to index.php from date-picker-form on index.php
@@ -96,112 +97,8 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
     <br />
 
     <div class="prayer-tables">
-        <table id="heal-table" style="width:100%">
-            <tr>
-                <td colspan='8'><h3>Healing Requests</h3></td>
-            </tr>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th class='print-only'>Phone</th>
-                <th class='print-only'>Attend</th>
-                <th>Prayer Request</th>
-                <th class='print-only'>Testimony</th>
-                <th class='web-only'>Follow Up</th>
-                <th class='web-only'>Prayer Answered</th>
-                <th class='web-only'>Prayer Information</th>
-                <th class='web-only'>Delete</th>
-            </tr>
-            <?php foreach($prayers_by_category_array['healing'] as $healing_prayer): ?>
-            <tr>" .
-                    "<td>"<?php $healing_prayer['first_name'] ?></td>".
-                    "<td>" . $last_name . "</td>" .
-                    "<td class='print-only'>" . $phone . "</td>" .
-                    "<td class='print-only'>" . $attending . "</td>" .
-                    "<td style='max-width:200px'>" . $prayer_request . "</td>" .
-                    "<td class='print-only' style='max-width:100px'>" . $testimony . "</td>" .
-                    "<td class='web-only'>" . $follow_up_status . "</td>" .
-                    "<td class='web-only'>" . $answered . "</td>" .
-                    "<td class='web-only'>
-                        <button type='button'class='btn btn-primary' data-toggle='modal' data-target='#". $hash ."Modal' style='color:black; width:auto'>
-                        See More</button>
-
-                        <div class='modal fade' id='" . $hash . "Modal' tabindex='1' role='dialog'>
-                            <div class='modal-dialog' role='document'>
-                                <div class='modal-content'>
-                                    <div class='modal-header'>
-                                        <h4 class='modal-title'>Prayer Request: " . $first_name . "</h4>
-                                    </div>
-                                    <div class='modal-body'>" .
-                                        displayModalBody($prayer_array[$index]) .
-                                        $link .
-                                    "</div> <!-- /.modal-body -->
-                                    <div class='modal-footer'>
-                                        <button type='button' class='btn btn-default' data-dismiss='modal' style='margin:0 36%'>Close</button>
-                                    </div> <!-- /.modal-footer -->
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </td>
-                    <td>
-                        <input type='checkbox' class='web-only' id='delete-prayer-checkbox' name='delete-prayer-checkbox' data-pid=" . $hash . ">
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-
-        </table><!-- ./heal-table -->
-        <table id="provision-table" style="width:100%">
-            <tr>
-                <td colspan='8'><h3>Provision Requests</h3></td>
-            </tr>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th class='print-only'>Phone</th>
-                <th class='print-only'>Attend</th>
-                <th>Prayer Request</th>
-                <th class='print-only'>Testimony</th>
-                <th class='web-only'>Follow Up</th>
-                <th class='web-only'>Prayer Answered</th>
-                <th class='web-only'>Prayer Information</th>
-                <th class='web-only'>Delete</th>
-            </tr>
-        </table><!-- /.provision-table -->
-        <table id="salvation-table" style="width:100%">
-            <tr>
-                <td colspan='8'><h3>Salvation Requests</h3></td>
-            </tr>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th class='print-only'>Phone</th>
-                <th class='print-only'>Attend</th>
-                <th>Prayer Request</th>
-                <th class='print-only'>Testimony</th>
-                <th class='web-only'>Follow Up</th>
-                <th class='web-only'>Prayer Answered</th>
-                <th class='web-only'>Prayer Information</th>
-                <th class='web-only'>Delete</th>
-            </tr>
-        </table><!-- /.salvation-table -->
-        <table id="circumstances-table" style="width:100%">
-            <tr>
-                <td colspan='8'><h3>Circumstances Requests</h3></td>
-            </tr>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th class='print-only'>Phone</th>
-                <th class='print-only'>Attend</th>
-                <th>Prayer Request</th>
-                <th class='print-only'>Testimony</th>
-                <th class='web-only'>Follow Up</th>
-                <th class='web-only'>Prayer Answered</th>
-                <th class='web-only'>Prayer Information</th>
-                <th class='web-only'>Delete</th>
-            </tr>
-        </table><!-- /.circumstances-table -->
-    </div><!-- /.prayer-tables -->
+        <?php displayPrayersAsTables($prayers_by_category_array); ?>
+    </div> <!-- /.prayer-tables -->
 
     <button onclick="deletePrayers()" class="btn btn-warning" id="delete-button" style="width: auto; margin:0 0 0 85%; color:black">Delete Selected Prayers</button>
 

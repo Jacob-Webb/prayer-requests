@@ -87,47 +87,44 @@ function getDisplayableInfo($prayer) {
     $prayer['intercession']= ($prayer['intercession'] == 1) ? "Yes" : "No";
     $prayer['testimony'] = ($prayer['testimony']) ? $prayer['testimony'] : "No testimony yet";
 
-            // set follow_up status as:
-            //   not sent: waiting
-            //   sent, not responded to: pending
-            //   sent, responded to: responded
-            if($request_contact == 0) {
-                $follow_up_status = "None Requested";
-            } elseif(($request_contact == 1) && ($email_sent == 0)) {
-                $follow_up_status = "Waiting";
-            } else {
-                if($prayer_array[$index]['user_responded'] == 0) {
-                    $follow_up_status = "Pending";
-                } else {
-                    $follow_up_status = "Responded";
-                }
-            }
+    // set follow_up status as:
+    //   not sent: waiting
+    //   sent, not responded to: pending
+    //   sent, responded to: responded
+    if($request_contact == 0) {
+       $follow_up_status = "None Requested";
+    } elseif(($request_contact == 1) && ($email_sent == 0)) {
+       $follow_up_status = "Waiting";
+    } else {
+       if($prayer_array[$index]['user_responded'] == 0) {
+           $follow_up_status = "Pending";
+        } else {
+           $follow_up_status = "Responded";
+        }
+    }
 
-            // set Prayer Status to "answered" if user_responded == 1, "no" otherwise
-            //Also, change the color of the modal button depending on whether the prayer has been answered
-            if($request_contact == 0) {
-                $answered = "N/A";
-                //$tr_color="background-color:#3399FF";
-            } elseif($request_contact == 1 && $prayer_answered == 1) {
-                $answered = "Yes";
-                //$tr_color="background-color:#19A319";
-                //$tr_color="background-color:#3399FF";
-            } else {
-                $answered = "No";
-                //$tr_color="background-color:#FFFF66";
-            }
+    // set Prayer Status to "answered" if user_responded == 1, "no" otherwise
+    //Also, change the color of the modal button depending on whether the prayer has been answered
+    if($request_contact == 0) {
+        $answered = "N/A";
+        //$tr_color="background-color:#3399FF";
+    } elseif($request_contact == 1 && $prayer_answered == 1) {
+        $answered = "Yes";
+        //$tr_color="background-color:#19A319";
+        //$tr_color="background-color:#3399FF";
+    } else {
+        $answered = "No";
+        //$tr_color="background-color:#FFFF66";
+    }
 
-            if($_SERVER['SERVER_NAME'] == 'prayer-rock-church') {
-                $link = '<a href="follow_up_form.php?hash=' .
-                        $hash . '">Update Request</a>';
-            } elseif ($_SERVER['SERVER_NAME'] == 'prayer.rock.church') {
-                $link = '<a href="https://prayer.rock.church/admin/follow_up_form.php?hash=' .
-                        $hash . '">Update Request</a>';
-            } else {
-                echo "no link";
-            }
-
-		
-	
+    if($_SERVER['SERVER_NAME'] == 'prayer-rock-church') {
+        $link = '<a href="follow_up_form.php?hash=' .
+        $hash . '">Update Request</a>';
+    } elseif ($_SERVER['SERVER_NAME'] == 'prayer.rock.church') {
+        $link = '<a href="https://prayer.rock.church/admin/follow_up_form.php?hash=' .
+                  $hash . '">Update Request</a>';
+    } else {
+        echo "no link";
+    }
 }
 ?>
