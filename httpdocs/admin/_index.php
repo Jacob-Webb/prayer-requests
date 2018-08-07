@@ -13,6 +13,7 @@ $end_date = $selected_dates['end_date'];
 $time_period = $selected_dates['time_period'];
 
 //From ../access_database.php
+//create one large multi-dimensional array to hold healing, provision, salvation, and circumstances prayers
 $prayers_by_category_array = getCategorizedPrayers($mysqli, $start_date, $end_date);
 
 //From admin_controller.php
@@ -41,7 +42,7 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
     </button>
 
     <!-- Display date range selector -->
-    <form name="date-picker-form" action="index_2.php">
+    <form name="date-picker-form" action="_index.php">
     <h2 align="center" style="margin:20px 33%">Prayer Requests
         <!-- this.parentNode.parentNode points to this page -->
         <select name="date-range" class="web-only" id="date-range" onchange="this.parentNode.parentNode.submit()">
@@ -55,7 +56,7 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
     </h2>
     </form>
 
-<!-- Display the date ranges -->
+    <!-- Display the date ranges -->
     <?php if($time_period == 'range') : ?>
     <form name='date-range-form' action='index_2.php'>
         <h4 class='web-only' align='center'>
