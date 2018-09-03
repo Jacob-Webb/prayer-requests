@@ -3,7 +3,6 @@
 include 'dashboard_logic.php';
 
 // Get the date range passed to this page and set the date_select variable
-
 $given_start_date = isset($_GET['begin-date']) ? $_GET['begin-date'] : "";
 $given_end_date = isset($_GET['end-date']) ? $_GET['end-date'] : "";
 
