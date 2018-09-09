@@ -9,7 +9,7 @@
 *******************************************************************************/
 require_once('../server_info.php');
 include '../message_creator.php';
-require_once('../swiftmailer/lib/swift_required.php');
+require_once('../emailer.php');
 //db info pulled from access_database.php
 $mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
 
@@ -20,7 +20,7 @@ $begin_time_range = date('Y:m:d H:i:s',
 
 // collect database information
 $sql = "SELECT id, hash, user_first_name, email, prayer_timestamp, email_sent FROM web_form
-        WHERE follow_up = 1 and prayer_timestamp >= '$begin_time_range'";
+        WHERE follow_up_needed = 1 and prayer_timestamp >= '$begin_time_range'";
 $result = $mysqli->query($sql) or die ("Query failed: " . $mysqli->error .
     " Actual query: " . $sql);
 
@@ -51,7 +51,7 @@ if($result->num_rows > 0) {
 
         $mailer->send($message);
 
-        $email_sent_query = "UPDATE web_form SET follow_up=0, email_sent=1
+        $email_sent_query = "UPDATE web_form SET follow_up_needed=0, email_sent=1
             WHERE id='$id'";
 
         $email_sent_result = $mysqli->query($email_sent_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $email_sent_query);

@@ -26,31 +26,30 @@ $email_to = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['email']);
 if($is_admin == "True")
     $phone = (isset($_POST['anonymous'])) ? '' : sanitize($_POST['phone']);
 else $phone = '';
-$request_contact = ($email_to == '') ? 0 : 1;
-$follow_up = $request_contact;
+$contact_requested = ($email_to == '') ? 0 : 1;
+$follow_up_needed = $contact_requested;
 $email_sent = 0;
 $user_responded = 0;
 $prayer_answered = 0;
 $attend = (isset($_POST['attend'])) ? 1 : 0;
 $intercession = (isset($_POST['intercession'])) ? 1 : 0;
-$for_first_name = ($intercession) ? sanitize($_POST['for-first']) : $user_first_name;
-$for_first_name = str_replace(' ', '', $for_first_name);
-$for_last_name = ($intercession) ? sanitize($_POST['for-last']) : $user_last_name;
+$prayer_is_for = ($intercession) ? sanitize($_POST['prayer-is-for']) : $user_first_name;
+$prayer_is_for = rtrim($prayer_is_for);
 $prayer_category = sanitize($_POST['category']);
 $request = sanitize($_POST['prayer-request']);
 $time = date("Y:m:d H:i:s");
 
 //pass database info and prayer request field info to create a prayer
-setNewPrayerInDatabase($mysqli, $user_first_name, $user_last_name, $attend, $intercession, $for_first_name, $for_last_name,
-			 $request_contact, $phone, $email_to, $prayer_category, $request, $time, $follow_up, $email_sent,
+setNewPrayerInDatabase($mysqli, $user_first_name, $user_last_name, $attend, $intercession, $prayer_is_for,
+			 $contact_requested, $phone, $email_to, $prayer_category, $request, $time, $follow_up_needed, $email_sent,
 			 $user_responded, $prayer_answered);
 
 //Found in access_database.php
 setPrayerHash($mysqli, $time);
 
 if ($email_to) {
-	sendConfirmationEmail($smtp_user, $smtp_pass, $user_first_name, $email_to, $attend, $intercession, $for_first_name);
+	sendConfirmationEmail($smtp_user, $smtp_pass, $user_first_name, $email_to, $attend, $intercession);
 }
 
-echo getConfirmationMessage($user_first_name, $for_first_name, $attend, $intercession, $for_first_name);
+echo getConfirmationMessage($user_first_name, $attend, $intercession);
 ?>

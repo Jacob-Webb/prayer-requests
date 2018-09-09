@@ -27,10 +27,6 @@
                     <h4 class="modal-title">Prayer Request</h4>
                 </div>
                 <div class="modal-body">
-                    <img class="logo" src="img/New_rock_logo.jpg" alt="Rock Logo">
-                    <br />
-                    <br />
-
                     <form id="request-form" action="receive_prayer_request.php" method="post">
 
                         <!-- Enter Prayer's personal information or remain anonymous if box is checked and user info fields will disappear -->
@@ -38,18 +34,18 @@
                             <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="anonymous">
                             <label class="form-check-label" for="anonymous">I would like to remain anonymous</label>
                             <div class="hide-if-active">
-                                <div id="user-info">
+                                <div class="col-md-12" id="user-info">
                                     <label class="sr-only" for="user-first">First Name: </label>
                                     <input class="require-if-inactive" type="text" name="user-first" id="user-first"
-                                        placeholder="First Name" tabindex="1" data-require-pair="#anonymous">
+                                        placeholder="First Name" tabindex="1" maxlength="30" data-require-pair="#anonymous">
 
                                     <label class="sr-only" for="user-last">Last Name: </label>
                                     <input class="require-if-inactive" type="text" name="user-last" id="user-last"
-                                        placeholder="Last Name" tabindex="1" data-require-pair="#anonymous">
+                                        placeholder="Last Name" tabindex="1" maxlength="30" data-require-pair="#anonymous">
 
                                     <label class="sr-only" for="email">Email Address: </label>
                                     <input class="require-if-inactive" type="email" id="email" name="email"
-                                        placeholder="Email" tabindex="1" data-require-pair="#anonymous">
+                                        placeholder="Email" tabindex="1" maxlength="30" data-require-pair="#anonymous">
                                 </div> <!-- /.user-info -->
                             </div> <!-- /.hide-if-active -->
                             <div class="reveal-if-active">
@@ -68,17 +64,18 @@
                             <input class="form-check-input" type="checkbox" id="intercession" name="intercession" value="intercession">
                             <label class="form-check-label" for="intercession">This prayer is for someone else </label>
                             <div class="reveal-if-active">
-                                <div class="col" id="recipient-name">
-                                    <label class="sr-only" for="for-first">First Name: </label>
-                                    <input class="require-if-active" type="text" name="for-first" id="for-first"
-                                        placeholder="First Name" tabindex="1" data-require-pair="#intercession">
-                                    <label class="sr-only" for="for-last">Last Name: </label>
+                                <div id="recipient-name">
+                                    <label class="sr-only" for="prayer-is-for">Person getting prayer: </label>
+                                    <input class="require-if-active" type="text" name="prayer-is-for" id="prayer-is-for"
+                                        placeholder="For:" tabindex="1" maxlength="30" data-require-pair="#intercession">
+                                    <!-- <label class="sr-only" for="for-last">Last Name: </label>
                                     <input class="require-if-active" type="text" name="for-last" id="for-last"
-                                        placeholder="Last Name" tabindex="1" data-require-pair="#intercession">
+                                        placeholder="Last Name" tabindex="1" data-require-pair="#intercession"> -->
                                 </div> <!-- /.recipient-name -->
                             </div> <!-- /.reveal-if-active -->
                         </div> <!-- form-check -->
 
+                    
                         <!-- Enter one of the possible categories for Prayer -->
                         <div class="form-group">
                             <label class="sr-only" for="category">Category:</label>

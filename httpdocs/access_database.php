@@ -6,15 +6,15 @@ require_once 'server_info.php';
 ******************************************************************************/
 //insert a new prayer into the database with all of the fields from the prayer request form
 function setNewPrayerInDatabase($mysqli, $user_first_name, $user_last_name, $attend, $intercession,
-        $for_first_name, $for_last_name, $request_contact, $phone, $email_to,
-        $prayer_category, $request, $time, $follow_up, $email_sent, $user_responded, $prayer_answered) {
+        $prayer_is_for, $contact_requested, $phone, $email_to, $prayer_category, $request, $time,   
+        $follow_up_needed, $email_sent, $user_responded, $prayer_answered) {
 
 $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, intercession,
-        for_first_name, for_last_name, request_contact, phone, email, category,
-        prayer_request, prayer_timestamp, follow_up, email_sent, user_responded, prayer_answered)
+        prayer_is_for, contact_requested, phone, email, category,
+        prayer_request, prayer_timestamp, follow_up_needed, email_sent, user_responded, prayer_answered)
         VALUES ('$user_first_name', '$user_last_name', '$attend', '$intercession',
-        '$for_first_name', '$for_last_name', '$request_contact', '$phone', '$email_to',
-        '$prayer_category', '$request', '$time', '$follow_up', '$email_sent', '$user_responded', '$prayer_answered')";
+        '$prayer_is_for', '$contact_requested', '$phone', '$email_to',
+        '$prayer_category', '$request', '$time', '$follow_up_needed', '$email_sent', '$user_responded', '$prayer_answered')";
 
 	$result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
 }
@@ -30,7 +30,7 @@ function setPrayerHash($mysqli, $time){
     $id = $id_result->fetch_assoc()['id'];
 
     // simple hash function
-    $hash = (-1**$id) * (17*$id);
+    $hash = pow(-1, $id) * (17*$id);
 
     $hash_query = "UPDATE web_form SET hash='$hash' WHERE id='$id'";
     $insert_result = $mysqli->query($hash_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $hash_query);
@@ -42,15 +42,14 @@ function setPrayerHash($mysqli, $time){
 ******************************************************************************/
 function getCategorizedPrayers($mysqli, $begin_date, $end_date) {
     $q = "SELECT hash, user_first_name, user_last_name, attending, intercession,
-            for_first_name, for_last_name, request_contact, phone, email, category,
-            prayer_request, prayer_timestamp, follow_up, email_sent, user_responded,
+            prayer_is_for, contact_requested, phone, email, category,
+            prayer_request, prayer_timestamp, follow_up_needed, email_sent, user_responded,
             prayer_answered, update_request, testimony FROM web_form";
 
     $result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
 
     $table_columns = array('hash', 'user_first_name', 'user_last_name', 'attending',
-                          'intercession', 'for_first_name', 'for_last_name',
-                          'request_contact', 'phone', 'email', 'category',
+                          'intercession', 'prayer_is_for','contact_requested', 'phone', 'email', 'category',
                           'prayer_request', 'prayer_timestamp', 'follow_up', 'email_sent',
                           'user_responded', 'prayer_answered', 'update_request', 'testimony');
 

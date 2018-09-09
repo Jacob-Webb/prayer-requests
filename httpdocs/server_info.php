@@ -25,7 +25,7 @@ if ($env == "production") {
 if ($env == "dev") {
   $db_name = "prayer";
   $db_user = "root";
-  $db_pass = "only-1-King";
+  $db_pass = "root";
   $db_server = "localhost";
 }
 

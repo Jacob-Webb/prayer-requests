@@ -6,10 +6,10 @@ require_once 'message_creator.php';
 /******************************************************************************
 Functions for  **receive_prayer_request.php**
 ******************************************************************************/
-function sendConfirmationEmail($smtp_user, $smtp_pass, $user_first_name, $email_to, $attend, $intercession, $for_first_name) {
+function sendConfirmationEmail($smtp_user, $smtp_pass, $user_first_name, $email_to, $attend, $intercession) {
 	$email_subj = $user_first_name . "'s Prayer Request Receipt";
 	// from message_creator.php
-    $email_message = getConfirmationEmail($user_first_name, $attend, $intercession, $for_first_name);
+    $email_message = getConfirmationEmail($user_first_name, $attend, $intercession);
 
     // Create the Transport
     $transport = Swift_SmtpTransport::newInstance('mail.therockyouth.org', 25)

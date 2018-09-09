@@ -5,7 +5,7 @@
 * Purpose: Get status of prayer request from user and send to back-end admin
 * HDM
 ******************************************************************************/
-require_once('../php/server_info.php');
+require_once('../server_info.php');
 
 // pull hash parameter from follow_up_email.php link
 $hash = $_GET["hash"];
@@ -31,23 +31,26 @@ if($request->num_rows > 0) {
 </head>
 <body>
     <img class="logo" src="../img/New_rock_logo.jpg" alt="Rock Logo">
+
     <form id="follow_up_form" action="follow_up_handler.php" method="post">
         <h4 style="text-align: center">
             Hey <?php echo $name?>, have you seen your prayer answered?
         </h4>
         <div class="form-check">
-            <div id="radio-testimony">
+            <div class="row">
                 <input class="form-check-input" type="radio" name="prayer-answered"
                     id="prayer-answered-yes" value="yes" required>
                 <label for="prayer-answered-yes">Yes, praise God, my prayer was answered.</label>
 
                 <div class="reveal-if-active">
                     <label for="testimony">Testimony: </label>
-                    <textarea class="require-if-active" cols="50" name="testimony" id="testimony" maxlength="300" data-require-pair="#prayer-answered-yes"></textarea>
+                    <textarea class="require-if-active" cols="50" rows="4" name="testimony" id="testimony" maxlength="300" data-require-pair="#prayer-answered-yes"></textarea>
                 </div> <!-- /.reveal-if-active -->
-            </div> <!-- /.radio-testimony -->
-
-            <div id="radio-update">
+            </div> <!-- /.row -->
+        </div><!-- /.form-check -->
+        <br>
+        <div class="form-check">
+            <div class="row">
                 <input class="form-check-input" type="radio" name="prayer-answered"
                     id="prayer-answered-no" value="no">
                 <label for="prayer-answered-no">Not yet, I'm still believing.</label>
@@ -56,7 +59,7 @@ if($request->num_rows > 0) {
                     <label for="request-update">Prayer Update: </label>
                     <textarea class="require-if-active" cols="50" name="request-update" id="request-update" maxlength="300" data-require-pair="#prayer-answered-no"></textarea>
                 </div> <!-- ./reveal-if-active -->
-            </div> <!-- /.radio-update -->
+            </div> <!-- /.row -->
         </div> <!-- /.form-check -->
 
         <p>

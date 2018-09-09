@@ -3,8 +3,8 @@
 * follow_up_handler.php takes in the information from follow_up_form.php. It
 * updates the original prayer request in the database.
 ******************************************************************************/
-require '../php/server_info.php';
-require '../php/helper_functions.php';
+require '../server_info.php';
+require '../clean_io.php';
 
 //prayer-answered is required. Should be no need to check it
 //take in the testimony and request-update strings even if the are blank
@@ -38,7 +38,7 @@ if($phone && $testimony) {
 $follow_up_result = $mysqli->query($follow_up_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $follow_up_query);
 
 // Manaully set the follow up variable in case the administrator has bypassed the follow up email to update the request 
-$set_follow_up = "UPDATE web_form SET follow_up=0 WHERE hash='$hash_value'";
+$set_follow_up = "UPDATE web_form SET follow_up_needed=0 WHERE hash='$hash_value'";
 $set_result = $mysqli->query($set_follow_up) or die ("Query failed: " . $mysqli->error . " Actual query: " . $set_follow_up);
 
 ?>
