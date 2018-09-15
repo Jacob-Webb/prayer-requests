@@ -1,3 +1,11 @@
+Need to change:
+	Change Intercession form field to one input rather than two
+	Fix how follow up information is changed as emails go out and admin inputs information
+	Change look of follow_up_form.php
+	Bootstrap columns and rows on html form layout
+
+
+
 httpdocs/
 	index.html
 	receive_prayer_request.php

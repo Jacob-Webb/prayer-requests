@@ -25,12 +25,10 @@ if ($env == "production") {
 if ($env == "dev") {
   $db_name = "prayer";
   $db_user = "root";
-  $db_pass = "only-1-King";
+  $db_pass = "root";
   $db_server = "localhost";
 }
 
 //db info pulled from access_database.php
 $mysqli = new MySQLi($db_server, $db_user, $db_pass, $db_name) or die(mysqli_error());
-
-
 ?>

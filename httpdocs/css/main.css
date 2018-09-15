@@ -105,14 +105,10 @@ textarea {
 .user_attend {
   padding: 10px; }
 
-#for-first {
-  float: left;
-  margin: 2px;
-  width: 33%; }
-
-#for-last {
-  margin: 2px;
-  width: 33%; }
+#prayer-recipient {
+  /*float: left;*/
+  margin: 10px;
+  width: 66%; }
 
 .reveal-if-active {
   opacity: 0;

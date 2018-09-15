@@ -10,19 +10,15 @@
 * getConfirmationMessage creates the message displayed on the confirmation page.
 * It's contents will be determined by attendance and intercession variables
 *******************************************************************************/
-function getConfirmationMessage($user, $other_person, $attend, $intercession, $recipient) {
+function getConfirmationMessage($user, $attend, $intercession) {
 
     // These are messages to add to the confirmation page depending on whether
     // or not the person is praying for someone else
     if($user) {
-        $intercession_message = "$user, we have received the prayer request for $other_person. <br />";
-
-        $non_intercession_message = "$user, we are so thankful that you reached out to us! <br />";
+        $message = "$user, we are so thankful that you reached out to us! <br />";
 
     } else {
-        $intercession_message = "Thank you so much for the prayer request for $recipient. <br />";
-
-        $non_intercession_message = "We're so glad that you reached out to us! <br />";
+        $message = "We're so glad that you reached out to us! <br />";
     }
 
     $honored = "The Rock Church is honored to come along side you to pray and believe with you. <br />";
@@ -36,25 +32,13 @@ function getConfirmationMessage($user, $other_person, $attend, $intercession, $r
     $matthew = "Matthew 18:20 says, \"For where two or three are gathered in My name, I am there in the midst of them.\" <br />";
     // Build the message
     if($attend) {
-        if($intercession) {
-            $confirmation_message = $intercession_message;
-            $confirmation_message .= $honored;
-            $confirmation_message .= $attendee_invite;
-        } else {
-            $confirmation_message = $non_intercession_message;
-            $confirmation_message .= $honored;
-            $confirmation_message .= $attendee_invite;
-        }
+        $confirmation_message = $message;
+        $confirmation_message .= $honored;
+        $confirmation_message .= $attendee_invite;
     } else {
-        if($intercession) {
-            $confirmation_message = $intercession_message;
-            $confirmation_message .= $honored;
-            $confirmation_message .= $non_attendee_invite;
-        } else {
-            $confirmation_message = $non_intercession_message;
-            $confirmation_message .= $honored;
-            $confirmation_message .= $non_attendee_invite;
-        }
+        $confirmation_message = $message;
+        $confirmation_message .= $honored;
+        $confirmation_message .= $non_attendee_invite;
     }
 
     $confirmation_message .= $matthew;
@@ -65,7 +49,7 @@ function getConfirmationMessage($user, $other_person, $attend, $intercession, $r
 /******************************************************************************
 * getConfirmationEmail creates a unique message to email based on the arguments.
 *******************************************************************************/
-function getConfirmationEmail($user, $attend, $intercession, $recipient) {
+function getConfirmationEmail($user, $attend, $intercession) {
     if($attend) {
         $invite = "If you need someone to pray with you in person, we'd
                 love to pray with you at church!";
