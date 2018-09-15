@@ -130,4 +130,16 @@ function updateDBAfterEmail($mysqli, $hash) {
 
     $email_sent_result = $mysqli->query($email_sent_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $email_sent_query);
 }
+
+/******************************************************************************
+~~~~~~~~~~~~~  Functions for admin/follow_up_form.php  ~~~~~~~~~~~~~~~~~~~~
+******************************************************************************/
+function getUserName($mysqli) {
+    $sql = "SELECT user_first_name FROM web_form WHERE hash='$hash'";
+    $request = $mysqli->query($sql);
+    if($request->num_rows > 0) {
+        return $request->fetch_assoc()['user_first_name'];
+    } else 
+        return "";
+}
 ?>

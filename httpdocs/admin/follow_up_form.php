@@ -6,23 +6,18 @@
 * HDM
 ******************************************************************************/
 require_once('../server_info.php');
+require_once('../access_database.php');
 
 // pull hash parameter from follow_up_email.php link
 $hash = $_GET["hash"];
 
-// Get users first name from database
-$sql = "SELECT user_first_name FROM web_form WHERE hash='$hash'";
-$request = $mysqli->query($sql);
-if($request->num_rows > 0) {
-    $name = $request->fetch_assoc()['user_first_name'];
-}
+// Found in ../access_database.php
+$name = getUserName($mysqli);
 ?>
 
 <html>
-<!-- Form should include: telephone number field, Radio button for testimony or still believing,
-    Textarea for either praise report or prayer update, -->
 <head>
-    <title>Rock Church Follow Up</title>
+    <title>The Rock Church Prayer</title>
     <link rel="manifest" href="site.webmanifest">
 
     <!-- <link rel="stylesheet" href="css/normalize.css"> -->
