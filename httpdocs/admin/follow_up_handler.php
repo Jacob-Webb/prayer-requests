@@ -3,8 +3,9 @@
 * follow_up_handler.php takes in the information from follow_up_form.php. It
 * updates the original prayer request in the database.
 ******************************************************************************/
-require '../server_info.php';
-require '../clean_io.php';
+require_once('../server_info.php');
+require_once('../clean_io.php');
+require_once('../access_database');
 
 //prayer-answered is required. Should be no need to check it
 //take in the testimony and request-update strings even if the are blank
@@ -19,28 +20,8 @@ $phone = sanitize($_POST['phone-num']);
 //get the original prayer request's hash value to retrieve the request from the db
 $hash_value = $_POST['hash-value'];
 
-// add all of the new information to the original prayer in the database
-// only attempt to add information if it exists
-if($phone && $testimony) {
-    $follow_up_query = "UPDATE web_form SET phone='$phone',
-        testimony='$testimony', user_responded=1, prayer_answered=1 WHERE hash='$hash_value'";
-} elseif($phone && $prayer_update) {
-    $follow_up_query = "UPDATE web_form SET phone='$phone',
-        update_request='$prayer_update', user_responded=1 WHERE hash='$hash_value'";
-} elseif(!$phone && $testimony) {
-    $follow_up_query = "UPDATE web_form SET testimony='$testimony', user_responded=1,
-        prayer_answered=1 WHERE hash='$hash_value'";
-} elseif(!$phone && $prayer_update) {
-    $follow_up_query = "UPDATE web_form SET update_request='$prayer_update',
-    user_responded=1 WHERE hash='$hash_value'";
-} else echo "Issue";
-
-$follow_up_result = $mysqli->query($follow_up_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $follow_up_query);
-
-// Manaully set the follow up variable in case the administrator has bypassed the follow up email to update the request 
-$set_follow_up = "UPDATE web_form SET follow_up_needed=0 WHERE hash='$hash_value'";
-$set_result = $mysqli->query($set_follow_up) or die ("Query failed: " . $mysqli->error . " Actual query: " . $set_follow_up);
-
+// Found in ../access_database.php 
+updatePrayer($mysqli, $prayer_answered, $testimony, $prayer_update, $phone, $hash_value);
 ?>
 <html>
 <body>

@@ -142,4 +142,27 @@ function getUserName($mysqli) {
     } else 
         return "";
 }
+
+/******************************************************************************
+~~~~~~~~~~~~~  Functions for admin/follow_up_handler.php  ~~~~~~~~~~~~~~~~~~~~
+******************************************************************************/
+function updatePrayer($mysqli, $prayer_answered, $testimony, $prayer_update, $phone, $hash_value) {
+    // add all of the new information to the original prayer in the database
+    // only attempt to add information if it exists
+    if($phone && $testimony) {
+        $follow_up_query = "UPDATE web_form SET phone='$phone', testimony='$testimony', user_responded=1, prayer_answered=1 WHERE hash='$hash_value'";
+    } elseif($phone && $prayer_update) {
+        $follow_up_query = "UPDATE web_form SET phone='$phone', update_request='$prayer_update', user_responded=1 WHERE hash='$hash_value'";
+    } elseif(!$phone && $testimony) {
+        $follow_up_query = "UPDATE web_form SET testimony='$testimony', user_responded=1, prayer_answered=1 WHERE hash='$hash_value'";
+    } elseif(!$phone && $prayer_update) {
+        $follow_up_query = "UPDATE web_form SET update_request='$prayer_update', user_responded=1 WHERE hash='$hash_value'";
+    } else echo "Issue";
+
+    $follow_up_result = $mysqli->query($follow_up_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $follow_up_query);
+
+    // Manaully set the follow up variable in case the administrator has bypassed the follow up email to update the request 
+    $set_follow_up = "UPDATE web_form SET follow_up_needed=0 WHERE hash='$hash_value'";
+    $set_result = $mysqli->query($set_follow_up) or die ("Query failed: " . $mysqli->error . " Actual query: " . $set_follow_up);
+}
 ?>
