@@ -5,7 +5,7 @@
 ******************************************************************************/
 require_once('../server_info.php');
 require_once('../clean_io.php');
-require_once('../access_database');
+require_once('../access_database.php');
 
 //prayer-answered is required. Should be no need to check it
 //take in the testimony and request-update strings even if the are blank

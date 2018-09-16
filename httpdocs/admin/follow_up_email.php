@@ -20,7 +20,7 @@ $begin_time_range = date('Y:m:d H:i:s',
         mktime(0, 0, 0, date('m'), date('d') - $days_ago, date('Y')));
 
 // found in ../access_database.php
-$result = getPrayersInRange($mysqli);
+$result = getPrayersInRange($mysqli, $begin_time_range);
 
 // Create an email and send to person with matching id's or hash values
 if($result->num_rows > 0) {
