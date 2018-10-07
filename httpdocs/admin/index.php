@@ -205,5 +205,7 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
     <script src="../js/functionality.js"></script>
     <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
 
+<!-- He deserves more --> 
+
 </body>
 </html>
