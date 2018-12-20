@@ -59,7 +59,7 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
 
     <!-- Display the date ranges -->
     <?php if($time_period == 'range') : ?>
-    <form name='date-range-form' action='index_2.php'>
+    <form name='date-range-form' action='index.php'>
         <h4 class='web-only' align='center'>
             <input type='date' id'begin-date' name='begin-date' onchange='this.parentNode.parentNode.submit()'
                 value=<?php echo $start_date ?>

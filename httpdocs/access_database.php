@@ -50,7 +50,7 @@ function getCategorizedPrayers($mysqli, $begin_date, $end_date) {
 
     $table_columns = array('hash', 'user_first_name', 'user_last_name', 'attending',
                           'intercession', 'prayer_is_for','contact_requested', 'phone', 'email', 'category',
-                          'prayer_request', 'prayer_timestamp', 'follow_up', 'email_sent',
+                          'prayer_request', 'prayer_timestamp', 'follow_up_needed', 'email_sent',
                           'user_responded', 'prayer_answered', 'update_request', 'testimony');
 
     //To get all of the requests up to $end_date we need to get the all prayers to 23:59 of that day
