@@ -23,7 +23,6 @@ var my_chart = new Chart(context, {
 * deletePrayers take all of the hash values from the checked boxes in the dashboard_logic.php file under "Delete" table data.
 * create a map of the hash values and pass them to delete_prayers.php.
 ******************************************************************************/
-
 function deletePrayers() {
     $( document ).ready(function() {
         //send a confirmation, if user clicks ok, proceed with function, otherwise do nothing

@@ -42,3 +42,5 @@ intermediate
 node_modules
 publish
 .idea
+
+httpdocs/keep_secure.php

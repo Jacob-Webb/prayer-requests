@@ -15,5 +15,4 @@ $delete_result = $mysqli->query($delete_query) or die ("Query failed: " . $mysql
 //send response back to the jQuery that sent the request
 $return_response = "Deleted " . count($checked_prayers) . " prayers";
 echo json_encode($return_response);
-
 ?>

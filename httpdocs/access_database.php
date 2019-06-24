@@ -1,5 +1,6 @@
 <?php
 require_once 'server_info.php';
+require_once 'keep_secure.php';
 
 /******************************************************************************
 ~~~~~~~~~~~~~ Functions for receive_prayer_request.php  ~~~~~~~~~~~~~~~
@@ -17,24 +18,6 @@ $q = "INSERT INTO web_form (user_first_name, user_last_name, attending, interces
         '$prayer_category', '$request', '$time', '$follow_up_needed', '$email_sent', '$user_responded', '$prayer_answered')";
 
 	$result = $mysqli->query($q) or die ("Query failed: " . $mysqli->error . " Actual query: " . $q);
-}
-
-// generate hash value: an encrypted, unique value for each prayer based on the id
-function setPrayerHash($mysqli, $time){
-	$hash = 0;
-
-	$id_query = "SELECT id FROM web_form WHERE prayer_timestamp='$time'";
-	$id_result = $mysqli->query($id_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $id_query);
-
-	if($id_result->num_rows > 0) {
-    $id = $id_result->fetch_assoc()['id'];
-
-    // simple hash function
-    $hash = pow(-1, $id) * (17*$id);
-
-    $hash_query = "UPDATE web_form SET hash='$hash' WHERE id='$id'";
-    $insert_result = $mysqli->query($hash_query) or die ("Query failed: " . $mysqli->error . " Actual query: " . $hash_query);
-	}
 }
 
 /******************************************************************************
