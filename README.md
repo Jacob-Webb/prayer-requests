@@ -7,7 +7,12 @@ at any given time.
 As churches grow larger and have a greater presence online, it can be harder to keep up constant communication with the people that they serve. This app is aimed at 
 helping to close that gap by allowing people to send prayer requests directly to the church administration.
 
-### Screenshots
+## Tech Stack
+* HTML and CSS 
+* PHP
+* Bootstrap
+
+## Screenshots
 Prayer request form: <br />
 ![Prayer Form](form.png) <br />
 Dashboard view: <br />
