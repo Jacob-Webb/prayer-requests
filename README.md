@@ -1,5 +1,5 @@
 # prayer_requests
-![Prayer Form](form.png)\\
+![Prayer Form](form.png)<br />
 On the front-end, it's an online prayer request form that anyone from the community can use to let a church know that they need prayer for something. 
 The back-end has a dashboard seen by the church leadership that categorizes prayers based on date and type to give them an idea of what the community is dealing with 
 at any given time. 
