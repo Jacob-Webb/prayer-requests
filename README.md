@@ -8,9 +8,9 @@ As churches grow larger and have a greater presence online, it can be harder to 
 helping to close that gap by allowing people to send prayer requests directly to the church administration.
 
 ## Tech Stack
-* HTML and CSS 
-* PHP
-* Bootstrap
+* HTML, CSS, Bootstrap (front-end)
+* PHP (back-end)
+* MySQL
 
 ## Screenshots
 Prayer request form: <br />
