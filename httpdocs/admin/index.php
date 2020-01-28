@@ -89,7 +89,7 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
         Circumstances: <?php echo $prayer_percentages_array['circumstances'] . "%"?>
     </div>
 
-    <div class="chart-container" style="margin:0 auto; height: 30vh; width: 30vw">
+    <div class="chart-container web-only" style="margin:0 auto; height: 30vh; width: 30vw">
         <canvas id="my_chart"></canvas>
     </div>
 
@@ -201,7 +201,7 @@ $print_only_end_date = date('m/d/Y', strtotime($end_date));
         var circumstance_percentage = <?php echo $prayer_percentages_array['circumstances']; ?>;
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <script src="../js/Chart.bundle.js"></script>
     <script src="../js/functionality.js"></script>
     <script src="//rock.church/assets/js/build/production.min.js?rel=e81611a50c"></script>
 
